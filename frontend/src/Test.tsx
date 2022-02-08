@@ -1,15 +1,16 @@
 import React from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
+import TestNy from './TestNy';
 import './App.css';
-import Test from './Test';
 
-function App() {
+function Test() {
   return (
     <div>
-      <Test/>
+      <h2>Hello world!</h2>
+      <TestNy/>
     </div>
   );
 }
 
-export default App;
+export default Test;

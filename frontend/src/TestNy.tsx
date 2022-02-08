@@ -2,14 +2,13 @@ import React from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './App.css';
-import Test from './Test';
 
-function App() {
+function TestNy() {
   return (
     <div>
-      <Test/>
+      <h2>Yeet</h2>
     </div>
   );
 }
 
-export default App;
+export default TestNy;
