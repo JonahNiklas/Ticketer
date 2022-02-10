@@ -1,7 +1,8 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "jest": true
     },
     "extends": [
         "eslint:recommended",
@@ -21,5 +22,29 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "react/react-in-tsx-scope": "off",
+        "import/no-unresolved": [
+            0,
+            {"case-sensitive": false}
+        ],
+        "import/extensions": [
+            0,
+            {"case-sensitive": false},
+            "ignorePackages",
+            {
+                "ts": "never",
+                "tsx": "never"
+            }
+        ],
+        "import/prefer-default-export": [
+            0
+        ],
+        "comma-dangle": [
+            2,
+            "always-multiline"
+        ],
+        "linebreak-style": [
+            0
+        ]
     }
 }
