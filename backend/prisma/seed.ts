@@ -6,16 +6,26 @@ const userData = [
     {
         id: 500,
         firstName: "Herman",
-        surName: "Seternes",
+        lastName: "Seternes",
+        userName: "hermahs",
         email: "hermahs@stud.ntnu.no",
         password: "YeetYeet"
     },
     {
         id: 501,
         firstName: "Johan",
-        surName: "Bjerkem",
+        lastName: "Bjerkem",
+        userName: "johabjer",
         email: "johabjer@stud.ntnu.no",
         password: "GreatestPasswordEver"
+    },
+    {
+        id: 502,
+        firstName: "Jonah",
+        lastName: "Wiecek",
+        userName: "johabjer",
+        email: "jnwiecek@stud.ntnu.no",
+        password: "Password123"
     }
 ]
 
@@ -30,6 +40,18 @@ const postData = [
         description: "My amazing birthday party. Mom will make cake :)",
         category: "birthday",
         price: 500.00,
+        authorId: 500
+    },
+    {
+        timeOfEvent: new Date(2022, 5, 13),
+        city: "Trondheim",
+        venue: "Trondheim Arena",
+        isActive: true,
+        forSale: true,
+        title: "Broiler Konsert",
+        description: "Konsert med bare sangene fra Broiler Beginning",
+        category: "Consert",
+        price: 600.00,
         authorId: 500
     }
 ]
