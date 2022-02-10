@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Context } from '../util/context';
+import { Context } from '../context';
 
 export async function findAllUsers(
   context: Context,

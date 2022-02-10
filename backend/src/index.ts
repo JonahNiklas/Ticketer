@@ -1,8 +1,9 @@
 import express from 'express';
-import { context } from './util/context';
+import { context } from './context';
 import { findAllUsers } from './handlers/exampleUserHandler';
 
 const app = express();
+app.use(express.json());
 const port = 5000;
 
 // under kommer koden for API-en
