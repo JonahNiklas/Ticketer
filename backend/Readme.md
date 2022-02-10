@@ -17,6 +17,18 @@ docker-compose up -d
 yarn run dev
 ```
 
+## Linting og prettier
+
+Linting
+```
+yarn run lint
+``` 
+
+Prettier
+```
+yarn run prettier
+```
+
 ## Hvordan teste den
 
 kjør dette

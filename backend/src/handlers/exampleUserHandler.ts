@@ -1,8 +1,12 @@
-import {Request, Response} from 'express';
+import { Request, Response } from 'express';
 import { Context } from '../context';
 
-export const findAllUsers = async (ctx: Context, req: Request, res: Response) => {
-    const users = await ctx.prisma.user.findMany();
-    res.json(users);
-}
+export async function findAllUsers(
+  context: Context,
+  _req: Request,
+  res: Response,
+) {
+  const users = context.prisma.user.findMany();
 
+  res.json(users);
+}

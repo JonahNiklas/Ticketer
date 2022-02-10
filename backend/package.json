@@ -8,11 +8,14 @@
     "dev": "nodemon src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint src/** --ignore-pattern *.test.ts",
+    "prettier": "prettier --write src/** !*.test.ts"
   },
   "dependencies": {
     "@prisma/client": "^3.9.1",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "jest-mock-extended": "^2.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.16.12",
@@ -21,11 +24,16 @@
     "@types/express": "^4.17.13",
     "@types/jest": "^27.4.0",
     "@types/node": "^17.0.14",
+    "@typescript-eslint/eslint-plugin": "^5.11.0",
+    "@typescript-eslint/parser": "^5.11.0",
     "babel-jest": "^27.4.6",
+    "eslint": "^8.8.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
     "jest": "^27.4.7",
-    "jest-mock-extended": "^2.0.4",
     "nodemon": "^2.0.15",
     "npx": "^10.2.2",
+    "prettier": "^2.5.1",
     "prisma": "^3.9.1",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.5"
