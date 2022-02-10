@@ -8,23 +8,23 @@ export interface Post {
   forSale: boolean;
   title: String;
   description?: String;
-  catgetory: String;
+  catgetory: string;
   price?: Number;
 }
 
 export interface Token {
   id: Number;
   createdAt: Date;
-  token: String;
+  token: string;
 }
 
 export interface User {
   id: Number;
-  firstName: String;
-  lastName: String;
-  userName: String;
-  email: String;
-  password: String;
+  firstName: string;
+  lastName: string;
+  userName: string;
+  email: string;
+  password: string;
   posts: Post[];
   token?: Token;
   // eslint-disable-next-line no-use-before-define
@@ -39,5 +39,10 @@ export interface Rating {
   rating: Number;
   givenBy: User;
   gottenBy: User;
-  description?: String;
+  description?: string;
+}
+
+export interface LoginRequest {
+  email: string
+  password: string
 }
