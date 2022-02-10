@@ -9,6 +9,48 @@ datasource db {
 
 model User {
     id Int @default(autoincrement()) @id
-    name String?
+    firstName String
+    lastName String
+    userName String
+    password String
     email String @unique
+    posts Post[]
+    token Token?
+    ratingsGiven Rating[] @relation(name: "ratingsGiven")
+    ratingsGotten Rating[] @relation(name: "ratingsGotten")
+}
+
+model Post {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  timeOfEvent DateTime
+  city String
+  venue String 
+  isActive Boolean                //if false => billetten er solgt
+  forSale Boolean            //if false => ønsker å kjøpe/ kjøpsnnlegg
+  title String @db.VarChar(255)
+  description String?
+  category String
+  price Float?
+  author User @relation(fields: [authorId], references: [id])
+  authorId Int
+}
+
+model Token {
+    id Int @default(autoincrement()) @id
+    createdAt DateTime @default(now())
+    owner User @relation(fields: [ownerId], references: [id])
+    ownerId Int
+    token String
+}
+
+model Rating {
+    id Int @default(autoincrement()) @id
+    createdAt DateTime @default(now())
+    rating Int
+    givenBy User @relation(name: "ratingsGiven", fields: [givenById], references: [id])
+    givenById Int
+    gottenBy User @relation(name: "ratingsGotten", fields: [gottenById], references: [id])
+    gottenById Int
+    description String?
 }
