@@ -18,10 +18,10 @@ export async function login(context: Context, req: Request, res: Response) {
     });
 
   if (user === null || !(user instanceof Object) || !('id' in user)) {
-    res.json({ errorMessage: 'user not found', errorCode: 404 });
+    res.status(401).json({ errorMessage: 'user not valid', errorCode: 401 });
   } else {
     if (l.password !== user.password) {
-      res.json({ errorMessage: 'wrong password', errorCode: 403 });
+      res.status(401).json({ errorMessage: 'wrong password', errorCode: 401 });
     }
 
     // generate token here
@@ -57,7 +57,7 @@ export async function loginMiddleware(
   const { authorization } = req.headers;
 
   if (authorization === undefined) {
-    res.json({ errorMessage: 'token invalid', errorCode: 403 });
+    res.status(401).json({ errorMessage: 'token invalid', errorCode: 401 });
   }
 
   if (authorization !== undefined) {
@@ -70,8 +70,12 @@ export async function loginMiddleware(
       },
     });
 
+    if (Date.now() < decoded.exp * 1000) {
+      res.status(401).json({ errorMessage: 'token expired', errorCode: 401 });
+    }
+
     if (user === null || user.email !== decoded.email) {
-      res.json({ errorMessage: 'token invalid', errorCode: 403 });
+      res.status(401).json({ errorMessage: 'token invalid', errorCode: 401 });
     }
 
     next();
