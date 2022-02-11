@@ -5,6 +5,10 @@ import { findAllUsers } from './handlers/exampleUserHandler';
 
 const app = express();
 app.use(express.json());
+app.use((req, res, next) => {
+  res.header('Access-Control-Expose-Headers', 'Authorization');
+  next();
+});
 const port = 5000;
 
 // under kommer koden for API-en

@@ -5,9 +5,7 @@
         "jest": true
     },
     "extends": [
-        "eslint:recommend",
-        "airbnb-base",
-        "plugin:prettier/recommended"
+        "airbnb-base"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -39,7 +37,12 @@
             "always-multiline"
         ],
         "linebreak-style": [
-            "error",
+            0
+        ],
+        "indent": [
+            2
+        ],
+        "operator-linebreak": [
             0
         ]
     },

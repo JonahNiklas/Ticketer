@@ -43,6 +43,22 @@ export interface Rating {
 }
 
 export interface LoginRequest {
-  email: string
-  password: string
+  email: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  id: Number;
+  email: string;
+  firstName: string;
+  lastName: string;
+}
+
+export interface DecodedData {
+  id: number;
+  email: string;
+  firstName: string;
+  lastName: string;
+  iat: number;
+  exp: number;
 }
