@@ -1,10 +1,10 @@
 export interface User {
     id: Number,
-    firstName: String
-    lastName: String
-    userName: String
-    email: String
-    password: String
+    firstName: string
+    lastName: string
+    userName: string
+    email: string
+    password: string
     posts: Post[]
     token?: Token
     ratingsGiven: Rating[]
@@ -15,20 +15,20 @@ export interface Post {
     id: Number
     createdAt: Date
     timeOfEvent: Date
-    city: String
-    venue: String
+    city: string
+    venue: string
     isActive: boolean
     forSale: boolean
-    title: String
-    description?: String
-    catgetory: String
+    title: string
+    description?: string
+    catgetory: string
     price?: Number
 }
 
 export interface Token {
     id: Number
     createdAt: Date
-    token: String
+    token: string
 }
 
 export interface Rating {
@@ -37,5 +37,10 @@ export interface Rating {
     rating: Number
     givenBy: User
     gottenBy: User
-    description?: String
+    description?: string
+}
+
+export interface Error {
+    errorMessage: string
+    errorCode: Number
 }
