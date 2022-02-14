@@ -3,7 +3,7 @@ import { context } from './context';
 import { findAllUsers } from './handlers/exampleUserHandler';
 
 const app = express();
-const port = 5000;
+const port = 3500;
 
 // under kommer koden for API-en
 
