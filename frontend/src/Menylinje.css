@@ -1,16 +1,16 @@
 .button-1{
+    height: 20vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     border: transparent;
     width: 164px;
-    height: 110px;
     background-color: rgb(100, 176, 145);
     cursor: pointer;
 }
 
 button:hover{
-    background-color:rgb(93, 145, 124);
+    background-color:rgb(36, 100, 77);
 }
 
 .button__icon-1{
@@ -18,11 +18,12 @@ button:hover{
     color: white;
 }
 
-.button__text-1{
-    color: white;
-    font-size: 14px;
-}
 .button__icon-2{
     font-size: 50px;
+    color: white;
+}
+
+.button__text-1{
+    font-size: 14px;
     color: white;
 }
