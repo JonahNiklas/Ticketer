@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { Rating } from '@prisma/client';
 import { Context } from '../context';
 
 export async function rateUser(ctx: Context, req: Request, res: Response) {
