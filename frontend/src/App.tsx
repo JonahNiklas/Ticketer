@@ -6,22 +6,13 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path='/login'>
-          {/* Login page goes here */}
-        </Route>
-        <Route path='/posts'>
-          {/* Posts page goes here */}
-        </Route>
-        <Route path='/home'>
-          {/* Home page goes here */}
-        </Route>
-        <Route path='/'>
-          {/* Check if logged in to redirect goes here */}
-        </Route>
+        <Route path="/login">{/* Login page goes here */}</Route>
+        <Route path="/posts">{/* Posts page goes here */}</Route>
+        <Route path="/home">{/* Home page goes here */}</Route>
+        <Route path="/">{/* Check if logged in to redirect goes here */}</Route>
       </Switch>
     </Router>
   );
 }
-
 
 export default App;
