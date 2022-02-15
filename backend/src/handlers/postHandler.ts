@@ -32,18 +32,6 @@ export async function createPost(ctx: Context, req: Request, res: Response) {
     console.error(err);
   }
 }
-// export async function findPostToUser(ctx: Context, req: Request, res: Response) {
-//   const {createdAt, timeOfEvent, city, venue, forSale, title, description, category, price, authorID} = req.body;
-//   const post = await ctx.prisma.post.findUnique({
-//     where: {
-//       authorID: authorID,
-//       author: {
-//         connect: {id:500}
-//       }
-//   },
-
-//   })
-// }
 
 export async function updatePost(ctx: Context, req: Request, res: Response) {
   const {
@@ -104,5 +92,33 @@ export async function deletePost(ctx: Context, req: Request, res: Response) {
     console.log('Post deleted');
   } catch (err) {
     console.error(err);
+  }
+}
+
+export async function getForSalePosts(ctx: Context, req: Request, res: Response) {
+  const {forSale} = req.body;
+  try {
+    const post = await ctx.prisma.post.findMany({
+      where: {
+        forSale: true,
+      }
+    })
+    console.log("See all for sale posts!")
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+export async function getToBuyPosts(ctx: Context, req: Request, res: Response) {
+  const {forSale} = req.body;
+  try {
+    const post = await ctx.prisma.post.findMany({
+      where: {
+        forSale: false,
+      }
+    })
+    console.log("See all for sale posts!")
+  } catch(err) {
+    console.log(err);
   }
 }
