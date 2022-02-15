@@ -141,3 +141,31 @@ export async function deletePost(ctx: Context, req: Request, res: Response) {
   res.json('Successfully deleted Post!');
   console.log('Post deleted');
 }
+
+export async function getForSalePosts(ctx: Context, req: Request, res: Response) {
+  const {forSale} = req.body;
+  try {
+    const post = await ctx.prisma.post.findMany({
+      where: {
+        forSale: true,
+      }
+    })
+    console.log("See all for sale posts!")
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+export async function getToBuyPosts(ctx: Context, req: Request, res: Response) {
+  const {forSale} = req.body;
+  try {
+    const post = await ctx.prisma.post.findMany({
+      where: {
+        forSale: false,
+      }
+    })
+    console.log("See all for sale posts!")
+  } catch(err) {
+    console.log(err);
+  }
+}
