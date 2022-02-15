@@ -22,8 +22,8 @@ model User {
 
 model Post {
   id Int @id @default(autoincrement())
-  createdAt Int 
-  timeOfEvent Int
+  createdAt DateTime @default(now())
+  timeOfEvent DateTime
   city String
   venue String 
   isActive Boolean                //if false => billetten er solgt

@@ -3,31 +3,34 @@ import { Context } from '../context';
 import { Post } from '@prisma/client';
 
 export async function createPost(ctx: Context, req: Request, res: Response) {
-    const {createdAt, timeOfEvent, city, venue, forSale, title, description, category, price, authorID} = req.body;
-    //const active User = getActiveUser();
-    try {
-        const post:Post = await ctx.prisma.post.create({
-            data: {
-                createdAt: new Date(),
-                timeOfEvent: new Date(),
-                city: city,
-                venue: venue,
-                isActive: true,
-                forSale: forSale,
-                title: title,
-                description: description,
-                category: category,
-                price: price,
-                authorId: authorID,
-                author: {
-                    connect: {id: 500}
-                }                        
-            }
-        });
-        console.log("Post created");
-    } catch(err) {
-        console.log(err);
-    }
+  const {
+    createdAt, timeOfEvent, city, venue, forSale, title, description, category, price, authorID,
+  } = req.body;
+  // const active User = getActiveUser();
+  try {
+    const post = await ctx.prisma.post.create({
+      data: {
+        createdAt: new Date(),
+        timeOfEvent: new Date(),
+        city,
+        venue,
+        isActive: true,
+        forSale,
+        title,
+        description,
+        category,
+        price,
+        authorId: authorID,
+        author: {
+          connect: { id: authorID },
+        },
+      },
+    });
+    res.json('Successfully created Post!');
+    console.log('Post created');
+  } catch (err) {
+    console.error(err);
+  }
 }
 // export async function findPostToUser(ctx: Context, req: Request, res: Response) {
 //   const {createdAt, timeOfEvent, city, venue, forSale, title, description, category, price, authorID} = req.body;
@@ -42,6 +45,64 @@ export async function createPost(ctx: Context, req: Request, res: Response) {
 //   })
 // }
 
+export async function updatePost(ctx: Context, req: Request, res: Response) {
+  const {
+    id, timeOfEvent, city, venue, forSale, title, description, category, price,
+  } = req.body;
+  try {
+    const post = await ctx.prisma.post.update({ 
+      where: {
+        id,
+      },
+      data: {
+        createdAt: new Date(),
+        timeOfEvent: new Date(),
+        city,
+        venue,
+        isActive: true,
+        forSale,
+        title,
+        description,
+        category,
+        price,
+      },
+    });
+    res.json('Successfully update Post!');
+    console.log('Post updated');
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function sellPost(ctx: Context, req: Request, res: Response) {
+  const { id } = req.body;
+  try {
+    const post = await ctx.prisma.post.update({
+      where: {
+        id,
+      },
+      data: {
+        forSale: false,
+      },
+    });
+    res.json('Successfully marked post as sold!');
+    console.log('Post marked as sold');
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 export async function deletePost(ctx: Context, req: Request, res: Response) {
-    
+  const { id } = req.body;
+  try {
+    const post = await ctx.prisma.post.delete({
+      where: {
+        id,
+      },
+    });
+    res.json('Successfully deleted Post!');
+    console.log('Post deleted');
+  } catch (err) {
+    console.error(err);
+  }
 }

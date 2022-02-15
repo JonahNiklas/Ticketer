@@ -3,10 +3,9 @@ import { context } from './context';
 import { findAllUsers } from './handlers/exampleUserHandler';
 import { createPost } from './handlers/postHandler';
 
-
 const app = express();
 app.use(express.json());
-const port = 3000;
+const port = 5001;
 
 // under kommer koden for API-en
 
