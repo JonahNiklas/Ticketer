@@ -1,7 +1,8 @@
 {
     "env": {
         "es2021": true,
-        "node": true
+        "node": true,
+        "jest": true
     },
     "extends": [
         "airbnb-base"
@@ -34,6 +35,15 @@
         "comma-dangle": [
             2,
             "always-multiline"
+        ],
+        "linebreak-style": [
+            0
+        ],
+        "indent": [
+            2
+        ],
+        "operator-linebreak": [
+            0
         ]
     },
     "ignorePatterns": ["**/__test__/*"]

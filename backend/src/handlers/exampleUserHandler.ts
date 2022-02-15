@@ -6,7 +6,9 @@ export async function findAllUsers(
   _req: Request,
   res: Response,
 ) {
-  const users = context.prisma.user.findMany();
+  const users = await context.prisma.user.findMany();
+
+  console.log(users);
 
   res.json(users);
 }
