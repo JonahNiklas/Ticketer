@@ -4,7 +4,7 @@ import { Context } from '../context';
 export async function getAllPosts(ctx: Context, req: Request, res: Response) {
   console.log('yeet');
   const posts = await ctx.prisma.post.findMany().catch((error: any) => {
-    res.status(400);
+    res.status(400).send('Something went wrong');
     console.error(error);
   });
   console.log(posts);
@@ -14,26 +14,24 @@ export async function getAllPosts(ctx: Context, req: Request, res: Response) {
 export async function getPost(ctx: Context, req: Request, res: Response) {
   const { id } = req.params;
   if (id === null || id === undefined) {
-    res.status(400);
+    res.status(400).send('Param cannot be null');
     return;
-  } else {
-    const post = await ctx.prisma.post
-      .findUnique({
-        where: {
-          id: Number.parseInt(id),
-        },
-      })
-      .catch((error: any) => {
-        res.status(400);
-        console.error(error);
-      });
-    res.json(post);
   }
+  const post = await ctx.prisma.post
+    .findUnique({
+      where: {
+        id: Number.parseInt(id, 10),
+      },
+    })
+    .catch((error: any) => {
+      res.status(400);
+      console.error(error);
+    });
+  res.json(post);
 }
 
 export async function createPost(ctx: Context, req: Request, res: Response) {
   const {
-    createdAt,
     timeOfEvent,
     city,
     venue,
@@ -46,7 +44,7 @@ export async function createPost(ctx: Context, req: Request, res: Response) {
   } = req.body;
   // const active User = getActiveUser();
   console.log(req.body);
-  const post = await ctx.prisma.post
+  await ctx.prisma.post
     .create({
       data: {
         timeOfEvent,
@@ -64,7 +62,7 @@ export async function createPost(ctx: Context, req: Request, res: Response) {
       },
     })
     .catch((error: any) => {
-      res.status(400);
+      res.status(400).send('Something went wrong');
       console.error(error);
     });
   res.json('Successfully created Post!');
@@ -84,7 +82,7 @@ export async function updatePost(ctx: Context, req: Request, res: Response) {
     price,
   } = req.body;
 
-  const post = await ctx.prisma.post
+  await ctx.prisma.post
     .update({
       where: {
         id,
@@ -93,7 +91,6 @@ export async function updatePost(ctx: Context, req: Request, res: Response) {
         timeOfEvent,
         city,
         venue,
-        isActive: true,
         forSale,
         title,
         description,
@@ -102,15 +99,16 @@ export async function updatePost(ctx: Context, req: Request, res: Response) {
       },
     })
     .catch((error: any) => {
-      res.status(400);
+      res.status(400).send('Something went wrong');
       console.error(error);
     });
+  res.json('Successfully updated post');
 }
 
 export async function sellPost(ctx: Context, req: Request, res: Response) {
   const { id } = req.body;
 
-  const post = await ctx.prisma.post
+  await ctx.prisma.post
     .update({
       where: {
         id,
@@ -120,7 +118,7 @@ export async function sellPost(ctx: Context, req: Request, res: Response) {
       },
     })
     .catch((error: any) => {
-      res.status(400);
+      res.status(400).send('Something went wrong');
       console.error(error);
     });
 }
@@ -128,44 +126,62 @@ export async function sellPost(ctx: Context, req: Request, res: Response) {
 export async function deletePost(ctx: Context, req: Request, res: Response) {
   const { id } = req.body;
 
-  const post = await ctx.prisma.post
+  console.log(req.body);
+  await ctx.prisma.post
     .delete({
       where: {
         id,
       },
     })
     .catch((error: any) => {
-      res.status(400);
+      res.status(400).send('Something went wrong');
       console.error(error);
     });
   res.json('Successfully deleted Post!');
   console.log('Post deleted');
 }
 
-export async function getForSalePosts(ctx: Context, req: Request, res: Response) {
-  const {forSale} = req.body;
-  try {
-    const post = await ctx.prisma.post.findMany({
-      where: {
-        forSale: true,
-      }
-    })
-    console.log("See all for sale posts!")
-  } catch(err) {
-    console.log(err);
+export async function getForSalePosts(
+  ctx: Context,
+  req: Request,
+  res: Response,
+) {
+  const { forSale } = req.params;
+
+  if (forSale === null || forSale === undefined) {
+    res.status(400).send('Param cannot be null');
+    return;
   }
+  const forSaleValue: boolean = !(forSale === 'false'); // for sale value blir true uansett, med mindre forSale er lik 'false'
+
+  const posts = await ctx.prisma.post
+    .findMany({
+      where: {
+        forSale: forSaleValue,
+      },
+    })
+    .catch((error: any) => {
+      res.status(400).send('Something went wrong');
+      console.error(error);
+    });
+  res.json(posts);
 }
 
-export async function getToBuyPosts(ctx: Context, req: Request, res: Response) {
-  const {forSale} = req.body;
-  try {
-    const post = await ctx.prisma.post.findMany({
-      where: {
-        forSale: false,
-      }
-    })
-    console.log("See all for sale posts!")
-  } catch(err) {
-    console.log(err);
+export async function getPostsUser(ctx: Context, req: Request, res: Response) {
+  const { id } = req.params;
+  if (id === null || id === undefined) {
+    res.status(400).send('Param cannot be null');
+    return;
   }
+  const posts = await ctx.prisma.post
+    .findMany({
+      where: {
+        authorId: Number.parseInt(id, 10),
+      },
+    })
+    .catch((error: any) => {
+      res.status(400).send('Something went wrong');
+      console.error(error);
+    });
+  res.json(posts);
 }

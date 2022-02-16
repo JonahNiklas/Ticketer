@@ -22,7 +22,6 @@ export interface User {
   id: Number;
   firstName: string;
   lastName: string;
-  userName: string;
   email: string;
   password: string;
   posts: Post[];
