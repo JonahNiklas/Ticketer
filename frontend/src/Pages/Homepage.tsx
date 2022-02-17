@@ -11,11 +11,11 @@ import '../stylesheets/Posts.css';
 function Homepage() {
   return(
     
-    <div>
-      <div> 
+    <div className='flexbox-container'>
+      <div className='flexbox-item flexbox-item-1'> 
         <Menylinje/>
       </div>
-      <Container>
+      <Container className='flexbox-item'>
           <Row>
             <Col className='d-flex align-items-center justify-content-center'>
               <SearchBar></SearchBar>
