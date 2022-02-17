@@ -1,0 +1,23 @@
+.font{
+    display: block;
+    color: #474445;
+    font-weight: 700;
+    position: relative;
+    font-size: 14px;
+    line-height: 18px;
+    padding-bottom: 4px;
+    cursor: pointer;
+}
+
+.radiobutton{
+    height: 22px;
+    width: 22px;
+}
+
+
+.objectPlacement {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

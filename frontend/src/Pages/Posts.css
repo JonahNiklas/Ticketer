@@ -1,0 +1,29 @@
+.flexbox-container{
+    display: flex;
+    align-items: stretch;
+    flex-direction: row;
+}
+
+.flexbox-item{
+    width: 100%;
+    background-color: white
+}
+
+.flexbox-item-1{
+    max-width: 164px;
+    background-color: red;
+
+}
+
+.navbar_top{
+    height: 80px;
+    background-color: lightgray;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.content{
+    padding-top: 90px;
+    padding-left: 10px;
+}
