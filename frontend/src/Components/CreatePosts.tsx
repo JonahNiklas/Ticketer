@@ -5,9 +5,7 @@ function CreatePosts(){
 return(
     <form>
         <div className='objectPlacement'>
-            <div className='font'>
-                <label htmlFor="trade_type">Jeg vil</label>
-            </div>
+        <div>Jeg vil</div> 
             <div id='trade_type'>
                 <div>
                 <input type="radio" name ="Valg" value= "Kjøpe" className='radiobutton'/>
@@ -18,14 +16,12 @@ return(
                 <label htmlFor='Valg'> Selge</label>
                 </div>
             </div>
-
             <div></div>
-            
             <div>
             <div>Overskrift</div> 
-            <input type="text" />
+            <textarea className="widthforBig" ></textarea>
             </div>
-
+            <p></p>
             <div>
                 <div>Kategori</div> 
                 <input type="radio" name ="Valg" value= "Konsert" className='radiobutton'/>
@@ -43,36 +39,44 @@ return(
             </div> 
 
             <div></div>
-            
-           <div>
+            <p></p>
+           <div className='input_textarea'>
             <div>Beskrivelse</div> 
-            <input type="text" />
+            <textarea className="textareaSize" ></textarea>
             </div>
 
+            <p></p>
             <div>
             <div>Pris</div> 
-            <input type="text" />
+            <textarea className="widthforSmall" ></textarea>
             </div>
 
+            <p></p>
             <div>
             <div>Gateadressse</div> 
-            <input type="text" />
+            <textarea className="widthforBig" ></textarea>
             </div>
 
+            <p></p>
             <div>
             <div>Postnummer</div> 
-            <input type="text" />
+            <textarea className="widthforSmall" ></textarea>
             </div>
 
+            <p></p>
             <div>
             <div>Sted</div> 
-            <input type="text" />
+            <textarea className="widtforSmall" ></textarea>
             </div>
 
+            <p></p>
             <div>
             <div>Telefon</div> 
-            <input type="text" />
+            <textarea className="widtforSmall" ></textarea>
+
             </div>
+
+            <p className='textareaSizeSpace'></p>
 
 
 

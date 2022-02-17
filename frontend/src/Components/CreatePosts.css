@@ -21,3 +21,22 @@
     justify-content: center;
     align-items: center;
 }
+
+.textareaSize{
+    width: 400px;
+      height: 140px;
+    
+}
+
+.widthforBig{
+    width: 400px;
+}
+
+.widthforSmall{
+    height: 20px;
+    width: 100px;
+}
+
+.textareaSizeSpace{
+    width: 400px;
+}

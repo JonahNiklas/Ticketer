@@ -11,8 +11,7 @@ function Posts() {
             </div>
             <div className="item">
                 <div className="item navbar_top"> 
-                    <h1 style={{ color: "rgb(100, 176, 145)"}}>Lag to post</h1>
-                    
+                <h1 className="LogoPlacement"> hei</h1>
                 </div>
                 <div className="item content">
                 <CreatePosts/>
