@@ -40,8 +40,7 @@
             0
         ],
         "comma-dangle": [
-            2,
-            "always-multiline"
+            2
         ],
         "linebreak-style": [
             0

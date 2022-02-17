@@ -1,14 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
 import './App.css';
-import Posts from './Pages/Posts';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Homepage from './features/homepage/Homepage';
 
 function App() {
   return (
-    <div>
-      <Posts/>
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/login">{/* Login page goes here */}</Route>
+        <Route path="/posts">{/* Posts page goes here */}</Route>
+        <Route path="/home"><Homepage/></Route>
+        <Route path="/">{/* Check if logged in to redirect goes here */}</Route>
+      </Switch>
+    </Router>
   );
 }
 
