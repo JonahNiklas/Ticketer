@@ -19,8 +19,8 @@ return(
                 </div>
             </div>
 
+            <p></p>
             <div></div>
-            
             <div>
             <div>Overskrift</div> 
             <input type="text" />
@@ -44,30 +44,41 @@ return(
 
             <div></div>
             
+        <p></p>
            <div>
             <div>Beskrivelse</div> 
-            <input type="text" />
-            </div>
 
+            <input type="textarea" />
+            </div>
+        
+        <p></p>
             <div>
             <div>Pris</div> 
             <input type="text" />
             </div>
+        
+            <p></p>
 
             <div>
             <div>Gateadressse</div> 
             <input type="text" />
             </div>
+        
+            <p></p>
 
             <div>
             <div>Postnummer</div> 
             <input type="text" />
             </div>
 
+            <p></p>
+
             <div>
             <div>Sted</div> 
             <input type="text" />
             </div>
+
+            <p></p>
 
             <div>
             <div>Telefon</div> 
