@@ -1,6 +1,5 @@
 import React from "react";
-import "./App.css";
-import Logo from "./ticketer_logo.png";
+/*import "./App.css";*/ /* Denne var ikke importert riktig. */
 import { Form, Button } from "react-bootstrap/";
 
 class RegisterUser extends React.Component {

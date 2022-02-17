@@ -1,7 +1,7 @@
 import React from "react";
-import Menylinje from "../Components/Menylinje";
-import CreatePosts from "../Components/CreatePosts";
-import './Posts.css';
+import Menylinje from "../features/Menylinje";
+import CreatePosts from "../features/createpostpage/CreatePosts";
+import '../stylesheets/Posts.css';
 
 function Posts() {
     return (

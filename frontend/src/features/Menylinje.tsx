@@ -1,5 +1,5 @@
 import React from 'react';
-import './Menylinje.css';
+import '../stylesheets/Menylinje.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faBell, faPlusCircle,faCircle} from '@fortawesome/free-solid-svg-icons';
 import {faFacebookMessenger} from '@fortawesome/free-brands-svg-icons'

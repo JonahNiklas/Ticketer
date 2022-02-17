@@ -1,8 +1,8 @@
-import Logo from "./ticketer_logo.png";
-import StartImage from "./startImage.png";
+
+import StartImage from "../images/startImage.png";
 import React from "react";
-import Login from "./Login";
-import RegisterUser from "./RegisterUser";
+/*import Login from "../features/loginpage/Login";*/
+import RegisterUser from "../features/loginpage/RegisterUser";
 import { Col, Container, Row } from "react-bootstrap";
 
 function LoginPage() {
