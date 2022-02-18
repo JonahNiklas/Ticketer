@@ -1,7 +1,10 @@
 import React from "react";
+
 import Menylinje from "../features/Menylinje";
 import CreatePosts from "../features/createpostpage/CreatePosts";
 import '../stylesheets/Posts.css';
+import  logo  from "../Pictures/TicketerLogo.png";
+
 
 function Posts() {
     return (
@@ -9,13 +12,17 @@ function Posts() {
             <div className='flexbox-item flexbox-item-1'>
                 <Menylinje />  
             </div>
-            <div className="flexbox-item">
+
+            <div className="item">
+
                 <div className="item navbar_top"> 
-                    <h1 style={{ color: "rgb(100, 176, 145)"}}>Lag to post</h1>
-                    
+                    <div className="LogoPlacement">
+                        <img src={logo} alt="hssds" />
+                     </div>
                 </div>
-                <div className="flexbox-item content">
-                <CreatePosts/>
+
+                <div className="item content">
+                    <CreatePosts/>
                 </div>
             </div>
         </div>

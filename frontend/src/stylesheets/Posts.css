@@ -12,18 +12,25 @@
 .flexbox-item-1{
     max-width: 164px;
     background-color: red;
-
 }
 
 .navbar_top{
     height: 80px;
-    background-color: lightgray;
+    background-color:rgb(36, 100, 77);
     position: fixed;
     top: 0;
-    width: 100%;
+    width: 90%;
 }
+
 
 .content{
     padding-top: 90px;
     padding-left: 10px;
 }
+
+.LogoPlacement{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

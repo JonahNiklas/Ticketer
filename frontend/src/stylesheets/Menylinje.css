@@ -16,6 +16,10 @@
     background-color:rgb(36, 100, 77);
 }
 
+.button-1:focus{
+    background-color:rgb(36, 100, 77);
+  }
+
 .button__icon-1{
     font-size: 75px;
     color: white;
