@@ -114,13 +114,14 @@ export async function sellPost(ctx: Context, req: Request, res: Response) {
         id,
       },
       data: {
-        forSale: false,
+        isActive: false,
       },
     })
     .catch((error: any) => {
       res.status(400).send('Something went wrong');
       console.error(error);
     });
+  res.json(`Sold post with id ${id}`);
 }
 
 export async function deletePost(ctx: Context, req: Request, res: Response) {
@@ -141,23 +142,23 @@ export async function deletePost(ctx: Context, req: Request, res: Response) {
   console.log('Post deleted');
 }
 
-export async function getForSalePosts(
+export async function getActiveOrUnactivePosts(
   ctx: Context,
   req: Request,
   res: Response,
 ) {
-  const { forSale } = req.params;
+  const { isActive } = req.params;
 
-  if (forSale === null || forSale === undefined) {
+  if (isActive === null || isActive === undefined) {
     res.status(400).send('Param cannot be null');
     return;
   }
-  const forSaleValue: boolean = !(forSale === 'false'); // for sale value blir true uansett, med mindre forSale er lik 'false'
+  const isActiveValue: boolean = !(isActive === 'false'); // for sale value blir true uansett, med mindre isActive er lik 'false'
 
   const posts = await ctx.prisma.post
     .findMany({
       where: {
-        forSale: forSaleValue,
+        isActive: isActiveValue,
       },
     })
     .catch((error: any) => {
