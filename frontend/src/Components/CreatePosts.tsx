@@ -5,35 +5,41 @@ function CreatePosts(){
 return(
     <form>
         <div className='objectPlacement'>
-        <div>Jeg vil</div> 
+        <div >Jeg vil</div> 
             <div id='trade_type'>
+
                 <div>
                 <input type="radio" name ="Valg" value= "Kjøpe" className='radiobutton'/>
                 <label> Kjøpe  </label>
                 </div>
+
                 <div>
                 <input type="radio" name='Valg' value="Selge" className='radiobutton'/>
                 <label htmlFor='Valg'> Selge</label>
                 </div>
+
             </div>
+
             <div></div>
+
             <div>
             <div>Overskrift</div> 
             <textarea className="widthforBig" ></textarea>
             </div>
+            
             <p></p>
             <div>
                 <div>Kategori</div> 
-                <input type="radio" name ="Valg" value= "Konsert" className='radiobutton'/>
+                <input type="radio" name ="Theme" value= "Konsert" className='radiobutton'/>
                 <label> Konsert  </label>
 
-                <input type="radio" name ="Valg" value= "Sport" className='radiobutton'/>
+                <input type="radio" name ="Theme" value= "Sport" className='radiobutton'/>
                 <label> Sport  </label>
 
-                <input type="radio" name ="Valg" value= "Teater/Show" className='radiobutton'/>
+                <input type="radio" name ="Theme" value= "Teater/Show" className='radiobutton'/>
                 <label> Teater/Show  </label>
 
-                <input type="radio" name ="Valg" value= "Annet" className='radiobutton'/>
+                <input type="radio" name ="Theme" value= "Annet" className='radiobutton'/>
                 <label> Annet  </label>
 
             </div> 
@@ -66,16 +72,19 @@ return(
             <p></p>
             <div>
             <div>Sted</div> 
-            <textarea className="widtforSmall" ></textarea>
+            <textarea className="widthforSmall" ></textarea>
             </div>
 
             <p></p>
             <div>
             <div>Telefon</div> 
-            <textarea className="widtforSmall" ></textarea>
+            <textarea className="widthforSmall" ></textarea>
 
             </div>
-
+            <p></p>
+            <div className='widthforBig'>
+                <button className='button'>  Send annonse </button>
+            </div>
             <p className='textareaSizeSpace'></p>
 
 

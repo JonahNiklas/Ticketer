@@ -12,7 +12,6 @@
 .one{
     max-width: 164px;
     background-color: red;
-
 }
 
 .navbar_top{
@@ -20,8 +19,9 @@
     background-color:rgb(36, 100, 77);
     position: fixed;
     top: 0;
-    width: 100%;
+    width: 90%;
 }
+
 
 .content{
     padding-top: 90px;
