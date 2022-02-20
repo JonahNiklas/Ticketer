@@ -1,24 +1,24 @@
-
-import StartImage from "../images/startImage.png";
-import React from "react";
-/*import Login from "../features/loginpage/Login";*/
+import Logo from '../images/ticket_logo.png';
+import '../stylesheets/LoginPage.css';
+import React, { useState } from "react";
 import RegisterUser from "../features/loginpage/RegisterUser";
-import { Col, Container, Row } from "react-bootstrap";
+import Login from "../features/loginpage/Login";
+import { Card, Container, Button } from "react-bootstrap";
 
-function LoginPage() {
+
+const LoginPage = () => {
+
   return (
-    <div className="LoginPage">
-      <Container fluid>
-        <Row>
-          <Col>
-            <img id="Concert" src={StartImage} style={{ width: "100%" }} />
-          </Col>
-          <Col>
-            <RegisterUser />
-            
-          </Col>
-        </Row>
-      </Container>
+    <div>
+      <Container>
+          <Card className="form">
+            <Card.Body>
+              <img src={Logo} style={{ margin:'auto', display: 'block'}}/>
+              <Login/>
+            </Card.Body>
+            <Button variant="link">Registrer ny bruker her</Button>
+          </Card>
+        </Container>
     </div>
   );
 }
