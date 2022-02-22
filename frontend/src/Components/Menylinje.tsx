@@ -5,20 +5,17 @@ import {faBell, faPlusCircle,faUser,faHouse} from '@fortawesome/free-solid-svg-i
 import {faFacebookMessenger} from '@fortawesome/free-brands-svg-icons'
 
 
-
-
-
 function Menylinje() {
     return (
-    <nav className='navbar'> 
-        <button type='button' className='button-1'>
+    <nav className='navbar' > 
+        <button type='button' className='button-1' name='Sted'>
              <span className='button__icon-1'>
                  <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
             </span>
             <span className='button__text-1'>Min ticketer</span>
         </button>
 
-        <button type='button' className='button-1'>
+        <button type='button' className='button-1' name='Sted'>
             <span className='button__icon-2'>
                 <FontAwesomeIcon icon={faHouse}></FontAwesomeIcon>
             </span>
@@ -26,7 +23,7 @@ function Menylinje() {
             
         </button>
         
-        <button type='button' className='button-1'>
+        <button type='button' className='button-1' name='Sted'>
             <span className='button__icon-2'>
                 <FontAwesomeIcon icon={faBell}></FontAwesomeIcon>
             </span>
@@ -34,14 +31,14 @@ function Menylinje() {
             
         </button>
 
-        <button type='button' className='button-1'>
+        <button type='button' className='button-1' name='Sted'>
         <span className='button__icon-2'>
             <FontAwesomeIcon icon={faPlusCircle}></FontAwesomeIcon>
         </span>
         <span className='button__text-1'>Ny annonse</span>
         </button>
 
-        <button type='button' className='button-1'>
+        <button type='button' className='button-1' name='Sted'>
         <span className='button__icon-2'>
              <FontAwesomeIcon icon={faFacebookMessenger}></FontAwesomeIcon>
         </span>
