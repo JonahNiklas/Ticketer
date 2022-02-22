@@ -2,7 +2,7 @@ import React from 'react';
 
 function Footer() {
   return (
-    <footer className="bg-dark text-white text-left vw-80 p-5">
+    <footer className="bg-dark text-white text-left vw-80 p-5 ">
   <div className="container p-4">
     <div className="row">
       <div className="col-lg-6 col-md-12 mb-4 mb-md-0">
@@ -16,7 +16,7 @@ function Footer() {
       </div>
 
 
-      <div className="col-lg-3 col-md-6 mb-4 mb-md-0">
+      <div className="col-lg-2 col-md-6 mb-4 mb-md-0">
         <h5 className="text-uppercase">Links</h5>
 
         <ul className="list-unstyled mb-0">

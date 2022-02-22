@@ -11,16 +11,16 @@ import Menylinje from '../../Components/Menylinje';
 
 function Homepage() {
   return (
-    <div className="container-fluid">
+    <div className="container-fluid p-0">
        <div className="row">
-          <div className="col-3 px-0 bg-dark position-fixed" id="sticky-sidebar">
+          <div className="col-3 bg-dark position-fixed" id="sticky-sidebar">
             <Menylinje/>
           </div>
           <div className="col offset-1" id="main">
-            <Header/>
-            <FilterBar></FilterBar>
-            <RecommendedTicketer></RecommendedTicketer>
-            <Footer/>
+          <Header/>
+          <FilterBar></FilterBar>
+          <RecommendedTicketer></RecommendedTicketer>
+          <Footer/>
           </div>
       </div>
     </div>

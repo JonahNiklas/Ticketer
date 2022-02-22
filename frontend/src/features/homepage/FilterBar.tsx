@@ -6,9 +6,9 @@ import Teater from '../../images/teater.png';
 
 function FilterBar() {
   return (
-    <div className="justify-content-md-center mb-0 m-5 p-5 pb-0">
+    <div className="justify-content-md-center m-5 ml-5 p-0 pb-0">
       <CardGroup>
-        <Card style={{ cursor: 'pointer' }} className="mx-4 my-2 hover-shadow">
+        <Card style={{ cursor: 'pointer' , border: `2px solid black`}} className="mx-4 my-4 rounded">
           <Card.Img
             className="mx-auto mt-4"
             style={{ width: '50%', height: '50%' }}
@@ -18,7 +18,7 @@ function FilterBar() {
             <Card.Title>KONSERT</Card.Title>
           </Card.Body>
         </Card>
-        <Card style={{ cursor: 'pointer' }} className="mx-4 my-2">
+        <Card style={{ cursor: 'pointer' , border: `2px solid black`}} className="mx-4 my-4 rounded">
           <Card.Img
             className="mx-auto mt-4"
             style={{ width: '50%', height: '50%' }}
@@ -28,7 +28,7 @@ function FilterBar() {
             <Card.Title>SPORT</Card.Title>
           </Card.Body>
         </Card>
-        <Card style={{ cursor: 'pointer' }} className="mx-4 my-2">
+        <Card style={{ cursor: 'pointer' , border: `2px solid black`}} className="mx-4 my-4 rounded">
           <Card.Img
             className="mx-auto mt-4"
             style={{ width: '50%', height: '50%' }}
@@ -38,9 +38,9 @@ function FilterBar() {
             <Card.Title>TEATER/SHOW</Card.Title>
           </Card.Body>
         </Card>
-        <Card style={{ cursor: 'pointer' }} className="mx-4 my-2">
+        <Card style={{ cursor: 'pointer' , border: `2px solid black`}} className="mx-4 my-4 rounded">
           <Card.Img
-            className="mx-auto mt-4 px-0"
+            className="mx-auto mt-4"
             style={{ width: '50%', height: '50%' }}
             src="https://pic.onlinewebfonts.com/svg/img_520908.png"
           />
