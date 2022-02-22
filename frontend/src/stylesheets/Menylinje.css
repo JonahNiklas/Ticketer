@@ -1,4 +1,7 @@
-
+.link{
+    width: 100%;
+    border: transparent;
+}
 
 .button-1{
     align-items: center;
