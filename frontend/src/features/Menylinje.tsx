@@ -44,15 +44,6 @@ function Menylinje() {
         <span className='button__text-1'>Ny annonse</span>
         </button>
         </Link>
-
-        <button type='button' className='button-1' name='Sted'>
-        <span className='button__icon-2'>
-             <FontAwesomeIcon icon={faFacebookMessenger}></FontAwesomeIcon>
-        </span>
-        <span className='button__text-1'>Meldinger</span>
-        </button>
-
-       
     </nav>
   )
 }

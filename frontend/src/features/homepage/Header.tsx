@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Col, Row, Image } from 'react-bootstrap';
 import SearchBar from './SearchBar';
-import Logo from '../images/ticket_logo.png';
+import Logo from '../../images/ticket_logo.png';
 
 function Header() {
   return (
