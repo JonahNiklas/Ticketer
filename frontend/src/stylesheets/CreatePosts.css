@@ -1,0 +1,63 @@
+.font{
+    display: block;
+    color: #474445;
+    font-weight: 700;
+    position: relative;
+    font-size: 14px;
+    line-height: 18px;
+    padding-bottom: 4px;
+    cursor: pointer;
+}
+
+.radiobutton{
+    height: 22px;
+    width: 22px;
+    cursor: pointer;
+}
+
+.font{
+    font-weight: bold;
+    cursor: default;
+}
+
+.button{
+    font-weight: bold;
+    font-size: 16px;
+    width: 400px;
+    height: 40px;
+    background-color: rgb(100, 176, 145);
+    color: white;
+    cursor: pointer;
+}
+
+.button:hover{
+    font-weight: bold;
+    color: white;
+    background-color: rgb(83, 141, 118);
+
+}
+.objectPlacement {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.textareaSize{
+    width: 400px;
+      height: 140px;
+    
+}
+
+.widthforBig{
+    width: 400px;
+}
+
+.widthforSmall{
+    height: 20px;
+    width: 100px;
+}
+
+.textareaSizeSpace{
+    width: 400px;
+}
