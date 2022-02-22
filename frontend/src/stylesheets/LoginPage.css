@@ -1,0 +1,10 @@
+.loginForm {
+    background-image: url(../images/concertWide.jpg);
+}
+
+.form {
+    background-color: rgba(100%, 100%, 100%, 80%);
+    margin: 5% 27%; 
+    padding: 3%;
+    border-radius: 20px;
+}
