@@ -10,13 +10,13 @@ import Menylinje from '../features/Menylinje';
 
 function Homepage() {
   return(
-    <div className="container-fluid p-0">
-    <div className="row">
-       <div className="col-3 bg-dark position-fixed" id="sticky-sidebar">
+    <div>
+    <div>
+       <div>
          <Menylinje/>
        </div>
     </div>
-       <div className="col offset-1" id="main">
+       <div>
         <Header/>
         <FilterBar></FilterBar>
         <RecommendedTicketer></RecommendedTicketer>

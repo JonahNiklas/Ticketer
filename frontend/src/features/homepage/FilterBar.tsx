@@ -1,12 +1,12 @@
 import React from 'react';
-import { Card, CardGroup } from 'react-bootstrap';
+import { Card, CardGroup, Container } from 'react-bootstrap';
 import Concert from '../../images/konsert.png';
 import Sport from '../../images/sport.png';
 import Teater from '../../images/teater.png';
 
 function FilterBar() {
 	return(
-    <div className="justify-content-md-center m-5 ml-5 p-0 pb-0">
+    <Container>
       <CardGroup>
         <Card style={{ cursor: 'pointer' , border: `2px solid black`}} className="mx-4 my-4 rounded">
           <Card.Img
@@ -50,7 +50,7 @@ function FilterBar() {
         </Card>
       </CardGroup>
     
-    </div>
+    </Container>
   );
 }
 

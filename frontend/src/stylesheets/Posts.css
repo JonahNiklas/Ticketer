@@ -34,3 +34,26 @@
     justify-content: center;
 }
 
+.post-container {
+    display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(100px, auto);
+}
+
+.post-container {
+    display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(100px, auto);
+
+
+
+}
+@media (max-width: 1200px){
+    .post-container{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: minmax(100px, auto);
+    }
+}
+
+

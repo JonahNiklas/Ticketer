@@ -1,14 +1,32 @@
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { Card } from 'react-bootstrap';
+import { Button, Card, ListGroup } from 'react-bootstrap';
 
 function Post() {
   return (
-    <Card className='mx-4 my-2 border border-secondary'>
-		<Card.Img className='mx-auto mt-4' src={("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.tu.no%2Fartikler%2Fse-astronautenes-ti-mest-legendariske-bilder%2F244299&psig=AOvVaw0zDWUmeIs2W53FOsIIsZiq&ust=1645615355083000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCPjlmYeZk_YCFQAAAAAdAAAAABAE")} />
-      <Card.Body>
-        <Card.Title>
-              KONSERT
-        </Card.Title>
+    <Card className='mx-4 m-2 border border-success rounded card'>
+      <Card.Text>
+        <span>
+        <button type='button' className='button-user-post' name='Sted'>
+             <span className='button__icon-1'>
+                 <FontAwesomeIcon icon={faUser} className="fa-xs"></FontAwesomeIcon>
+            </span>
+            <span className='button-user-icon'>Min ticketer</span>
+        </button>
+          
+        </span>
+      </Card.Text>
+      <Card.Img src="https://picsum.photos/200/200" className=' h-50 w-auto' />
+      <Card.Body className='mb-0 pb-0'>
+        <Card.Title>Mozarts Requiem</Card.Title>
+          <ListGroup variant="flush">
+          <ListGroup.Item>Gå påsken i møte med et av verdens vakreste verk. Mozarts uendelig vakre Requiem er noe av det nydeligste som er skrevet.</ListGroup.Item>
+          <ListGroup.Item>TORSDAG, 7. APRIL, 2022 KL 19.30</ListGroup.Item>
+          <ListGroup.Item>470,-</ListGroup.Item>
+          <Button variant="success mb-2">Contact seller</Button>
+        </ListGroup>
+
       </Card.Body>
 		</Card>
   )

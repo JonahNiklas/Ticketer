@@ -39,11 +39,31 @@
     color: white;
 }
 
-.navbar{
-    display: flex;
-    flex-direction: column;
+.sidebar{
+    position: fixed;
     width: 133px;
     height: 100%;
     background-color: rgb(100, 176, 145);
-    position: fixed;
+}
+
+.button-user-post {
+    align-items: left;
+    justify-content: center;
+    height: 5vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: transparent;
+    background-color: rgb(100, 176, 145);
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+}
+
+.button-user-icon {
+    font-size: 5px;
+    color: white;
+    margin: 0;
+    padding: 0;
+
 }

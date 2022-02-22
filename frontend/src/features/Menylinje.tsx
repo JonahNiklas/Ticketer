@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 function Menylinje() {
     return (
-    <nav className='navbar'> 
+    <nav className='sidebar'> 
         <Link to='/profile' className='link'>
         <button type='button' className='button-1' name='Sted'>
              <span className='button__icon-1'>
