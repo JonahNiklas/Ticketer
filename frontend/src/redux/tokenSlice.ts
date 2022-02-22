@@ -2,11 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TokenInfo } from '../types';
 
 export interface TokenState {
-  value: TokenInfo;
+  token: string | null;
 }
 
 const initialState: TokenState = {
-  value: { token: null }
+  token: null
 };
 
 export const tokenSlice = createSlice({
@@ -14,11 +14,11 @@ export const tokenSlice = createSlice({
   initialState,
   reducers: {
     setToken: (state, action: PayloadAction<string>) => {
-      state.value.token = action.payload;
+      state.token = action.payload;
     },
 
     deleteToken: (state) => {
-      state.value.token = null;
+      state.token = null;
     }
   }
 });

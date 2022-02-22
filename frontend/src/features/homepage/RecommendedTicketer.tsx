@@ -17,6 +17,7 @@ function RecommendedTicketer() {
               <span className='button__icon-2'>
                 <FontAwesomeIcon icon={faCircle}></FontAwesomeIcon>
               </span>
+               <span style={{ fontSize:"20px",marginLeft:"5px"}}>kir</span>
             </button>
           </Card.Text>
           <Card.Img src="https://picsum.photos/200/200" className='mt-0 h-25' />

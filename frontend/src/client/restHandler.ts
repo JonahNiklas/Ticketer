@@ -1,7 +1,7 @@
 import axios, {AxiosInstance, AxiosPromise, AxiosRequestHeaders} from "axios";
 import { RestError } from "../types";
 
-export const BASE_URL = "http://localhost:5000";
+export const BASE_URL = "http://localhost:5001";
 
 export function promiseWrapper<T>(axiosPromise: AxiosPromise<T>): Promise<T>{
   return new Promise<T>((resolve, reject) => {
@@ -53,7 +53,7 @@ export class RestHandler {
   }
 
   public postWithResponse<T>(path: string, data?: object, params?: AxiosRequestHeaders): Promise<T> {
-    return promiseWrapper<T>(this.http.post(path, params));
+    return promiseWrapper<T>(this.http.post(path, data, params));
   }
 
   public put<T>(path: string, params?: AxiosRequestHeaders): Promise<T> {
