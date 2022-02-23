@@ -57,13 +57,12 @@
     background-color: rgb(100, 176, 145);
     cursor: pointer;
     margin: 0;
-    padding: 0;
+    padding: 10px;
 }
 
 .button-user-icon {
     font-size: 5px;
     color: white;
     margin: 0;
-    padding: 0;
-
 }
+

@@ -2,11 +2,12 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Button, Card, ListGroup } from 'react-bootstrap';
+import '../../stylesheets/Menylinje.css';
 
 function Post() {
   return (
-    <Card className='mx-4 m-2 border border-success rounded card'>
-      <Card.Text>
+    <Card className=' m-2 border border-success rounded card'>
+
         <span>
         <button type='button' className='button-user-post' name='Sted'>
              <span className='button__icon-1'>
@@ -16,7 +17,7 @@ function Post() {
         </button>
           
         </span>
-      </Card.Text>
+
       <Card.Img src="https://picsum.photos/200/200" className=' h-50 w-auto' />
       <Card.Body className='mb-0 pb-0'>
         <Card.Title>Mozarts Requiem</Card.Title>
