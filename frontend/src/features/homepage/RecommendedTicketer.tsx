@@ -11,7 +11,7 @@ function RecommendedTicketer() {
   <div className="mt-0 ml-5 mr-5 p-0">
     <Container>     
         <h2 className='text-center'>Anbefalte Ticketer</h2>
-        <CardGroup className='post-container'>
+        <CardGroup>
           
 
           <Post/>

@@ -5,10 +5,10 @@ import Post from './Post';
 
 function CreatePosts(){
     return(
-        <Container className='mb-5'>
+        <Container>
             <Form >
             <div className='row'>
-                <div className='col-6'style = {{marginLeft: "10%"}}>
+                <div className='col'style = {{marginLeft: "10%"}}>
                 <h3 className='m-5'>What would you post?</h3>
                 <Form.Group className="mb-3 w-50 col" controlId="formBasicl">
                     <Form.Label>Arrangement name</Form.Label>
@@ -24,18 +24,18 @@ function CreatePosts(){
                 <Form.Group className="mb-3 w-50" controlId="formBasicl">
                 <Form.Label>Type</Form.Label><br/>
                     <ButtonGroup aria-label="Basic example" className='mb-3 '>
-                        <Button variant="success">Buy</Button>
-                        <Button variant="danger">Sell</Button>
+                        <Button variant="success">Kjøpe</Button>
+                        <Button variant="danger">Selge</Button>
                     </ButtonGroup>
                 </Form.Group>
 
                 <Form.Group className="mb-3 w-50" controlId="formBasicl">
                     <Form.Label>Category</Form.Label><br/>
                     <ButtonGroup aria-label="Basic example" className='mb-3 '>
-                        <Button variant="secondary">Concert</Button>
+                        <Button variant="secondary">Konsert</Button>
                         <Button variant="secondary">Sport</Button>
-                        <Button variant="secondary">Show/ Theater</Button>
-                        <Button variant="secondary">Other</Button>
+                        <Button variant="secondary">Show/ Teater</Button>
+                        <Button variant="secondary">Andre</Button>
                     </ButtonGroup>
                 </Form.Group>
 
@@ -45,7 +45,7 @@ function CreatePosts(){
                 </Form.Group>
 
                 <Button variant="success mb-3 w-50" type="submit" >
-                    Submit
+                    Publiser
                 </Button>
                 
                 </div>

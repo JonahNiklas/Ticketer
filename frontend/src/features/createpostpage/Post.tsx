@@ -6,12 +6,12 @@ import '../../stylesheets/Menylinje.css';
 
 function Post() {
   return (
-    <Card className=' m-4 border border-success rounded card'>
+    <Card className=' m-4 border border-success rounded card' style= {{maxWidth:"400px", minWidth: "300px"}}>
 
         <span>
         <button type='button' className='button-user-post' name='Sted'>
 
-            <span className='button-user-icon'>Username</span>
+            <span className='button-user-icon'>Brukernavn</span>
         </button>
           
         </span>
@@ -24,7 +24,7 @@ function Post() {
           <ListGroup.Item>Olavshallen</ListGroup.Item>
           <ListGroup.Item>TORSDAG, 7. APRIL, 2022 KL 19.30</ListGroup.Item>
           <ListGroup.Item>470,-</ListGroup.Item>
-          <Button variant="success mb-2">Contact seller</Button>
+          <Button variant="success mb-2">Ta kontakt</Button>
         </ListGroup>
 
       </Card.Body>
