@@ -8,7 +8,7 @@ function CreatePosts(){
         <Container className='mb-5'>
             <Form >
             <div className='row'>
-                <div className='col'>
+                <div className='col-6'style = {{marginLeft: "10%"}}>
                 <h3 className='m-5'>What would you post?</h3>
                 <Form.Group className="mb-3 w-50 col" controlId="formBasicl">
                     <Form.Label>Arrangement name</Form.Label>
@@ -43,17 +43,19 @@ function CreatePosts(){
                     <Form.Label>Description</Form.Label>
                     <Form.Control as="textarea" placeholder="I had one of the most amazing experiences going to a Lady Gaga show a while back. It was a bit like going to a Broadway show, a Circus, a dance club and a crazy Rave!" />
                 </Form.Group>
+
+                <Button variant="success mb-3 w-50" type="submit" >
+                    Submit
+                </Button>
                 
                 </div>
-                <div className='col'>
-                <h3 className='m-5'>How perfect post looks like?</h3>
+                <div className='col' style = {{marginRight: "10%"}}>
+                <h3 className='m-5'>How does perfect post looks like?</h3>
                 <Post />
                 </div>
             </div>
  
-                <Button variant="success mb-3 w-50" type="submit" >
-                    Submit
-                </Button>
+                
             </Form>
         </Container>
 

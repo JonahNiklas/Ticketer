@@ -12,12 +12,12 @@ function Homepage() {
   return(
         <div>
           <Menylinje/>
-          <div style = {{marginLeft: "133px"}}>
-
-          
+          <div style = {{marginLeft: "133px"}}>       
           <Header/>
+          <div className='m-5'>
           <FilterBar></FilterBar>
-          <RecommendedTicketer></RecommendedTicketer>
+          <RecommendedTicketer></RecommendedTicketer>      
+          </div>
           <Footer/>
           </div>
         </div>

@@ -6,14 +6,12 @@ import '../../stylesheets/Menylinje.css';
 
 function Post() {
   return (
-    <Card className=' m-2 border border-success rounded card'>
+    <Card className=' m-4 border border-success rounded card'>
 
         <span>
         <button type='button' className='button-user-post' name='Sted'>
-             <span className='button__icon-1'>
-                 <FontAwesomeIcon icon={faUser} className="fa-xs"></FontAwesomeIcon>
-            </span>
-            <span className='button-user-icon'>Min ticketer</span>
+
+            <span className='button-user-icon'>Username</span>
         </button>
           
         </span>
@@ -23,6 +21,7 @@ function Post() {
         <Card.Title>Mozarts Requiem</Card.Title>
           <ListGroup variant="flush">
           <ListGroup.Item>Gå påsken i møte med et av verdens vakreste verk. Mozarts uendelig vakre Requiem er noe av det nydeligste som er skrevet.</ListGroup.Item>
+          <ListGroup.Item>Olavshallen</ListGroup.Item>
           <ListGroup.Item>TORSDAG, 7. APRIL, 2022 KL 19.30</ListGroup.Item>
           <ListGroup.Item>470,-</ListGroup.Item>
           <Button variant="success mb-2">Contact seller</Button>

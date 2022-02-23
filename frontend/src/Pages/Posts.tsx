@@ -11,17 +11,13 @@ import Footer from "../features/homepage/Footer";
 function Posts() {
     return (
         <div>
-        <div>
-           <div>
              <Menylinje/>
-           </div>
-        </div>
-           <div>
+        
+           <div style = {{marginLeft: "133px"}}>
             <Header/>
             <CreatePosts/>
             <Footer/>
-           </div>
-       
+            </div>
      </div>
     );
 }
