@@ -6,7 +6,7 @@ import '../../stylesheets/Menylinje.css';
 
 function Post() {
   return (
-    <Card className=' m-4 border border-success rounded card' style= {{maxWidth:"400px", minWidth: "300px"}}>
+    <Card className=' m-4 border border-success rounded card' style= {{maxWidth:"370px", minWidth: "370px"}}>
 
         <span>
         <button type='button' className='button-user-post' name='Sted'>
