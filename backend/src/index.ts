@@ -34,7 +34,7 @@ app.use(cors());
 app.use(
   (
     req: any,
-    res: { header: (arg0: string, arg1: string) => void },
+    res: { header: (_arg0: string, _arg1: string) => void },
     next: () => void,
   ) => {
     res.header('Access-Control-Expose-Headers', 'Authorization');
@@ -48,6 +48,7 @@ const port = 5001;
 app.post('/auth/login', async (req: any, res: any) => {
   login(context, req, res);
 });
+
 app.get('/post', async (req: any, res: any) => {
   getAllPosts(context, req, res);
 });
@@ -81,6 +82,10 @@ app.put('/post/sell/', async (req: any, res: any) => {
 });
 
 // USER RELATED
+app.post('/auth/login', async (req: any, res: any) => {
+  login(context, req, res);
+});
+
 app.post('/user/register', async (req: any, res: any) => {
   registerUser(context, req, res);
 });
