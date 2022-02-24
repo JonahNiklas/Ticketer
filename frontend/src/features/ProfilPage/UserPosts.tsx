@@ -5,13 +5,22 @@ import Post from '../createpostpage/Post';
 
 function UserPosts(){
     return (
-        <div>
-     <h2 className='text-center'>Dine Ticketer</h2>
-        <CardGroup>      
-          <Post/>
-          <Post/>        
-        </CardGroup>
-        </div>
+      <div className="mt-0 ml-5 mr-5 p-0">
+      <Container>     
+          <h2 className='text-center'>Dine Ticketer</h2>
+          <CardGroup>
+            
+  
+            <Post/>
+            <Post/>
+            <Post/>
+            <Post/>
+            <Post/>
+  
+            
+          </CardGroup>
+      </Container>
+    </div>
     );
 }
 
