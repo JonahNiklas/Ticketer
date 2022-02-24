@@ -9,12 +9,10 @@ export function promiseWrapper<T>(axiosPromise: AxiosPromise<T>): Promise<T>{
       .then(it => resolve(it.data))
       .catch(async error => {
 
-        console.error(error);
-
         if (error.response) {
           const restError: RestError = {
-            errorCode: error.response.code,
-            errorMessage: error.response.message
+            errorCode: error.response.status,
+            errorMessage: error.response.data.errorMessage
           };
 
           reject(restError);
