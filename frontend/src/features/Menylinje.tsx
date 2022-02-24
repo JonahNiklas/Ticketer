@@ -6,6 +6,7 @@ import {faFacebookMessenger} from '@fortawesome/free-brands-svg-icons';
 import { Link } from 'react-router-dom';
 
 
+
 function Menylinje() {
     return (
     <nav className='sidebar'> 

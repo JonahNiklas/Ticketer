@@ -1,12 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { UserInfo } from "../types";
 
 export interface UserState {
-    value: UserInfo;
+    userId: number | null;
 }
 
 const initialState: UserState = {
-    value: {userId: null}
+    userId: null
 };
 
 export const userSlice = createSlice({
@@ -14,11 +13,11 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         setUserId: (state, action: PayloadAction<number>) => {
-            state.value.userId = action.payload;
+            state.userId = action.payload;
         },
 
         deleteUserId: (state) => {
-            state.value.userId = null;
+            state.userId = null;
         }
     }
 });

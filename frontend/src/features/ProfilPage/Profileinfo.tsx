@@ -3,35 +3,27 @@ import React from "react";
 import "../../stylesheets/ProfileInfo.css";
 import "../../stylesheets/ProfilePage.css";
 
+
+
 function Profileinfo(){
     return (
         <div>
+            <div>
 
-        <div>
-        
-        </div>
+                <br />
+                <span className=".text-info"> Navn: <input
+                        type="textarea"/> </span>
+                <br />
+                Email: <input type="textarea" />
+                <br />
+                Score: <input type="textarea" />
+                <br />
+                Country: <input type="textarea" />
+                <br />
+                City: <input type="textarea" />
 
-        <p></p>
 
-           <div>
-        
-            
-            <p></p>
-            <span className=".text-info" > {/* Vet ikke hvordan jeg skal koble den inn */} Navn: <input type="textarea" /> </span> 
-            <p></p>
-            Email: <input type="textarea" /> 
-            <p></p>
-            Score: <input type="textarea" />
-            <p></p>
-            Country: <input type="textarea" />
-            <p></p>
-            City: <input type="textarea" />
-            
-            
             </div>
-        
-        <p></p>
-
         </div>
 
     );
