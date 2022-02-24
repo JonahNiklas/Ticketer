@@ -10,3 +10,14 @@ export interface RestError {
   errorMessage?: string
   errorCode?: number
 }
+
+export interface RegisterUser {
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+}
+
+export interface RegisterResponse {
+  message: string;
+}
