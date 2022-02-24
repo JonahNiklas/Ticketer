@@ -8,50 +8,42 @@ import {faCircle} from '@fortawesome/free-solid-svg-icons';
 import Profileinfo from './Profileinfo';
 import UserPosts from './UserPosts';
 import '../../stylesheets/ProfileInfo.css';
+import Footer from '../homepage/Footer';
+import Header from '../homepage/Header';
+import { Button, Container, Form } from 'react-bootstrap';
 
 
 
 function ProfilePage() {
     return(
-      /* Menylinjen */
-      <div className='flexbox-container'>
-        <div className='flexbox-item flexbox-item-1'> <Menylinje/></div>
-        <div className='flexbox-item'>
-        
-
-          <div className='flexbox-container-coloum'> 
-        
-            <div className='flexbox-item-topbox'> {/* Toppen av siden, inkl profilbilde osv.. */}
-
-             <button type='button' className='button-10'>
-                <span className='profiletext'> Endre profilbilde </span>
-                <span className='button__icon-10'><FontAwesomeIcon icon={faCircle}></FontAwesomeIcon></span>
-              </button>
-
-           </div>
-          
-
-
-          {/* Raden på bunnen, inneholder to bokser */}
-          <div className='flexbox-item-bottombox'>
-            <div className='flexbox-container-row'>
-
-                {/* Boks 1: Profilinformasjon */}
-              <div className='flexbox-item-row-1'> 
-              <span className='text-info'> <Profileinfo/> </span>
-              </div> 
-
-              <div className='flexbox-item-row-1'> <UserPosts/> </div>
-
-              </div>
-              
-            
-          </div>
-
-
-        </div>
-        </div>
+      <div>
+      <Menylinje/>
+      <div style = {{marginLeft: "133px"}}>       
+      <Header/>
+      <Container>
+      <div className='row m-3'>
+      <div className='col'>
+        <span className='button__icon-10'><FontAwesomeIcon icon={faCircle}></FontAwesomeIcon></span> 
+        <Form>
+        <Form.Group className="mb-3 w-50" controlId="exampleForm.ControlTextarea1">
+                  <Form.Label>Endre profilbilde</Form.Label>
+                  <Form.Control type="file" placeholder="Title" />
+                </Form.Group>
+                <Button variant="success mb-3 w-50 ml-50" type="submit" >
+                    Oppdater
+                </Button> 
+        </Form>
+      </div>  
+      <div className='col'>
+        <Profileinfo/>
+      </div>   
       </div>
+      </Container>
+      <UserPosts/>      
+      </div>
+      <Footer/>
+      </div>
+    
     );
   }
   

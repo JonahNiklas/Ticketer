@@ -1,104 +1,68 @@
 import React from 'react';
+import { Button, ButtonGroup, Container, Form } from 'react-bootstrap';
 import '../../stylesheets/CreatePosts.css';
+import Post from './Post';
 
 function CreatePosts(){
-return(
-    <form>
-        <div className='objectPlacement'>
-        <div >Jeg vil</div> 
-            <div id='trade_type'>
+    return(
+        <Container>
+          <div className='row'>
+          <div className='col align-center'>
+            <Form className='m-5' style={{width:"500px"}}>       
+                <h3 className='m-5'>Hva skal du legge ut?</h3>
+                <Form.Group className="mb-3 w-100 col" controlId="formBasicl">
+                    <Form.Label>Arrangement</Form.Label>
+                    <Form.Control type="email" placeholder="Title" />
+                </Form.Group>
 
-                <div>
-                <input type="radio" name ="Valg" value= "Kjøpe" className='radiobutton'/>
-                <label> Kjøpe  </label>
-                </div>
+                <Form.Group className="mb-3 w-100" controlId="formBasicl">
+                    <Form.Label>Hvor?</Form.Label>
+                    <Form.Control type="email" placeholder="Town/ Hall" />
 
-                <div>
-                <input type="radio" name='Valg' value="Selge" className='radiobutton'/>
-                <label htmlFor='Valg'> Selge</label>
-                </div>
+                </Form.Group>
 
+                <Form.Group className="mb-3 w-50" controlId="formBasicl">
+                <Form.Label>Type</Form.Label><br/>
+                    <ButtonGroup aria-label="Basic example" className='mb-3 '>
+                        <Button variant="success">Kjøpe</Button>
+                        <Button variant="danger">Selge</Button>
+                    </ButtonGroup>
+                </Form.Group>
+
+                <Form.Group className="mb-3 w-100" controlId="formBasicl">
+                    <Form.Label>Kategori</Form.Label><br/>
+                    <ButtonGroup aria-label="Basic example" className='mb-3 '>
+                        <Button variant="secondary">Konsert</Button>
+                        <Button variant="secondary">Sport</Button>
+                        <Button variant="secondary">Show/ Teater</Button>
+                        <Button variant="secondary">Andre...</Button>
+                    </ButtonGroup>
+                </Form.Group>
+
+                <Form.Group className="mb-3 w-100" controlId="exampleForm.ControlTextarea1">
+                    <Form.Label>Beskrivelse</Form.Label>
+                    <Form.Control as="textarea" placeholder="I had one of the most amazing experiences going to a Lady Gaga show a while back. It was a bit like going to a Broadway show, a Circus, a dance club and a crazy Rave!" />
+                </Form.Group>
+
+                <Form.Group className="mb-3 w-100" controlId="exampleForm.ControlTextarea1">
+                  <Form.Label>Bilde</Form.Label>
+                  <Form.Control type="file" placeholder="Title" />
+                </Form.Group>
+
+                <Button variant="success mb-3 w-100" type="submit" >
+                    Publiser
+                </Button>               
+           </Form>
+           </div>               
+           <div className='col'>
+                <h3 className='m-5'>Hvordan ser en typisk annonse ut?</h3>
+                <Post/>
+            </div>
             </div>
 
-            <p></p>
-            <div></div>
-            <div>
-            <div>Overskrift</div> 
-            <textarea className="widthforBig" ></textarea>
-            </div>
-            
-            <p></p>
-            <div>
-                <div>Kategori</div> 
-                <input type="radio" name ="Theme" value= "Konsert" className='radiobutton'/>
-                <label> Konsert  </label>
+        </Container>
 
-                <input type="radio" name ="Theme" value= "Sport" className='radiobutton'/>
-                <label> Sport  </label>
-
-                <input type="radio" name ="Theme" value= "Teater/Show" className='radiobutton'/>
-                <label> Teater/Show  </label>
-
-                <input type="radio" name ="Theme" value= "Annet" className='radiobutton'/>
-                <label> Annet  </label>
-
-            </div> 
-
-            <div></div>
-            <p></p>
-           <div className='input_textarea'>
-            <div>Beskrivelse</div> 
-            <textarea className="textareaSize" ></textarea>
-            </div>
-
-            <p></p>
-            <div>
-            <div>Pris</div> 
-            <textarea className="widthforSmall" ></textarea>
-            </div>
-        
-            <p></p>
-
-            <p></p>
-            <div>
-            <div>Gateadressse</div> 
-            <textarea className="widthforBig" ></textarea>
-            </div>
-        
-            <p></p>
-
-            <p></p>
-            <div>
-            <div>Postnummer</div> 
-            <textarea className="widthforSmall" ></textarea>
-            </div>
-
-            <p></p>
-            <div>
-            <div>Sted</div> 
-            <textarea className="widthforSmall" ></textarea>
-            </div>
-
-            <p></p>
-            <div>
-            <div>Telefon</div> 
-            <textarea className="widthforSmall" ></textarea>
-
-            </div>
-            <p></p>
-            <div className='widthforBig'>
-                <button className='button'>  Send annonse </button>
-            </div>
-            <p className='textareaSizeSpace'></p>
-
-
-
-
-
-
-        </div>
-    </form>
-);
+    );
 }
 
 export default CreatePosts;

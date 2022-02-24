@@ -3,13 +3,16 @@ import '../stylesheets/LoginPage.css';
 import React, { useState } from "react";
 import Login from "../features/loginpage/Login";
 import { Card, Container, Button } from "react-bootstrap";
+import Footer from '../features/homepage/Footer';
+import HeaderNoSearchbar from '../features/homepage/HeaderNoSearchbar';
 
 
 const LoginPage = () => {
 
   return (
     <div className="loginForm">
-      <Container>
+      <div>
+      <HeaderNoSearchbar/>
           <Card className="form">
             <Card.Body>
               <img src={Logo} style={{ margin:'auto', display: 'block'}}/>
@@ -17,7 +20,8 @@ const LoginPage = () => {
             </Card.Body>
             <Button variant="link" href="/register">Registrer ny bruker her</Button>
           </Card>
-        </Container>
+          <Footer/>
+        </div>
     </div>
   );
 }

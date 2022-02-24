@@ -4,28 +4,21 @@ import Menylinje from "../features/Menylinje";
 import CreatePosts from "../features/createpostpage/CreatePosts";
 import '../stylesheets/Posts.css';
 import  logo  from "../Pictures/TicketerLogo.png";
+import Header from "../features/homepage/Header";
+import Footer from "../features/homepage/Footer";
 
 
 function Posts() {
     return (
-        <div className='flexbox-container'>
-            <div className='flexbox-item flexbox-item-1'>
-                <Menylinje />  
+        <div>
+             <Menylinje/>
+        
+           <div style = {{marginLeft: "133px"}}>
+            <Header/>
+            <CreatePosts/>
+            <Footer/>
             </div>
-
-            <div className="item">
-
-                <div className="item navbar_top"> 
-                    <div className="LogoPlacement">
-                        <img src={logo} alt="hssds" />
-                     </div>
-                </div>
-
-                <div className="item content">
-                    <CreatePosts/>
-                </div>
-            </div>
-        </div>
+     </div>
     );
 }
 

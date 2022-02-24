@@ -10,20 +10,18 @@ import Menylinje from '../features/Menylinje';
 
 function Homepage() {
   return(
-    <div className="container-fluid p-0">
-    <div className="row">
-       <div className="col-3 bg-dark position-fixed" id="sticky-sidebar">
-         <Menylinje/>
-       </div>
-    </div>
-       <div className="col offset-1" id="main">
-        <Header/>
-        <FilterBar></FilterBar>
-        <RecommendedTicketer></RecommendedTicketer>
-        <Footer/>
-       </div>
-   
- </div>
+        <div>
+          <Menylinje/>
+          <div style = {{marginLeft: "133px"}}>       
+          <Header/>
+          <div className='m-5'>
+          <FilterBar></FilterBar>
+          <RecommendedTicketer></RecommendedTicketer>      
+          </div>
+          <Footer/>
+          </div>
+        </div>
+
   );
 }
 
