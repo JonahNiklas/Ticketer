@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap/";
+import { register } from "../../client/authHandler";
+import { RegisterRequest } from "../../types";
 
 const RegisterUser = () => {
 
@@ -9,17 +11,25 @@ const RegisterUser = () => {
   const [password, setPassword] = useState<string>("");
   const [repeatPassword, setRepeatPassword] = useState<string>("");
 
-  function handleRegister () {
+  async function handleRegister (e: any) {
+
+    e.preventDefault();
+
     if (password !== repeatPassword) return; 
 
-    const userRequest: RegisterUser = {
-      email: email,
-      firstName: firstName,
-      lastName: lastName,
-      password: password
+    const userRequest: RegisterRequest = {
+      email,
+      firstName,
+      lastName,
+      password
     };
 
-    
+    try {
+      const response = await register(userRequest);
+      console.log(response);
+    } catch (error: any) {
+      console.error(error);
+    }
   }
 
   return (

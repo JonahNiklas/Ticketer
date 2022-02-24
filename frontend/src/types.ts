@@ -11,7 +11,7 @@ export interface RestError {
   errorCode?: number
 }
 
-export interface RegisterUser {
+export interface RegisterRequest {
   email: string;
   firstName: string;
   lastName: string;
@@ -20,4 +20,27 @@ export interface RegisterUser {
 
 export interface RegisterResponse {
   message: string;
+}
+
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  token: string;
+  ownerId: number;
+}
+
+//johan som tuller litt her
+export interface Post {
+  createdAt: Date,
+  timeOfEvent: Date,
+  city: string,
+  venue: string,
+  forSale: boolean,
+  title: string,
+  description: string,
+  category: string,
+  price: number,
 }
