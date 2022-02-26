@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Card, CardGroup } from 'react-bootstrap'
 import { getPosts, getPostsByAuthorId } from '../../client/postHandler';
 import '../../stylesheets/ProfileInfo.css';
@@ -18,10 +18,14 @@ function UserPosts() {
       console.error(error);
     }
   }
-  if(!rendered){
-    getUsersPosts();
-    rendered=true;
-  }
+
+  useEffect(() => {
+    if(!rendered){
+      getUsersPosts();
+      rendered=true;
+    }
+  }, [])
+
   
 
   return (

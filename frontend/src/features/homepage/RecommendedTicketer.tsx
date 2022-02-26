@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-undef */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CardGroup, Container } from 'react-bootstrap';
 import { getPosts } from '../../client/postHandler';
 import '../../stylesheets/Posts.css';
@@ -16,7 +16,9 @@ function RecommendedTicketer() {
       console.error(error);
     }
   }
-  getAllPosts();
+  useEffect(() => {
+    getAllPosts();
+  }, []);
 
   return(
   <div className="mt-0 ml-5 mr-5 p-0">
