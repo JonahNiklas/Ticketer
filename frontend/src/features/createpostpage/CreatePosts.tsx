@@ -10,6 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useHistory } from 'react-router-dom';
 
 
+
 function CreatePosts() {
   const history = useHistory();
   
@@ -23,6 +24,8 @@ function CreatePosts() {
   const [price, setPrice] = useState<string>('');
   const [isError, setIsError] = useState<boolean>(false);
   const [errorText, setErrorText] = useState<string>('Fyll ut manglende felt');
+  const [IsSuccess, setSuccess] = useState<boolean>(false);
+
 
 
   const categories = [
@@ -56,7 +59,10 @@ function CreatePosts() {
     }
     else{
       setIsError(false);
+      setSuccess(true);
     }
+
+    
   
     if (!isError) {
       // TODO: account for deylightsaving in a better way
@@ -210,10 +216,15 @@ function CreatePosts() {
           </Form>
           <Alert show={isError} onClose={() => setIsError(false)} variant="danger" dismissible>
             <Alert.Heading>Det mangler noe informasjon!</Alert.Heading>
+
             <p>
               {errorText}
             </p>
           </Alert>
+          <Alert show={IsSuccess} onClose={() => setSuccess(true)} variant="success" dismissible>
+            <Alert.Heading>Annonse publisert!</Alert.Heading>
+            </Alert>
+
         </div>
         <div className="col">
           <h3 className="m-5">Hvordan ser en typisk annonse ut?</h3>
