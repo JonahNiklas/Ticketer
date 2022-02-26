@@ -4,15 +4,16 @@ import { Alert, Button, ButtonGroup, Container, Form } from 'react-bootstrap';
 import { createPost } from '../../client/postHandler';
 import '../../stylesheets/CreatePosts.css';
 import { PostRequest } from '../../types';
-import Post from './Post';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useHistory } from 'react-router-dom';
+import PostTemplate from './PostTemplate';
 
 
 function CreatePosts() {
   const history = useHistory();
-  
+
+  let validInfo= false;
   const [title, setTitle] = useState<string>('');
   const [timeOfEvent, setTimeOfEvent]= useState<Date>(new Date());
   const [city, setCity] = useState<string>('');
@@ -21,9 +22,9 @@ function CreatePosts() {
   const [category, setCategory] = useState<string>('Concert');
   const [description, setDescription] = useState<string>('');
   const [price, setPrice] = useState<string>('');
-  const [isError, setIsError] = useState<boolean>(false);
-  const [errorText, setErrorText] = useState<string>('Fyll ut manglende felt');
-
+  
+  const [showAlert, setShowAlert] = useState<boolean>(false);
+  const [errorText, setErrorText] = useState<string>('');
 
   const categories = [
     { name: 'Konsert', value: 'Concert' },
@@ -36,29 +37,31 @@ function CreatePosts() {
     { name: 'Til salgs', value: 'true' },
     { name: 'Ønskes kjøpt', value: 'false' }
   ]; 
-  
-  
-  
 
   async function handleCreatePost(e: any) {
     e.preventDefault();
+    validInfo=true;
     if(!title || title.length<2){
-      setIsError(true);
+      console.log("Tittel er nødvendig");
+      setShowAlert(true);
+      validInfo=false;
       setErrorText("Ugyldig navn. Det må være minst 2 tegn");
     }
-    else if(!city || city ===''){
-      setIsError(true);
+    if(!city || city ===''){
+      console.log("By er nødvendig");
+      setShowAlert(true);
+      validInfo=false;
       setErrorText("By er nødvendig");
     }
-    else if(!venue || venue ===''){
-      setIsError(true);
+    if(!venue || venue ===''){
+      console.log("Arena mangler");
+      setShowAlert(true);
+      validInfo=false;
       setErrorText("Arena/Scene er nødvendig");
     }
-    else{
-      setIsError(false);
-    }
   
-    if (!isError) {
+    if (validInfo) {
+
       // TODO: account for deylightsaving in a better way
       timeOfEvent.setHours(timeOfEvent.getHours()+1); // This is hardcoded daylightsaving
       
@@ -77,7 +80,7 @@ function CreatePosts() {
         city,
         venue,
         category,
-        forSale: (forSale=== 'true'),
+        forSale: (forSale === 'true'),
         description: optionalDescription,
         price: optionalPrice,
         authorId: 500  
@@ -107,25 +110,22 @@ function CreatePosts() {
             <Form.Group className="mb-3 w-50" controlId="formBasicl">
               <Form.Label>Type</Form.Label>
               <br />
+
               <ButtonGroup aria-label="Basic example" className="mb-3 ">
               {forSaleOrNot.map((element, idx) => (
-                  <ToggleButton
-                    key={idx}
-                    id={`forsale-${idx}`}
-                    type="radio"
-                    variant={idx % 2 ? 'outline-success' : 'outline-danger'}
-                    name="forSale"
-                    value={element.value}
-                    checked={forSale === element.value}
-                    onChange={(e: any) => {
-                      setForSale(e.currentTarget.value);
-                      console.log(forSale);
-                      }
-                    }
-                  >
-                    {element.name}
-                  </ToggleButton>
-                ))}
+                <ToggleButton
+                  key={idx}
+                  id={`forsale-${idx}`}
+                  type="radio"
+                  variant={idx % 2 ? 'outline-success' : 'outline-danger'}
+                  name="forSale"
+                  value={element.value}
+                  checked={forSale === element.value}
+                  onChange={(e: any) => {setForSale(e.currentTarget.value)}}
+                >
+                  {element.name}
+                </ToggleButton>
+              ))}
               </ButtonGroup>
             </Form.Group>
 
@@ -142,11 +142,7 @@ function CreatePosts() {
                     name="category"
                     value={currentCategory.value}
                     checked={category === currentCategory.value}
-                    onChange={(e: any) => {
-                      setCategory(e.currentTarget.value);
-                      console.log(category)
-                      }
-                    }
+                    onChange={(e: any) => {setCategory(e.currentTarget.value)}}
                   >
                     {currentCategory.name}
                   </ToggleButton>
@@ -177,8 +173,6 @@ function CreatePosts() {
               <Form.Control type="text" placeholder="Sentrum Scene" onChange={(e) => setVenue(e.target.value)}/>
             </Form.Group>
 
-            
-
             <Form.Group
               className="mb-3 w-100"
               controlId="exampleForm.ControlTextarea1"
@@ -208,7 +202,7 @@ function CreatePosts() {
               Publiser
             </Button>
           </Form>
-          <Alert show={isError} onClose={() => setIsError(false)} variant="danger" dismissible>
+          <Alert show={showAlert} onClose={() => setShowAlert(false)} variant="danger" dismissible>
             <Alert.Heading>Det mangler noe informasjon!</Alert.Heading>
             <p>
               {errorText}
@@ -217,7 +211,7 @@ function CreatePosts() {
         </div>
         <div className="col">
           <h3 className="m-5">Hvordan ser en typisk annonse ut?</h3>
-          <Post />
+          <PostTemplate/>
         </div>
       </div>
     </Container>

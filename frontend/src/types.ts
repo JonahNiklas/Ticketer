@@ -56,7 +56,8 @@ export interface Post {
   venue: string;
   forSale: boolean;
   title: string;
-  description: string;
+  description: string | null;
   category: string;
-  price: number;
+  price: number | null;
+  authorId: number;
 }
