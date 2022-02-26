@@ -1,4 +1,4 @@
-import { PostRequest, PostResponse } from "../types";
+import { Post, PostRequest, PostResponse } from "../types";
 import restHandler from "./restHandler";
 
 export async function createPost(request: PostRequest): Promise<PostResponse> {
@@ -10,3 +10,22 @@ export async function createPost(request: PostRequest): Promise<PostResponse> {
   console.log(response);
   return response;
 }
+
+export async function getPosts(): Promise<Post[]> {
+  // antar alltid at alt går bra :)
+
+  const posts: Post[] = await restHandler.get<Post[]>("/post");
+  
+  // TODO: legge til feilhåndtering
+  return posts;
+}
+
+export async function getPostsByAuthorId(authorId: number): Promise<Post[]> {
+  // antar alltid at alt går bra :)
+
+  const posts: Post[] = await restHandler.get<Post[]>("/post/user/"+authorId);
+  
+  // TODO: legge til feilhåndtering
+  return posts;
+}
+
