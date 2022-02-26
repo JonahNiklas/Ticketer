@@ -22,19 +22,19 @@ function ProfilePage() {
       <Header/>
       <Container>
       <div className='row m-3'>
-      <div className='col'>
+      <div className='col-3'>
         <span className='button__icon-10'><FontAwesomeIcon icon={faCircle}></FontAwesomeIcon></span> 
         <Form>
-        <Form.Group className="mb-3 w-50" controlId="exampleForm.ControlTextarea1">
+        <Form.Group className="mb-3 w-100" controlId="exampleForm.ControlTextarea1">
                   <Form.Label>Endre profilbilde</Form.Label>
                   <Form.Control type="file" placeholder="Title" />
                 </Form.Group>
-                <Button variant="success mb-3 w-50 ml-50" type="submit" >
+                <Button variant="success mb-3 w-100 ml-50" type="submit" >
                     Oppdater
                 </Button> 
         </Form>
       </div>  
-      <div className='col'>
+      <div className='col-4 mt-5'>
         <Profileinfo/>
       </div>   
       </div>

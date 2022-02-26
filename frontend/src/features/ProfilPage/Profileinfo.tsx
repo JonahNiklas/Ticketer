@@ -1,31 +1,20 @@
 
-import React from "react";
+import React, { useState, Component }  from "react";
 import "../../stylesheets/ProfileInfo.css";
 import "../../stylesheets/ProfilePage.css";
-
+import { Button, Container, Form } from 'react-bootstrap';
 
 
 function Profileinfo(){
+
+
     return (
-        <div>
-            <div>
-
-                <br />
-                <span className=".text-info"> Navn: <input
-                        type="textarea"/> </span>
-                <br />
-                Email: <input type="textarea" />
-                <br />
-                Score: <input type="textarea" />
-                <br />
-                Country: <input type="textarea" />
-                <br />
-                City: <input type="textarea" />
-
-
+   <div className="p-3 rounded" style={{ backgroundColor: "rgb(100, 176, 145)" }}>
+                <h5 className="text-white">Navn</h5>
+                <h5 className="text-white">e-post</h5>
+                <h5 className="text-white">By</h5>
+                <h5 className="text-white">Land</h5>
             </div>
-        </div>
-
     );
 }
 

@@ -1,6 +1,8 @@
 {
   "dependencies": {
-    "axios": "^0.26.0"
+    "axios": "^0.26.0",
+    "react-bootstrap-star-rating": "^0.0.2",
+    "react-datepicker": "^4.6.0"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
