@@ -4,7 +4,7 @@ import React from 'react';
 import { Button, Card, ListGroup } from 'react-bootstrap';
 import '../../stylesheets/Menylinje.css';
 
-function Post() {
+function PostTemplate() {
   return (
     <Card className=' m-4 border border-success rounded card' style= {{maxWidth:"370px", minWidth: "300px"}}>
 
@@ -32,4 +32,4 @@ function Post() {
   )
 }
 
-export default Post;
+export default PostTemplate;

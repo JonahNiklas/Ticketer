@@ -1,26 +1,43 @@
 /* eslint-disable react/jsx-no-undef */
-import React from 'react';
-import { Button, Card, CardGroup, Container, ListGroup, ListGroupItem } from 'react-bootstrap';
-import Post from '../createpostpage/Post';
-import {faBell, faPlusCircle, faCircle, faUser,faHouse} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState } from 'react';
+import { CardGroup, Container } from 'react-bootstrap';
+import { getPosts } from '../../client/postHandler';
 import '../../stylesheets/Posts.css';
+import { Post } from '../../types';
+import PostInfo from '../createpostpage/PostInfo';
 
 function RecommendedTicketer() {
+  const [posts, setPosts] = useState<Post[]>([]);
+
+  async function getAllPosts(){
+    try {
+      setPosts(await getPosts());
+    } catch (error: any) {
+      console.error(error);
+    }
+  }
+  getAllPosts();
+
   return(
   <div className="mt-0 ml-5 mr-5 p-0">
     <Container>     
         <h2 className='text-center'>Anbefalte Ticketer</h2>
         <CardGroup>
-          
-
-          <Post/>
-          <Post/>
-          <Post/>
-          <Post/>
-          <Post/>
-
-          
+          {posts.map((post, idx) => (
+            <PostInfo
+              key={idx}
+              createdAt={post.createdAt}
+              timeOfEvent={post.timeOfEvent}
+              city={post.city}
+              venue={post.venue}
+              forSale={post.forSale}
+              title={post.title}
+              description={post.description}
+              category={post.category}
+              price={post.price}
+              authorId={post.authorId}
+              />
+          ))}
         </CardGroup>
     </Container>
   </div>
