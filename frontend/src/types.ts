@@ -7,8 +7,8 @@ export interface UserInfo {
 }
 
 export interface RestError {
-  errorMessage?: string
-  errorCode?: number
+  errorMessage?: string;
+  errorCode?: number;
 }
 
 export interface RegisterRequest {
@@ -32,15 +32,32 @@ export interface LoginResponse {
   ownerId: number;
 }
 
+export interface PostRequest {
+  timeOfEvent: Date;
+  city: string;
+  venue: string;
+  forSale: boolean;
+  title: string;
+  description: string | null;
+  category: string;
+  price: number | null;
+  authorId: number;
+}
+
+export interface PostResponse {
+  message: string,
+}
+
 //johan som tuller litt her
 export interface Post {
-  createdAt: Date,
-  timeOfEvent: Date,
-  city: string,
-  venue: string,
-  forSale: boolean,
-  title: string,
-  description: string,
-  category: string,
-  price: number,
+  createdAt: Date;
+  timeOfEvent: Date;
+  city: string;
+  venue: string;
+  forSale: boolean;
+  title: string;
+  description: string | null;
+  category: string;
+  price: number | null;
+  authorId: number;
 }
