@@ -10,6 +10,7 @@ const RegisterUser = () => {
   const [lastName, setLastName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [repeatPassword, setRepeatPassword] = useState<string>("");
+  const [emailErrorMessage, setEmailErrorMessage] = useState<string>("");
 
   async function handleRegister (e: any) {
 
