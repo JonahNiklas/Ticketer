@@ -3,11 +3,16 @@ import '../stylesheets/Menylinje.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faBell, faPlusCircle, faCircle, faUser,faHouse, faSignOut} from '@fortawesome/free-solid-svg-icons';
 import {faFacebookMessenger} from '@fortawesome/free-brands-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { persist, store } from '../redux/store';
+import { deleteUserId } from '../redux/userSlice';
+import { deleteToken } from '../redux/tokenSlice';
 
 
 
 function Menylinje() {
+    const history = useHistory();
+
     return (
     <nav className='sidebar'> 
         <Link to='/profile' className='link'>
@@ -38,7 +43,12 @@ function Menylinje() {
         </button>
         </Link>
 
-        <Link to='/posts' className='link'>
+        <Link to='/login' className='link' onClick={() => {
+            store.dispatch(deleteUserId);
+            store.dispatch(deleteToken);
+            persist.purge();
+            history.push('/login');
+        }}>
         <button type='button' className='button-1' name='Sted'>
         <span className='button__icon-2'>
             <FontAwesomeIcon icon={faSignOut }></FontAwesomeIcon>
