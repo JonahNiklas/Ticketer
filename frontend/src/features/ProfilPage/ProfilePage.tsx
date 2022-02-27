@@ -17,12 +17,11 @@ import { Button, Container, Form } from 'react-bootstrap';
 function ProfilePage() {
     return(
       <div>
-      <Menylinje/>
-      <div style = {{marginLeft: "133px"}}>       
+      <Menylinje/>          
+      <div style = {{marginLeft: "133px"}}>
       <Header/>
-      <Container>
-      <div className='row m-3'>
-      <div className='col-3'>
+      <div className='row ms-5'>
+      <div className='col-3 ms-5'>
         <span className='button__icon-10'><FontAwesomeIcon icon={faCircle}></FontAwesomeIcon></span> 
         <Form>
         <Form.Group className="mb-3 w-100" controlId="exampleForm.ControlTextarea1">
@@ -36,10 +35,12 @@ function ProfilePage() {
       </div>  
       <div className='col-4 mt-5'>
         <Profileinfo/>
-      </div>   
+      </div>  
+       
       </div>
-      </Container>
+      <div className='m-5'>
       <UserPosts/>      
+      </div>
       </div>
       <Footer/>
       </div>
