@@ -8,6 +8,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useHistory } from 'react-router-dom';
 import PostTemplate from './PostTemplate';
+import { store } from '../../redux/store';
 
 
 function CreatePosts() {
@@ -74,25 +75,29 @@ function CreatePosts() {
       if(price !== '') {
         optionalPrice = Number.parseInt(price,10);
       }
-      const postRequest: PostRequest = {
-        timeOfEvent,
-        title,
-        city,
-        venue,
-        category,
-        forSale: (forSale === 'true'),
-        description: optionalDescription,
-        price: optionalPrice,
-        authorId: 500  
-      };
-
-      try {
-        const response = await createPost(postRequest);
-        console.log(response);
-        history.push('/profile');
-      } catch (error: any) {
-        console.error(error);
+      const activeUserId = store.getState().user.userId;
+      if(activeUserId){
+        const postRequest: PostRequest = {
+          timeOfEvent,
+          title,
+          city,
+          venue,
+          category,
+          forSale: (forSale === 'true'),
+          description: optionalDescription,
+          price: optionalPrice,
+          authorId: activeUserId
+        };
+  
+        try {
+          const response = await createPost(postRequest);
+          console.log(response);
+          history.push('/profile');
+        } catch (error: any) {
+          console.error(error);
+        }
       }
+      
     }
   }
 
