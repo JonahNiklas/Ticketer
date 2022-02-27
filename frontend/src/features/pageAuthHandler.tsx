@@ -11,9 +11,9 @@ import {
 
 export function ProtectedRoute(props: {children: any, path: string }) {
 
-  const isAuth = store.getState().token.token !== null && store.getState().user.userId !== null;
+  console.log(store.getState());
 
-  console.log(props);
+  const isAuth = store.getState().token.token !== null && store.getState().user.userId !== null;
 
   return ( 
     <Route {...props.path}> 
