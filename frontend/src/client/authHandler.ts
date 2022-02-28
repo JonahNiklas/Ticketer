@@ -1,12 +1,12 @@
-import { LoginRequest, LoginResponse, RegisterResponse, RegisterRequest } from "../types";
+import { LoginRequest, LoginResponse, RegisterResponse, RegisterRequest, RestError } from "../types";
 import restHandler from "./restHandler";
 
-export async function login(request: LoginRequest): Promise<LoginResponse> {
-    // antar alltid at alt går bra :)
+export async function login(request: LoginRequest): Promise<LoginResponse | RestError> {
 
-    const token: LoginResponse = await restHandler.postWithResponse<LoginResponse>("/auth/login", request);
-    
-    // TODO: legge til feilhåndtering
+    const token: LoginResponse | RestError = await restHandler.postWithResponse<LoginResponse>("/auth/login", request)
+        .catch(async (error) => {
+            return error;
+        });
     
     return token;
 }
