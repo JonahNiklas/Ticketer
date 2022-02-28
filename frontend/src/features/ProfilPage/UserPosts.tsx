@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Card, CardGroup } from 'react-bootstrap'
 import { getPosts, getPostsByAuthorId } from '../../client/postHandler';
 import '../../stylesheets/ProfileInfo.css';
-import PostInfo from '../createpostpage/PostInfo';
+import UserPostInfo from '../createpostpage/userPostInfo';
 import PostTemplate from '../createpostpage/PostTemplate';
 import { Post } from "../../types";
 
@@ -34,7 +34,7 @@ function UserPosts() {
         <h2 className='text-center'>Dine Ticketer</h2>
         <CardGroup>
           {posts.map((post, idx) => (
-            <PostInfo
+            <UserPostInfo
               key={idx}
               createdAt={post.createdAt}
               timeOfEvent={post.timeOfEvent}

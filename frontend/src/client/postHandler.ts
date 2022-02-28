@@ -20,6 +20,15 @@ export async function getPosts(): Promise<Post[]> {
   return posts;
 }
 
+export async function changePost(postId: number): Promise<Post> {
+  // antar alltid at alt går bra :)
+
+  const post: Post = await restHandler.put<Post>("/post");
+  
+  // TODO: legge til feilhåndtering
+  return post;
+}
+
 export async function getPostsByAuthorId(authorId: number): Promise<Post[]> {
   // antar alltid at alt går bra :)
 
@@ -28,4 +37,14 @@ export async function getPostsByAuthorId(authorId: number): Promise<Post[]> {
   // TODO: legge til feilhåndtering
   return posts;
 }
+
+export async function getPostById(postId: number): Promise<Post> {
+  // antar alltid at alt går bra :)
+
+  const post: Post = await restHandler.get<Post>("/post/"+postId);
+  
+  // TODO: legge til feilhåndtering
+  return post;
+}
+
 
