@@ -34,16 +34,19 @@ const Login = () => {
 
     try {
       const response = await login({email: email, password: password});
-
+      
       if ((response as RestError).errorMessage) {
+        const message = (response as RestError).errorMessage;
+        if (message == "user Not Found") {
+            setEmailError(true);
+            setEmailErrorMessage("Bruker ikke funnet");
+        } if (message == "wrong password") {
+            setPasswordError(true);
+            setPasswordErrorMessage("Innlogging feilet");
+        }
+
         const error = response as RestError;
 
-        console.log(error.errorMessage);
-
-        // user not found
-        
-        // passcheck
-        
       } else {
         const token = response as LoginResponse;
 
