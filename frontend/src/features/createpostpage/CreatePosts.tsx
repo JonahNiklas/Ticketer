@@ -221,7 +221,7 @@ function CreatePosts() {
             </Button>
           </Form>
           <Alert show={isError} onClose={() => setIsError(false)} variant="danger" dismissible>
-            <Alert.Heading>Det mangler noe informa sjon!</Alert.Heading>
+            <Alert.Heading>Det mangler noe informasjon!</Alert.Heading>
 
             <p>
               {errorText}
