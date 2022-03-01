@@ -8,13 +8,13 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useHistory } from 'react-router-dom';
 import PostTemplate from './PostTemplate';
-import { store } from '../../redux/store';
+
+
 
 
 function CreatePosts() {
   const history = useHistory();
 
-  let validInfo= false;
   const [title, setTitle] = useState<string>('');
   const [timeOfEvent, setTimeOfEvent]= useState<Date>(new Date());
   const [city, setCity] = useState<string>('');
@@ -23,9 +23,11 @@ function CreatePosts() {
   const [category, setCategory] = useState<string>('Concert');
   const [description, setDescription] = useState<string>('');
   const [price, setPrice] = useState<string>('');
-  
-  const [showAlert, setShowAlert] = useState<boolean>(false);
-  const [errorText, setErrorText] = useState<string>('');
+  const [isError, setIsError] = useState<boolean>(false);
+  const [errorText, setErrorText] = useState<string>('Fyll ut manglende felt');
+  const [IsSuccess, setSuccess] = useState<boolean>(false);
+
+
 
   const categories = [
     { name: 'Konsert', value: 'Concert' },
@@ -38,31 +40,37 @@ function CreatePosts() {
     { name: 'Til salgs', value: 'true' },
     { name: 'Ønskes kjøpt', value: 'false' }
   ]; 
+  
+  
+  
 
   async function handleCreatePost(e: any) {
+    console.log(title);
     e.preventDefault();
-    validInfo=true;
     if(!title || title.length<2){
-      console.log("Tittel er nødvendig");
-      setShowAlert(true);
-      validInfo=false;
+
+      setIsError(true);
       setErrorText("Ugyldig navn. Det må være minst 2 tegn");
     }
-    if(!city || city ===''){
-      console.log("By er nødvendig");
-      setShowAlert(true);
-      validInfo=false;
+    else if(!city || city ===''){
+      setIsError(true);
+      console.log(city);
+
       setErrorText("By er nødvendig");
     }
-    if(!venue || venue ===''){
-      console.log("Arena mangler");
-      setShowAlert(true);
-      validInfo=false;
+    else if(!venue || venue ===''){
+      console.log(venue);
+      setIsError(true);
       setErrorText("Arena/Scene er nødvendig");
     }
-  
-    if (validInfo) {
+    else{
+      setIsError(false);
+      setSuccess(true);
+    }
 
+    
+  
+    if (!isError) {
       // TODO: account for deylightsaving in a better way
       timeOfEvent.setHours(timeOfEvent.getHours()+1); // This is hardcoded daylightsaving
       
@@ -75,29 +83,25 @@ function CreatePosts() {
       if(price !== '') {
         optionalPrice = Number.parseInt(price,10);
       }
-      const activeUserId = store.getState().user.userId;
-      if(activeUserId){
-        const postRequest: PostRequest = {
-          timeOfEvent,
-          title,
-          city,
-          venue,
-          category,
-          forSale: (forSale === 'true'),
-          description: optionalDescription,
-          price: optionalPrice,
-          authorId: activeUserId
-        };
-  
-        try {
-          const response = await createPost(postRequest);
-          console.log(response);
-          history.push('/profile');
-        } catch (error: any) {
-          console.error(error);
-        }
+      const postRequest: PostRequest = {
+        timeOfEvent,
+        title,
+        city,
+        venue,
+        category,
+        forSale: (forSale=== 'true'),
+        description: optionalDescription,
+        price: optionalPrice,
+        authorId: 500  
+      };
+
+      try {
+        const response = await createPost(postRequest);
+        console.log(response);
+        //history.push('/profile');
+      } catch (error: any) {
+        console.error(error);
       }
-      
     }
   }
 
@@ -115,22 +119,25 @@ function CreatePosts() {
             <Form.Group className="mb-3 w-50" controlId="formBasicl">
               <Form.Label>Type</Form.Label>
               <br />
-
               <ButtonGroup aria-label="Basic example" className="mb-3 ">
               {forSaleOrNot.map((element, idx) => (
-                <ToggleButton
-                  key={idx}
-                  id={`forsale-${idx}`}
-                  type="radio"
-                  variant={idx % 2 ? 'outline-success' : 'outline-danger'}
-                  name="forSale"
-                  value={element.value}
-                  checked={forSale === element.value}
-                  onChange={(e: any) => {setForSale(e.currentTarget.value)}}
-                >
-                  {element.name}
-                </ToggleButton>
-              ))}
+                  <ToggleButton
+                    key={idx}
+                    id={`forsale-${idx}`}
+                    type="radio"
+                    variant={idx % 2 ? 'outline-success' : 'outline-danger'}
+                    name="forSale"
+                    value={element.value}
+                    checked={forSale === element.value}
+                    onChange={(e: any) => {
+                      setForSale(e.currentTarget.value);
+                      console.log(forSale);
+                      }
+                    }
+                  >
+                    {element.name}
+                  </ToggleButton>
+                ))}
               </ButtonGroup>
             </Form.Group>
 
@@ -147,7 +154,11 @@ function CreatePosts() {
                     name="category"
                     value={currentCategory.value}
                     checked={category === currentCategory.value}
-                    onChange={(e: any) => {setCategory(e.currentTarget.value)}}
+                    onChange={(e: any) => {
+                      setCategory(e.currentTarget.value);
+                      console.log(category)
+                      }
+                    }
                   >
                     {currentCategory.name}
                   </ToggleButton>
@@ -160,7 +171,7 @@ function CreatePosts() {
               <DatePicker
                 id="timeOfEvent"
                 selected={timeOfEvent}
-                onChange={ (date: any) => setTimeOfEvent(date)}
+                onChange={ (date: any) => setTimeOfEvent(date.target.value)}
                 showTimeSelect
                 timeIntervals={15}
                 dateFormat="dd.MM.yy HH:mm"
@@ -177,6 +188,8 @@ function CreatePosts() {
               <Form.Label>Arena</Form.Label>
               <Form.Control type="text" placeholder="Sentrum Scene" onChange={(e) => setVenue(e.target.value)}/>
             </Form.Group>
+
+            
 
             <Form.Group
               className="mb-3 w-100"
@@ -207,14 +220,19 @@ function CreatePosts() {
               Publiser
             </Button>
           </Form>
-          <Alert show={showAlert} onClose={() => setShowAlert(false)} variant="danger" dismissible>
-            <Alert.Heading>Det mangler noe informasjon!</Alert.Heading>
+          <Alert show={isError} onClose={() => setIsError(false)} variant="danger" dismissible>
+            <Alert.Heading>Det mangler noe informa sjon!</Alert.Heading>
+
             <p>
               {errorText}
             </p>
           </Alert>
+          <Alert show={IsSuccess} onClose={() => setSuccess(true)} variant="success" dismissible>
+            <Alert.Heading>Annonse publisert!</Alert.Heading>
+            </Alert>
+
         </div>
-        <div className="col">
+        <div className="col" style={{display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column"}}>
           <h3 className="m-5">Hvordan ser en typisk annonse ut?</h3>
           <PostTemplate/>
         </div>
