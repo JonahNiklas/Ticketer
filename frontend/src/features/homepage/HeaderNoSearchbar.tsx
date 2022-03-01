@@ -10,7 +10,7 @@ function Header() {
   <div className='navbar navbar-dark bg-dark'>
     <Row className='w-100'>
     <Col className="d-flex justify-content-left">
-          <Image src={Logo}/>
+          <Image src={Logo}  className='ms-5'/>
         </Col>
 
         </Row>

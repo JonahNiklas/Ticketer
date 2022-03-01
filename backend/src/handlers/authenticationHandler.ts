@@ -18,10 +18,11 @@ export async function login(context: Context, req: Request, res: Response) {
     });
 
   if (user === null || !(user instanceof Object) || !('id' in user)) {
-    res.status(401).json({ errorMessage: 'user not valid', errorCode: 401 });
+    res.status(401).json({ errorMessage: 'user Not Found', errorCode: 401 });
   } else {
     if (l.password !== user.password) {
       res.status(401).json({ errorMessage: 'wrong password', errorCode: 401 });
+      return;
     }
 
     // generate token here

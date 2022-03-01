@@ -39,6 +39,8 @@ function RecommendedTicketer() {
               price={post.price}
               authorId={post.authorId}
                           />
+
+              
           ))}
         </CardGroup>
     </Container>

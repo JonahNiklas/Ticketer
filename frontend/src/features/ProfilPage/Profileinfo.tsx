@@ -7,6 +7,7 @@ import { getUserById } from "../../client/userHandler";
 import { store } from "../../redux/store";
 
 
+
 function Profileinfo(){
 
   const [firstName, setFirstName] = useState<string>('');
@@ -36,6 +37,7 @@ function Profileinfo(){
    <div className="p-3 rounded" style={{ backgroundColor: "rgb(100, 176, 145)" }}>
                 <h5 className="text-white">{firstName} {lastName}</h5>
                 <h5 className="text-white">{email}</h5>
+
             </div>
     );
 }

@@ -10,6 +10,7 @@ import { useHistory } from 'react-router-dom';
 import PostTemplate from './PostTemplate';
 
 
+
 function CreatePosts() {
   const history = useHistory();
 
@@ -22,9 +23,14 @@ function CreatePosts() {
   const [category, setCategory] = useState<string>('Concert');
   const [description, setDescription] = useState<string>('');
   const [price, setPrice] = useState<string>('');
-  
+
+  const [isError, setIsError] = useState<boolean>(false);
+  const [errorText, setErrorText] = useState<string>('Fyll ut manglende felt');
+  const [IsSuccess, setSuccess] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
-  const [errorText, setErrorText] = useState<string>('');
+
+
+
 
   const categories = [
     { name: 'Konsert', value: 'Concert' },
@@ -39,25 +45,28 @@ function CreatePosts() {
   ]; 
 
   async function handleCreatePost(e: any) {
+    console.log(title);
     e.preventDefault();
     validInfo=true;
     if(!title || title.length<2){
-      console.log("Tittel er nødvendig");
-      setShowAlert(true);
-      validInfo=false;
+
+      setIsError(true);
       setErrorText("Ugyldig navn. Det må være minst 2 tegn");
     }
-    if(!city || city ===''){
-      console.log("By er nødvendig");
-      setShowAlert(true);
-      validInfo=false;
+    else if(!city || city ===''){
+      setIsError(true);
+      console.log(city);
+
       setErrorText("By er nødvendig");
     }
-    if(!venue || venue ===''){
-      console.log("Arena mangler");
-      setShowAlert(true);
-      validInfo=false;
+    else if(!venue || venue ===''){
+      console.log(venue);
+      setIsError(true);
       setErrorText("Arena/Scene er nødvendig");
+    }
+    else{
+      setIsError(false);
+      setSuccess(true);
     }
   
     if (validInfo) {
@@ -89,7 +98,7 @@ function CreatePosts() {
       try {
         const response = await createPost(postRequest);
         console.log(response);
-        history.push('/profile');
+        //history.push('/profile');
       } catch (error: any) {
         console.error(error);
       }
@@ -155,7 +164,7 @@ function CreatePosts() {
               <DatePicker
                 id="timeOfEvent"
                 selected={timeOfEvent}
-                onChange={ (date: any) => setTimeOfEvent(date)}
+                onChange={ (date: any) => setTimeOfEvent(date.target.value)}
                 showTimeSelect
                 timeIntervals={15}
                 dateFormat="dd.MM.yy HH:mm"
@@ -204,12 +213,17 @@ function CreatePosts() {
           </Form>
           <Alert show={showAlert} onClose={() => setShowAlert(false)} variant="danger" dismissible>
             <Alert.Heading>Det mangler noe informasjon!</Alert.Heading>
+
             <p>
               {errorText}
             </p>
           </Alert>
+          <Alert show={IsSuccess} onClose={() => setSuccess(true)} variant="success" dismissible>
+            <Alert.Heading>Annonse publisert!</Alert.Heading>
+            </Alert>
+
         </div>
-        <div className="col">
+        <div className="col" style={{display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column"}}>
           <h3 className="m-5">Hvordan ser en typisk annonse ut?</h3>
           <PostTemplate/>
         </div>
@@ -219,3 +233,15 @@ function CreatePosts() {
 }
 
 export default CreatePosts;
+function setIsError(arg0: boolean) {
+  throw new Error('Function not implemented.');
+}
+
+function setSuccess(arg0: boolean) {
+  throw new Error('Function not implemented.');
+}
+
+function setShowAlert(arg0: boolean): void {
+  throw new Error('Function not implemented.');
+}
+

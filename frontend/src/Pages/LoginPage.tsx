@@ -10,7 +10,7 @@ import HeaderNoSearchbar from '../features/homepage/HeaderNoSearchbar';
 const LoginPage = () => {
 
   return (
-    <div className="loginForm">
+    <div className="aroundForm">
       <div>
       <HeaderNoSearchbar/>
           <Card className="form">

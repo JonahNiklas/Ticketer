@@ -9,3 +9,4 @@ export async function getUserById(userId: number): Promise<userData> {
   // TODO: legge til feilhåndtering
   return user;
 }
+export {};
