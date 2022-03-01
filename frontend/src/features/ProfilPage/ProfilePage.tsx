@@ -41,9 +41,8 @@ function ProfilePage() {
       <div className='m-5'>
       <UserPosts/>      
       </div>
-      <Footer/>
-
       </div>
+      <Footer/>
       </div>
     
     );

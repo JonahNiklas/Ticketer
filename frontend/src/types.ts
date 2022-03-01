@@ -61,11 +61,3 @@ export interface Post {
   price: number | null;
   authorId: number;
 }
-
-export interface userData {
-  firstName: string,
-  lastName: string,
-  email: string,
-  town: string | null,
-  country: string | null
-}
