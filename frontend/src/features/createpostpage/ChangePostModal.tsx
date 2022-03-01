@@ -2,31 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Button, ButtonGroup, Form, Modal, ToggleButton } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import { useHistory } from 'react-router-dom';
-import { changePost, getPostById } from '../../client/postHandler';
+import { changePost, createPost, getPostById } from '../../client/postHandler';
 import { store } from '../../redux/store';
 import { Post, PostRequest } from '../../types';
 
-function ChangeModal(props: any) {
+function ChangeModal(props: {thisPost: Post, show: boolean, onHide: any}) {
 
   const history = useHistory();
-  let rendered=false;
-
-  const [post, setPost] = useState<Post>();
-  const postId = 1;
-  async function getPost(){
-    try {
-      setPost(await getPostById(postId));
-    } catch (error: any) {
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    if(!rendered){
-      getPost();
-      rendered=true;
-    }
-  }, [])
 
   let validInfo= false;
   const [title, setTitle] = useState<string>('');
@@ -53,7 +35,7 @@ function ChangeModal(props: any) {
     { name: 'Ønskes kjøpt', value: 'false' }
   ]; 
 
-  async function handleChangePost(this: any, e: any) {
+  async function handleCreatePost(e: any) {
     e.preventDefault();
     validInfo=true;
     if(!title || title.length<2){
@@ -102,9 +84,9 @@ function ChangeModal(props: any) {
       };
 
       try {
-
-        const response = await changePost(this);
+        const response = await createPost(postRequest);
         console.log(response);
+        history.push('/profile');
       } catch (error: any) {
         console.error(error);
       }
@@ -124,7 +106,7 @@ function ChangeModal(props: any) {
       <Form style={{ width: '450px' }}>
             <Form.Group className="w-100 col" controlId="formBasicl">
               <Form.Label>Navn på arrangement</Form.Label>
-              <Form.Control type="text" placeholder="Snarky Puppy Konsert" onChange={(e)=> setTitle(e.target.value)}/>
+              <Form.Control type="text" placeholder="Snarky Puppy Konsert" defaultValue={props.thisPost.title} onChange={(e)=> setTitle(e.target.value)}/>
             </Form.Group>
 
             <Form.Group className="mb-3 w-50" controlId="formBasicl">
@@ -178,19 +160,19 @@ function ChangeModal(props: any) {
                 onChange={ (date: any) => setTimeOfEvent(date)}
                 showTimeSelect
                 timeIntervals={15}
-                dateFormat="dd.MM.yy HH:mm"
+                dateFormat="dd.MM.yy HH:mm"  
               />
             </Form.Group>
 
             <Form.Group className="mb-3 w-100" controlId="formBasicl">
               <Form.Label>By</Form.Label>
-              <Form.Control type="text" placeholder={city} onChange={(e) => setCity(e.target.value)}/>
+              <Form.Control type="text" placeholder={city} defaultValue={props.thisPost.city} onChange={(e) => setCity(e.target.value)}/>
             </Form.Group>
 
 
             <Form.Group className="mb-3 w-100" controlId="formBasicl">
               <Form.Label>Arena</Form.Label>
-              <Form.Control type="text" placeholder="Sentrum Scene" onChange={(e) => setVenue(e.target.value)}/>
+              <Form.Control type="text" placeholder="Sentrum Scene" defaultValue={props.thisPost.venue} onChange={(e) => setVenue(e.target.value)}/>
             </Form.Group>
 
             <Form.Group
@@ -200,14 +182,14 @@ function ChangeModal(props: any) {
               <Form.Label>Beskrivelse</Form.Label>
               <Form.Control
                 as="textarea"
-                placeholder="Musikk-kollektivet og fenomenet Snarky Puppy er tilbake på Sentrum Scene etter å ha solgt ut for et ekstatisk publikum samme sted i 2016"
+                placeholder="Musikk-kollektivet og fenomenet Snarky Puppy er tilbake på Sentrum Scene etter å ha solgt ut for et ekstatisk publikum samme sted i 2016" defaultValue={(props.thisPost.description !== null) ? props.thisPost.description : undefined}
                 onChange={(e: any) => setDescription(e.target.value)}
                 />
             </Form.Group>
 
             <Form.Group className="mb-3 w-100" controlId="formBasicl">
               <Form.Label>Pris i norske kroner</Form.Label>
-              <Form.Control type="number" placeholder="100" onChange={(e: any) => setPrice(e.target.value)}/>
+              <Form.Control type="number" placeholder="100" defaultValue={(props.thisPost.price !== null) ? props.thisPost.price : undefined} onChange={(e: any) => setPrice(e.target.value)}/>
             </Form.Group>
 
             {/* <Form.Group
@@ -218,7 +200,7 @@ function ChangeModal(props: any) {
               <Form.Control type="file" placeholder="Title" />
             </Form.Group> */}
 
-            <Button variant="success mb-3 w-100" type="submit" onClick={handleChangePost}>
+            <Button variant="success mb-3 w-100" type="submit" onClick={handleCreatePost}>
               Endre
             </Button>
           </Form>

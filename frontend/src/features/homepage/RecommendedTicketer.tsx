@@ -38,7 +38,7 @@ function RecommendedTicketer() {
               category={post.category}
               price={post.price}
               authorId={post.authorId}
-              />
+                          />
           ))}
         </CardGroup>
     </Container>

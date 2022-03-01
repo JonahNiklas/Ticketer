@@ -54,8 +54,9 @@ function UserPostInfo(props: Post) {
 		</Card>
 
     <ChangeModal
-        show={modalShow}
         onHide={() => setModalShow(false)}
+        show={modalShow}
+        thisPost={props}
       />
 </div>
   )

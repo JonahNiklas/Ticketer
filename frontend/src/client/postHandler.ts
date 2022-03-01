@@ -1,4 +1,4 @@
-import { Post, PostRequest, PostResponse } from "../types";
+import { Post, PostRequest, PostResponse, userData } from "../types";
 import restHandler from "./restHandler";
 
 export async function createPost(request: PostRequest): Promise<PostResponse> {
@@ -20,7 +20,7 @@ export async function getPosts(): Promise<Post[]> {
   return posts;
 }
 
-export async function changePost(postId: number): Promise<Post> {
+export async function changePost(request: PostRequest): Promise<Post> {
   // antar alltid at alt går bra :)
 
   const post: Post = await restHandler.put<Post>("/post");
@@ -29,7 +29,7 @@ export async function changePost(postId: number): Promise<Post> {
   return post;
 }
 
-export async function getPostsByAuthorId(authorId: number): Promise<Post[]> {
+export async function getPostsByAuthorId(authorId: userData): Promise<Post[]> {
   // antar alltid at alt går bra :)
 
   const posts: Post[] = await restHandler.get<Post[]>("/post/user/"+authorId);

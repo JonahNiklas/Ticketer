@@ -5,15 +5,25 @@ import '../../stylesheets/ProfileInfo.css';
 import UserPostInfo from '../createpostpage/userPostInfo';
 import PostTemplate from '../createpostpage/PostTemplate';
 import { Post } from "../../types";
-
+import { getUserById } from "../../client/userHandler";
+import { store } from "../../redux/store";
 function UserPosts() {
   let rendered=false;
 
   const [posts, setPosts] = useState<Post[]>([]);
-  const activeUser = 500;//this need to be connected to token
+  //this need to be connected to token
+  
   async function getUsersPosts(){
     try {
-      setPosts(await getPostsByAuthorId(activeUser));
+      const userState = store.getState().user;
+      if (userState.userId !== null) {
+      const user = await getUserById(userState.userId);
+      
+      console.log(userState);
+      const id = userState.userId;
+      setPosts(await getPostsByAuthorId(id));
+      }
+      
     } catch (error: any) {
       console.error(error);
     }
