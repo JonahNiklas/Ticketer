@@ -41,12 +41,13 @@ function ProfilePage() {
       <div className='m-5'>
       <UserPosts/>      
       </div>
-      </div>
       <Footer/>
 
       </div>
+
       </div>
-    
+
+
     );
   }
   
