@@ -34,7 +34,8 @@ app.use(cors());
 app.use(
   (
     req: any,
-    res: { header: (_arg0: string, _arg1: string) => void },
+    // eslint-disable-next-line no-unused-vars
+    res: { header: (_arg1: string, _arg2: string) => void },
     next: () => void,
   ) => {
     res.header('Access-Control-Expose-Headers', 'Authorization');
