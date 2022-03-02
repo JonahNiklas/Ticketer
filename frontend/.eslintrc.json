@@ -1,0 +1,49 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "jest": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "react/react-in-tsx-scope": "off",
+        "import/no-unresolved": [
+            0,
+            {"case-sensitive": false}
+        ],
+        "import/extensions": [
+            0,
+            {"case-sensitive": false},
+            "ignorePackages",
+            {
+                "ts": "never",
+                "tsx": "never"
+            }
+        ],
+        "import/prefer-default-export": [
+            0
+        ],
+        "comma-dangle": [
+            2
+        ],
+        "linebreak-style": [
+            0
+        ]
+    }
+}

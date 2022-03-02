@@ -1,0 +1,51 @@
+{
+  "name": "ticketer-backened",
+  "version": "1.0.0",
+  "description": "backend for ticketer, a student project application",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "jest",
+    "lint": "eslint . --ignore-pattern *.test.ts",
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier --write src/** !*.test.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.9.1",
+    "@types/cors": "^2.8.12",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "jest-mock-extended": "^2.0.4",
+    "jsonwebtoken": "^8.5.1",
+    "jws": "^4.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.12",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/express": "^4.17.13",
+    "@types/jest": "^27.4.0",
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/node": "^17.0.14",
+    "@typescript-eslint/eslint-plugin": "^5.11.0",
+    "@typescript-eslint/parser": "^5.11.0",
+    "babel-jest": "^27.4.6",
+    "eslint": "^8.8.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^27.4.7",
+    "nodemon": "^2.0.15",
+    "npx": "^10.2.2",
+    "prettier": "^2.5.1",
+    "prisma": "^3.9.1",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.5"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  }
+}

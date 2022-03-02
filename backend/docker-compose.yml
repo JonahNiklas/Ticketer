@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+    postgres:
+        image: postgres:latest
+        restart: "always"
+        expose:
+            - "5432"
+        ports:
+            - "5432:5432"
+        environment:
+            - POSTGRES_DB=prisma
+            - POSTGRES_USER=ntnu
+            - POSTGRES_PASSWORD=password
+        volumes:
+            - "./db/data:/var/lib/postgresql/data"
+            - "./db/init:/docker-entrypoint-initdb.d"
