@@ -7,41 +7,15 @@ Gruppeprosjekt i TDT4140
 
 Du må kjøre de to forskjellige applikasjonene (frontend og backend) i egne terminaler. Altså 2 terminaler for å kunne kjøre den.
 
-1. Start backend
+Gjør dette i første terminalen:
+1. ```cd backend```
+2. ```yarn install```
+3. ```docker-compose up -d```
+4. ```yarn prisma db push```
+5. ```yarn prisma db seed```
+6. ```yarn dev```
 
-    0. Flytt deg inn i backend mappen
-    ```
-    cd backend
-    ```
-
-    1. Installer modulene hvis ikke allerede gjort
-    ```
-    yarn install
-    ```
-
-    2. Start databasen
-    ```
-    docker-compose up -d
-    ```
-
-    3. Start serveren (i utviklingsmodus)
-    ```
-    yarn run dev
-    ```
-
-2. Start frontend
-    
-    0. Flytt deg inn i frontend mappen
-    ```
-    cd frontend
-    ```
-
-    1. Installer modulene hvis ikke allerede gjort
-    ```
-    yarn install
-    ```
-
-    2. Start web-appen
-    ```
-    yarn run start
-    ```
+Gjør dette i den andre terminalen
+1. ```cd frontend```
+2. ```yarn install```
+3. ```yarn start```
