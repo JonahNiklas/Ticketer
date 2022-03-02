@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import { ToggleButton } from 'react-bootstrap';
 import { Alert, Button, ButtonGroup, Container, Form } from 'react-bootstrap';
 import { createPost } from '../../client/postHandler';
@@ -8,8 +8,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useHistory } from 'react-router-dom';
 import PostTemplate from './PostTemplate';
-
-
+import { store } from '../../redux/store';
 
 
 function CreatePosts() {
@@ -26,8 +25,7 @@ function CreatePosts() {
   const [isError, setIsError] = useState<boolean>(false);
   const [errorText, setErrorText] = useState<string>('Fyll ut manglende felt');
   const [IsSuccess, setSuccess] = useState<boolean>(false);
-
-
+  const successRef = useRef<HTMLDivElement>(null);
 
   const categories = [
     { name: 'Konsert', value: 'Concert' },
@@ -39,37 +37,30 @@ function CreatePosts() {
   const forSaleOrNot = [
     { name: 'Til salgs', value: 'true' },
     { name: 'Ønskes kjøpt', value: 'false' }
-  ]; 
-  
-  
-  
+  ];
 
   async function handleCreatePost(e: any) {
-    console.log(title);
     e.preventDefault();
     if(!title || title.length<2){
-
       setIsError(true);
       setErrorText("Ugyldig navn. Det må være minst 2 tegn");
+      return;
     }
     else if(!city || city ===''){
       setIsError(true);
-      console.log(city);
-
       setErrorText("By er nødvendig");
+      return;
     }
     else if(!venue || venue ===''){
-      console.log(venue);
       setIsError(true);
       setErrorText("Arena/Scene er nødvendig");
+      return;
     }
     else{
       setIsError(false);
       setSuccess(true);
     }
 
-    
-  
     if (!isError) {
       // TODO: account for deylightsaving in a better way
       timeOfEvent.setHours(timeOfEvent.getHours()+1); // This is hardcoded daylightsaving
@@ -83,24 +74,37 @@ function CreatePosts() {
       if(price !== '') {
         optionalPrice = Number.parseInt(price,10);
       }
-      const postRequest: PostRequest = {
-        timeOfEvent,
-        title,
-        city,
-        venue,
-        category,
-        forSale: (forSale=== 'true'),
-        description: optionalDescription,
-        price: optionalPrice,
-        authorId: 500  
-      };
 
-      try {
-        const response = await createPost(postRequest);
-        console.log(response);
-        //history.push('/profile');
-      } catch (error: any) {
-        console.error(error);
+      const userState = store.getState().user;
+
+      if (userState.userId !== null) {
+        const postRequest: PostRequest = {
+          timeOfEvent,
+          title,
+          city,
+          venue,
+          category,
+          forSale: (forSale=== 'true'),
+          description: optionalDescription,
+          price: optionalPrice,
+          authorId: userState.userId 
+        };
+
+        try {
+          const response = await createPost(postRequest);
+          successRef.current?.scrollIntoView();
+          // denne er litt wonky, ta en titt på den etter L1
+          setTimeout(() => {
+            history.push('/profile');
+          }, 3000);
+          console.log(response);
+          //history.push('/profile');
+        } catch (error: any) {
+          console.error(error);
+        }
+
+      } else {
+        history.push("/login");
       }
     }
   }
@@ -120,7 +124,7 @@ function CreatePosts() {
               <Form.Label>Type</Form.Label>
               <br />
               <ButtonGroup aria-label="Basic example" className="mb-3 ">
-              {forSaleOrNot.map((element, idx) => (
+                {forSaleOrNot.map((element, idx) => (
                   <ToggleButton
                     key={idx}
                     id={`forsale-${idx}`}
@@ -129,15 +133,11 @@ function CreatePosts() {
                     name="forSale"
                     value={element.value}
                     checked={forSale === element.value}
-                    onChange={(e: any) => {
-                      setForSale(e.currentTarget.value);
-                      console.log(forSale);
-                      }
-                    }
+                    onChange={(e: any) => {setForSale(e.currentTarget.value)}}
                   >
                     {element.name}
                   </ToggleButton>
-                ))}
+                  ))}
               </ButtonGroup>
             </Form.Group>
 
@@ -154,11 +154,7 @@ function CreatePosts() {
                     name="category"
                     value={currentCategory.value}
                     checked={category === currentCategory.value}
-                    onChange={(e: any) => {
-                      setCategory(e.currentTarget.value);
-                      console.log(category)
-                      }
-                    }
+                    onChange={(e) => {setCategory(e.currentTarget.value)}}
                   >
                     {currentCategory.name}
                   </ToggleButton>
@@ -171,7 +167,7 @@ function CreatePosts() {
               <DatePicker
                 id="timeOfEvent"
                 selected={timeOfEvent}
-                onChange={ (date: any) => setTimeOfEvent(date.target.value)}
+                onChange={ (e: any) => setTimeOfEvent(e.target.value)}
                 showTimeSelect
                 timeIntervals={15}
                 dateFormat="dd.MM.yy HH:mm"
@@ -190,7 +186,6 @@ function CreatePosts() {
             </Form.Group>
 
             
-
             <Form.Group
               className="mb-3 w-100"
               controlId="exampleForm.ControlTextarea1"
@@ -205,7 +200,7 @@ function CreatePosts() {
 
             <Form.Group className="mb-3 w-100" controlId="formBasicl">
               <Form.Label>Pris i norske kroner</Form.Label>
-              <Form.Control type="number" placeholder="100" onChange={(e: any) => setPrice(e.target.value)}/>
+              <Form.Control type="number" placeholder="100" onChange={(e) => setPrice(e.target.value)}/>
             </Form.Group>
 
             {/* <Form.Group
@@ -220,16 +215,16 @@ function CreatePosts() {
               Publiser
             </Button>
           </Form>
+
           <Alert show={isError} onClose={() => setIsError(false)} variant="danger" dismissible>
             <Alert.Heading>Det mangler noe informasjon!</Alert.Heading>
-
             <p>
               {errorText}
             </p>
           </Alert>
-          <Alert show={IsSuccess} onClose={() => setSuccess(true)} variant="success" dismissible>
+          <Alert show={IsSuccess} variant="success" ref={successRef}>
             <Alert.Heading>Annonse publisert!</Alert.Heading>
-            </Alert>
+          </Alert>
 
         </div>
         <div className="col" style={{display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column"}}>

@@ -1,10 +1,13 @@
-import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap/";
+import React, { useState, useRef } from "react";
+import { Alert, Form, Button } from "react-bootstrap/";
+import { useHistory } from "react-router-dom";
 import { register } from "../../client/authHandler";
 import { RegisterRequest, RestError } from "../../types";
 
 const RegisterUser = () => {
 
+  const history = useHistory();
+  const successRef = useRef<HTMLDivElement>(null);
   const [email, setEmail] = useState<string>("");
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
@@ -22,6 +25,7 @@ const RegisterUser = () => {
   const [passwordSuccess, setPasswordSuccess] = useState<boolean>(false);
   const [repeatPasswordSuccess, setRepeatPasswordSuccess] = useState<boolean>(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = useState<string>("");
+  const [success, setSuccess] = useState<boolean>(false);
 
   const emailCheck = (email: string) => {
     if(!/^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
@@ -78,35 +82,33 @@ const RegisterUser = () => {
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       setEmailError(true);
       setEmailErrorMessage('Ikke en gyldig epost.');
+      return;
     } 
 
     //eslint-disable-next-line
     if (!/^[A-Z][a-z]{2,15}$/.test(firstName)) {
       setFirstNameError(true);
       setNameErrorMessage('Navn må begynne med stor bokstav og være lenger enn et tegn.');
-      console.log("hei")
+      return;
     } 
 
     if (!/^[A-Z][a-z]{2,15}$/.test(lastName)) {
       setLastNameError(true);
       setNameErrorMessage('Navn må begynne med stor bokstav og være lenger enn et tegn.');
-      console.log("hei")
+      return;
     } 
 
     if(password !== repeatPassword) {
       setPasswordError(true);
       setPasswordErrorMessage('Passordene må være like')
+      return;
     }
 
     if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password)) {
       setPasswordError(true);
       setPasswordErrorMessage('Passord må inneholde stor og liten bokstav, et tall, og være lenger enn 8 tegn.')
-    }
-
-    if(emailError||firstNameError||lastNameError||passwordError){
       return;
     }
-
 
     const userRequest: RegisterRequest = {
       email,
@@ -131,16 +133,11 @@ const RegisterUser = () => {
         // passcheck
         
       } else {
-        
-        //const token = response as LoginResponse;
-
-        //dispatch(setToken(token.token));
-        //dispatch(setUserId(token.ownerId));
-  
-        //console.log(store.getState());  
-        
-        //history.push('/home');
-        
+        setSuccess(true)
+        successRef.current?.scrollIntoView();
+        setTimeout(() => {
+          history.push('/login');
+        }, 3000);
       }
 
     } catch (error: any) {
@@ -214,6 +211,10 @@ const RegisterUser = () => {
           Registrer
         </Button>
       </Form>
+      
+      <Alert show={success} variant="success" ref={successRef}>
+        <Alert.Heading>Bruker registrert!</Alert.Heading>
+      </Alert>
     </div>
 );
 }
