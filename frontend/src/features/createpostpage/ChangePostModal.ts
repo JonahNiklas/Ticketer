@@ -195,14 +195,6 @@ function ChangeModal(props: {thisPost: Post, show: boolean, onHide: any}) {
               <Form.Control type="number" placeholder="100" defaultValue={(props.thisPost.price !== null) ? props.thisPost.price : undefined} onChange={(e: any) => setPrice(e.target.value)}/>
             </Form.Group>
 
-            {/* <Form.Group
-              className="mb-3 w-100"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Bilde</Form.Label>
-              <Form.Control type="file" placeholder="Title" />
-            </Form.Group> */}
-
             <Button variant="success mb-3 w-100" type="submit" onClick={handleCreatePost}>
               Endre
             </Button>
