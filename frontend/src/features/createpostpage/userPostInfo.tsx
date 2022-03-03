@@ -1,9 +1,14 @@
-import React from 'react';
-import { Button, Card, ListGroup } from 'react-bootstrap';
+import React, {useState} from 'react';
+import { Button, Card, ListGroup, Modal } from 'react-bootstrap';
 import '../../stylesheets/Menylinje.css';
 import { Post } from '../../types';
+import ChangeModal from './ChangePostModal';
 
-function PostInfo(props: Post) {
+function UserPostInfo(props: Post) {
+
+  const [modalShow, setModalShow] = React.useState(false);
+
+
   let borderColor;
   switch (props.category) {
     case 'Concert':
@@ -21,7 +26,10 @@ function PostInfo(props: Post) {
     default:
       borderColor='primary';
   }
+
+
   return (
+    <div>
     <Card border={borderColor} className=' m-4 border border-success rounded card' style= {{maxWidth:"370px", minWidth: "300px"}}>
 
         <span>
@@ -40,13 +48,18 @@ function PostInfo(props: Post) {
           <ListGroup.Item>{props.city+', '+props.venue}</ListGroup.Item>
           <ListGroup.Item>{props.timeOfEvent}</ListGroup.Item>
           <ListGroup.Item>{props.price+',-'}</ListGroup.Item>
+          <Button variant="success mb-2" onClick={() => setModalShow(true)}>Endre</Button>
         </ListGroup>
-        <Button variant="success mb-2 w-100">Ta kontakt</Button>
-
-
       </Card.Body>
 		</Card>
+
+    <ChangeModal
+        onHide={() => setModalShow(false)}
+        show={modalShow}
+        thisPost={props}
+      />
+</div>
   )
 }
 
-export default PostInfo;
+export default UserPostInfo;

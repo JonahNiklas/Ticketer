@@ -1,8 +1,5 @@
-import e from 'express';
-import { type } from 'os';
 import React, { useEffect, useState } from 'react';
-import "react-bootstrap";
-import { Modal, Form, ButtonGroup, ToggleButton, Button } from 'react-bootstrap';
+import { Button, ButtonGroup, Form, Modal, ToggleButton } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import { useHistory } from 'react-router-dom';
 import { changePost, createPost, getPostById } from '../../client/postHandler';
@@ -38,7 +35,7 @@ function ChangeModal(props: {thisPost: Post, show: boolean, onHide: any}) {
     { name: 'Ønskes kjøpt', value: 'false' }
   ]; 
 
-  async function handleCreatePost(e: any) {
+  async function handleChangePost(e: any) {
     e.preventDefault();
     validInfo=true;
     if(!title || title.length<2){
@@ -74,6 +71,9 @@ function ChangeModal(props: {thisPost: Post, show: boolean, onHide: any}) {
       if(price !== '') {
         optionalPrice = Number.parseInt(price,10);
       }
+
+      const userState = store.getState().user;
+
       const postRequest: PostRequest = {
         timeOfEvent,
         title,
@@ -83,11 +83,11 @@ function ChangeModal(props: {thisPost: Post, show: boolean, onHide: any}) {
         forSale: (forSale === 'true'),
         description: optionalDescription,
         price: optionalPrice,
-        authorId: 500  
+        authorId: userState.userId
       };
 
       try {
-        const response = await createPost(postRequest);
+        const response = await changePost(postRequest);
         console.log(response);
         history.push('/profile');
       } catch (error: any) {
@@ -195,7 +195,15 @@ function ChangeModal(props: {thisPost: Post, show: boolean, onHide: any}) {
               <Form.Control type="number" placeholder="100" defaultValue={(props.thisPost.price !== null) ? props.thisPost.price : undefined} onChange={(e: any) => setPrice(e.target.value)}/>
             </Form.Group>
 
-            <Button variant="success mb-3 w-100" type="submit" onClick={handleCreatePost}>
+            {/* <Form.Group
+              className="mb-3 w-100"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label>Bilde</Form.Label>
+              <Form.Control type="file" placeholder="Title" />
+            </Form.Group> */}
+
+            <Button variant="success mb-3 w-100" type="submit" onClick={handleChangePost}>
               Endre
             </Button>
           </Form>
