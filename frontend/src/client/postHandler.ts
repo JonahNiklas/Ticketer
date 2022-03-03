@@ -29,3 +29,11 @@ export async function getPostsByAuthorId(authorId: number): Promise<Post[]> {
   return posts;
 }
 
+export async function changePost(request: PostRequest): Promise<Post> {
+  // antar alltid at alt går bra :)
+
+  const post: Post = await restHandler.put<Post>("/post");
+  
+  // TODO: legge til feilhåndtering
+  return post;
+}
