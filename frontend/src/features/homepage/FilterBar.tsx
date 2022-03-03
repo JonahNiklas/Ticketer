@@ -5,10 +5,13 @@ import Sport from '../../images/sport.png';
 import Teater from '../../images/teater.png';
 
 function FilterBar() {
-	return(
+  return (
     <Container>
       <CardGroup>
-        <Card style={{ cursor: 'pointer' , border: `2px solid black`}} className="mx-4 my-4 rounded">
+        <Card
+          style={{ cursor: 'pointer', border: `2px solid black` }}
+          className="mx-4 my-4 rounded"
+        >
           <Card.Img
             className="mx-auto mt-4"
             style={{ width: '50%', height: '50%' }}
@@ -18,7 +21,10 @@ function FilterBar() {
             <Card.Title>KONSERT</Card.Title>
           </Card.Body>
         </Card>
-        <Card style={{ cursor: 'pointer' , border: `2px solid black`}} className="mx-4 my-4 rounded">
+        <Card
+          style={{ cursor: 'pointer', border: `2px solid black` }}
+          className="mx-4 my-4 rounded"
+        >
           <Card.Img
             className="mx-auto mt-4"
             style={{ width: '50%', height: '50%' }}
@@ -28,7 +34,10 @@ function FilterBar() {
             <Card.Title>SPORT</Card.Title>
           </Card.Body>
         </Card>
-        <Card style={{ cursor: 'pointer' , border: `2px solid black`}} className="mx-4 my-4 rounded">
+        <Card
+          style={{ cursor: 'pointer', border: `2px solid black` }}
+          className="mx-4 my-4 rounded"
+        >
           <Card.Img
             className="mx-auto mt-4"
             style={{ width: '50%', height: '50%' }}
@@ -38,7 +47,10 @@ function FilterBar() {
             <Card.Title>TEATER/SHOW</Card.Title>
           </Card.Body>
         </Card>
-        <Card style={{ cursor: 'pointer' , border: `2px solid black`}} className="mx-4 my-4 rounded">
+        <Card
+          style={{ cursor: 'pointer', border: `2px solid black` }}
+          className="mx-4 my-4 rounded"
+        >
           <Card.Img
             className="mx-auto mt-4"
             style={{ width: '50%', height: '50%' }}
@@ -49,7 +61,6 @@ function FilterBar() {
           </Card.Body>
         </Card>
       </CardGroup>
-    
     </Container>
   );
 }

@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Card, CardGroup } from 'react-bootstrap'
+import { Container, Card, CardGroup } from 'react-bootstrap';
 import { getPosts, getPostsByAuthorId } from '../../client/postHandler';
 import '../../stylesheets/ProfileInfo.css';
 import PostInfo from '../createpostpage/PostInfo';
 import PostTemplate from '../createpostpage/PostTemplate';
-import { Post } from "../../types";
+import { Post } from '../../types';
 import { store } from '../../redux/store';
 
 function UserPosts() {
-  let rendered=false;
+  let rendered = false;
 
   const [posts, setPosts] = useState<Post[]>([]);
   const activeUserId = store.getState().user.userId;
-  
-  async function getUsersPosts(){
-    if(activeUserId) {
+
+  async function getUsersPosts() {
+    if (activeUserId) {
       try {
         setPosts(await getPostsByAuthorId(activeUserId));
       } catch (error: any) {
@@ -24,18 +24,16 @@ function UserPosts() {
   }
 
   useEffect(() => {
-    if(!rendered){
+    if (!rendered) {
       getUsersPosts();
-      rendered=true;
+      rendered = true;
     }
-  }, [])
-
-  
+  }, []);
 
   return (
     <div className="mt-0 ml-5 mr-5 p-0">
-    <Container>     
-        <h2 className='text-center'>Dine Ticketer</h2>
+      <Container>
+        <h2 className="text-center">Dine Ticketer</h2>
         <CardGroup>
           {posts.map((post, idx) => (
             <PostInfo
@@ -50,11 +48,11 @@ function UserPosts() {
               category={post.category}
               price={post.price}
               authorId={post.authorId}
-              />
+            />
           ))}
         </CardGroup>
-    </Container>
-  </div>
+      </Container>
+    </div>
   );
 }
 

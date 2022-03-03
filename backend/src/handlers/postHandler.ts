@@ -2,12 +2,11 @@ import { Request, Response } from 'express';
 import { Context } from '../context';
 
 export async function getAllPosts(ctx: Context, req: Request, res: Response) {
-  
   const posts = await ctx.prisma.post.findMany().catch((error: any) => {
     res.status(400).send('Something went wrong');
     console.error(error);
   });
-  
+
   res.json(posts);
 }
 
