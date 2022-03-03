@@ -1,52 +1,20 @@
-import { User } from '@prisma/client';
 import { NextFunction, Request, Response } from 'express';
 import { Context } from '../context';
-import { DecodedData, LoginRequest } from '../types';
-import { generateToken, verifyToken } from '../util/authUtil';
+import {
+  DecodedData, LoginRequest, RestResponse, TokenRestResponse,
+} from '../types';
+import { verifyToken } from '../util/authUtil';
+import { loginHelper } from './helpers/authHelper';
 
 export async function login(context: Context, req: Request, res: Response) {
   const l: LoginRequest = req.body as LoginRequest;
 
-  const user: void | User | null = await context.prisma.user
-    .findUnique({
-      where: {
-        email: l.email,
-      },
-    })
-    .catch((error: any) => {
-      console.error(error);
-    });
-
-  if (user === null || !(user instanceof Object) || !('id' in user)) {
-    res.status(401).json({ errorMessage: 'user Not Found', errorCode: 401 });
-  } else {
-    if (l.password !== user.password) {
-      res.status(401).json({ errorMessage: 'wrong password', errorCode: 401 });
-      return;
+  loginHelper(l, context).then((message: RestResponse | TokenRestResponse) => {
+    if (message.code !== 200) {
+      res.status(message.code).json({ errorCode: message.code, errorMessage: message.message });
     }
-
-    // generate token here
-    const tokenToken = await generateToken(user);
-
-    const createToken = await context.prisma.token
-      .upsert({
-        where: {
-          ownerId: user.id,
-        },
-        update: {
-          token: tokenToken,
-        },
-        create: {
-          token: tokenToken,
-          ownerId: user.id,
-        },
-      })
-      .catch((error: any) => {
-        console.error(error);
-      });
-
-    res.json(createToken);
-  }
+    res.status(message.code).json(message.message);
+  });
 }
 
 export async function loginMiddleware(
