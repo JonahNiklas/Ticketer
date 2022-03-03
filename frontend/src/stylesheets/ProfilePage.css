@@ -1,93 +1,84 @@
-
-.flexbox-container-coloum{
-    display: flex;
-    align-items: stretch;
-    justify-content: stretch;
-    flex-direction: column;
+.flexbox-container-coloum {
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  flex-direction: column;
 }
 
-.flexbox-item-topbox{
-    width: flex;
-    background-color: rgb(255, 255, 255);
-    height: 320px;
+.flexbox-item-topbox {
+  width: flex;
+  background-color: rgb(255, 255, 255);
+  height: 320px;
 }
 
-.flexbox-item-bottombox{
-    position: relative;
-    background-color: rgb(255, 255, 255);
-    height: stretch;
-    border: black;
-    border-style: solid;
-    border-top-width: 2px;
-    border-left-width: 0px;
+.flexbox-item-bottombox {
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  height: stretch;
+  border: black;
+  border-style: solid;
+  border-top-width: 2px;
+  border-left-width: 0px;
 }
 
-.flexbox-container-row{
-    display: flex;
-    align-items: stretch;
-    justify-content: stretch;
-    flex-direction: row;
+.flexbox-container-row {
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  flex-direction: row;
 }
 
-.flexbox-item-row-1{
-    
-    width: 50%;
-    background-color: rgb(255, 255, 255);
-    height: stretch;
-    
+.flexbox-item-row-1 {
+  width: 50%;
+  background-color: rgb(255, 255, 255);
+  height: stretch;
 
-    border-style: solid;
-    border-top-width: 0px;
-    border-right-width: 2px;
-    border-left-width: 0px;
-    border-bottom-width: 0px;
+  border-style: solid;
+  border-top-width: 0px;
+  border-right-width: 2px;
+  border-left-width: 0px;
+  border-bottom-width: 0px;
 }
 
-
-.flexbox-item-row-2{
-    
-    width: 50%;
-    background-color: rgb(119, 65, 65);
-    height: stretch;
-    
-    
+.flexbox-item-row-2 {
+  width: 50%;
+  background-color: rgb(119, 65, 65);
+  height: stretch;
 }
 
-.button-10{
-    
-    align-items: center;
-    height: stretch;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    border: transparent;
-    cursor: pointer;
-    background-color: transparent;
+.button-10 {
+  align-items: center;
+  height: stretch;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: transparent;
+  cursor: pointer;
+  background-color: transparent;
 }
 
-.button__icon-10{
-    position: center;
-    font-size: 200px;
-    color: rgb(187, 187, 187);
+.button__icon-10 {
+  position: center;
+  font-size: 200px;
+  color: rgb(187, 187, 187);
 }
 
-.button__text-10{
-    position: relative;
-    font-size: 30px;
-    color: rgb(34, 33, 33);
+.button__text-10 {
+  position: relative;
+  font-size: 30px;
+  color: rgb(34, 33, 33);
 }
 
-.profiletext:hover{
-    color: rgb(153, 156, 153);
+.profiletext:hover {
+  color: rgb(153, 156, 153);
 }
-
 
 .profiletext {
-    position: absolute;
-    bottom : 57%;
-    position: center;
-    font-size: 15px;
-    color: rgb(110, 110, 110);
-    font-style: italic;
-    text-decoration-line: underline;
+  position: absolute;
+  bottom: 57%;
+  position: center;
+  font-size: 15px;
+  color: rgb(110, 110, 110);
+  font-style: italic;
+  text-decoration-line: underline;
 }

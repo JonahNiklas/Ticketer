@@ -6,23 +6,45 @@ export async function registerUser(ctx: Context, req: Request, res: Response) {
   console.log(req.body);
   const { firstName, lastName, email, password } = req.body;
 
-  const user = await ctx.prisma.user.findUnique({
-    where: {
-      email,
-    },
-  }).catch((error: any) => {
-    console.error(error);
-  });
+  const user = await ctx.prisma.user
+    .findUnique({
+      where: {
+        email,
+      },
+    })
+    .catch((error: any) => {
+      console.error(error);
+    });
   if (user != null) {
-    res.status(401).json({ errorMessage: 'User already exist', errorCode: 401, type: 'userExists' });
+    res.status(401).json({
+      errorMessage: 'User already exist',
+      errorCode: 401,
+      type: 'userExists',
+    });
   } else if (!lv.validateEmail(email)) {
-    res.status(401).json({ errorMessage: 'Invalid email', errorCode: 401, type: 'emailWrong' });
+    res.status(401).json({
+      errorMessage: 'Invalid email',
+      errorCode: 401,
+      type: 'emailWrong',
+    });
   } else if (!lv.validatePassword(password)) {
-    res.status(401).json({ errorMessage: 'Invalid password', errorCode: 401, type: 'passwordWrong' });
+    res.status(401).json({
+      errorMessage: 'Invalid password',
+      errorCode: 401,
+      type: 'passwordWrong',
+    });
   } else if (!lv.validateInput(firstName)) {
-    res.status(401).json({ errorMessage: 'Invalid Firstname', errorCode: 401, type: 'firstNameWrong' });
+    res.status(401).json({
+      errorMessage: 'Invalid Firstname',
+      errorCode: 401,
+      type: 'firstNameWrong',
+    });
   } else if (!lv.validateInput(lastName)) {
-    res.status(401).json({ errorMessage: 'Invalid Lastname', errorCode: 401, type: 'lastNameWrong' });
+    res.status(401).json({
+      errorMessage: 'Invalid Lastname',
+      errorCode: 401,
+      type: 'lastNameWrong',
+    });
   } else {
     await ctx.prisma.user
       .create({

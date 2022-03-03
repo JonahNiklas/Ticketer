@@ -1,21 +1,20 @@
-import React, {useRef, useState} from 'react';
+import React, { useRef, useState } from 'react';
 import { ToggleButton } from 'react-bootstrap';
 import { Alert, Button, ButtonGroup, Container, Form } from 'react-bootstrap';
 import { createPost } from '../../client/postHandler';
 import '../../stylesheets/CreatePosts.css';
 import { PostRequest } from '../../types';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import { useHistory } from 'react-router-dom';
 import PostTemplate from './PostTemplate';
 import { store } from '../../redux/store';
-
 
 function CreatePosts() {
   const history = useHistory();
 
   const [title, setTitle] = useState<string>('');
-  const [timeOfEvent, setTimeOfEvent]= useState<Date>(new Date());
+  const [timeOfEvent, setTimeOfEvent] = useState<Date>(new Date());
   const [city, setCity] = useState<string>('');
   const [venue, setVenue] = useState<string>('');
   const [forSale, setForSale] = useState<string>('true');
@@ -32,7 +31,7 @@ function CreatePosts() {
     { name: 'Sport', value: 'Sport' },
     { name: 'Teater/Show', value: 'Show' },
     { name: 'Annet', value: 'Other' }
-  ]; 
+  ];
 
   const forSaleOrNot = [
     { name: 'Til salgs', value: 'true' },
@@ -41,38 +40,35 @@ function CreatePosts() {
 
   async function handleCreatePost(e: any) {
     e.preventDefault();
-    if(!title || title.length<2){
+    if (!title || title.length < 2) {
       setIsError(true);
-      setErrorText("Ugyldig navn. Det må være minst 2 tegn");
+      setErrorText('Ugyldig navn. Det må være minst 2 tegn');
       return;
-    }
-    else if(!city || city ===''){
+    } else if (!city || city === '') {
       setIsError(true);
-      setErrorText("By er nødvendig");
+      setErrorText('By er nødvendig');
       return;
-    }
-    else if(!venue || venue ===''){
+    } else if (!venue || venue === '') {
       setIsError(true);
-      setErrorText("Arena/Scene er nødvendig");
+      setErrorText('Arena/Scene er nødvendig');
       return;
-    }
-    else{
+    } else {
       setIsError(false);
       setSuccess(true);
     }
 
     if (!isError) {
       // TODO: account for deylightsaving in a better way
-      timeOfEvent.setHours(timeOfEvent.getHours()+1); // This is hardcoded daylightsaving
-      
+      timeOfEvent.setHours(timeOfEvent.getHours() + 1); // This is hardcoded daylightsaving
+
       let optionalDescription = null;
       if (description !== '') {
         optionalDescription = description;
       }
 
       let optionalPrice = null;
-      if(price !== '') {
-        optionalPrice = Number.parseInt(price,10);
+      if (price !== '') {
+        optionalPrice = Number.parseInt(price, 10);
       }
 
       const userState = store.getState().user;
@@ -84,10 +80,10 @@ function CreatePosts() {
           city,
           venue,
           category,
-          forSale: (forSale=== 'true'),
+          forSale: forSale === 'true',
           description: optionalDescription,
           price: optionalPrice,
-          authorId: userState.userId 
+          authorId: userState.userId
         };
 
         try {
@@ -102,9 +98,8 @@ function CreatePosts() {
         } catch (error: any) {
           console.error(error);
         }
-
       } else {
-        history.push("/login");
+        history.push('/login');
       }
     }
   }
@@ -116,12 +111,16 @@ function CreatePosts() {
           <Form className="m-5" style={{ width: '500px' }}>
             <h3 className="m-5">Hva skal du legge ut?</h3>
             <Form.Group className="mb-3 w-100 col" controlId="formBasicl">
-              <Form.Label>Navn på arrangement</Form.Label>
-              <Form.Control type="text" placeholder="Snarky Puppy Konsert" onChange={(e)=> setTitle(e.target.value)}/>
+              <Form.Label>Navn på arrangement*</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Snarky Puppy Konsert"
+                onChange={(e) => setTitle(e.target.value)}
+              />
             </Form.Group>
 
             <Form.Group className="mb-3 w-50" controlId="formBasicl">
-              <Form.Label>Type</Form.Label>
+              <Form.Label>Type*</Form.Label>
               <br />
               <ButtonGroup aria-label="Basic example" className="mb-3 ">
                 {forSaleOrNot.map((element, idx) => (
@@ -133,16 +132,18 @@ function CreatePosts() {
                     name="forSale"
                     value={element.value}
                     checked={forSale === element.value}
-                    onChange={(e: any) => {setForSale(e.currentTarget.value)}}
+                    onChange={(e: any) => {
+                      setForSale(e.currentTarget.value);
+                    }}
                   >
                     {element.name}
                   </ToggleButton>
-                  ))}
+                ))}
               </ButtonGroup>
             </Form.Group>
 
             <Form.Group className="mb-3 w-100" controlId="formBasicl">
-              <Form.Label>Kategori</Form.Label>
+              <Form.Label>Kategori*</Form.Label>
               <br />
               <ButtonGroup>
                 {categories.map((currentCategory, idx) => (
@@ -154,20 +155,22 @@ function CreatePosts() {
                     name="category"
                     value={currentCategory.value}
                     checked={category === currentCategory.value}
-                    onChange={(e) => {setCategory(e.currentTarget.value)}}
+                    onChange={(e) => {
+                      setCategory(e.currentTarget.value);
+                    }}
                   >
                     {currentCategory.name}
                   </ToggleButton>
                 ))}
               </ButtonGroup>
             </Form.Group>
-              
+
             <Form.Group className="mb-3 w-100" controlId="formBasicl">
-              <Form.Label>Tidspunkt</Form.Label>
+              <Form.Label>Tidspunkt*</Form.Label>
               <DatePicker
                 id="timeOfEvent"
                 selected={timeOfEvent}
-                onChange={ (e: any) => setTimeOfEvent(e.target.value)}
+                onChange={(e: any) => setTimeOfEvent(e)}
                 showTimeSelect
                 timeIntervals={15}
                 dateFormat="dd.MM.yy HH:mm"
@@ -175,17 +178,23 @@ function CreatePosts() {
             </Form.Group>
 
             <Form.Group className="mb-3 w-100" controlId="formBasicl">
-              <Form.Label>By</Form.Label>
-              <Form.Control type="text" placeholder="Oslo" onChange={(e) => setCity(e.target.value)}/>
+              <Form.Label>By*</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Oslo"
+                onChange={(e) => setCity(e.target.value)}
+              />
             </Form.Group>
-
 
             <Form.Group className="mb-3 w-100" controlId="formBasicl">
-              <Form.Label>Arena</Form.Label>
-              <Form.Control type="text" placeholder="Sentrum Scene" onChange={(e) => setVenue(e.target.value)}/>
+              <Form.Label>Arena*</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Sentrum Scene"
+                onChange={(e) => setVenue(e.target.value)}
+              />
             </Form.Group>
 
-            
             <Form.Group
               className="mb-3 w-100"
               controlId="exampleForm.ControlTextarea1"
@@ -195,12 +204,16 @@ function CreatePosts() {
                 as="textarea"
                 placeholder="Musikk-kollektivet og fenomenet Snarky Puppy er tilbake på Sentrum Scene etter å ha solgt ut for et ekstatisk publikum samme sted i 2016"
                 onChange={(e: any) => setDescription(e.target.value)}
-                />
+              />
             </Form.Group>
 
             <Form.Group className="mb-3 w-100" controlId="formBasicl">
               <Form.Label>Pris i norske kroner</Form.Label>
-              <Form.Control type="number" placeholder="100" onChange={(e) => setPrice(e.target.value)}/>
+              <Form.Control
+                type="number"
+                placeholder="100"
+                onChange={(e) => setPrice(e.target.value)}
+              />
             </Form.Group>
 
             {/* <Form.Group
@@ -211,25 +224,39 @@ function CreatePosts() {
               <Form.Control type="file" placeholder="Title" />
             </Form.Group> */}
 
-            <Button variant="success mb-3 w-100" type="submit" onClick={handleCreatePost}>
+            <Button
+              variant="success mb-3 w-100"
+              type="submit"
+              onClick={handleCreatePost}
+            >
               Publiser
             </Button>
           </Form>
 
-          <Alert show={isError} onClose={() => setIsError(false)} variant="danger" dismissible>
+          <Alert
+            show={isError}
+            onClose={() => setIsError(false)}
+            variant="danger"
+            dismissible
+          >
             <Alert.Heading>Det mangler noe informasjon!</Alert.Heading>
-            <p>
-              {errorText}
-            </p>
+            <p>{errorText}</p>
           </Alert>
           <Alert show={IsSuccess} variant="success" ref={successRef}>
             <Alert.Heading>Annonse publisert!</Alert.Heading>
           </Alert>
-
         </div>
-        <div className="col" style={{display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column"}}>
+        <div
+          className="col"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column'
+          }}
+        >
           <h3 className="m-5">Hvordan ser en typisk annonse ut?</h3>
-          <PostTemplate/>
+          <PostTemplate />
         </div>
       </div>
     </Container>

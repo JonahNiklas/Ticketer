@@ -9,7 +9,7 @@ import PostInfo from '../createpostpage/PostInfo';
 function RecommendedTicketer() {
   const [posts, setPosts] = useState<Post[]>([]);
 
-  async function getAllPosts(){
+  async function getAllPosts() {
     try {
       setPosts(await getPosts());
     } catch (error: any) {
@@ -20,10 +20,10 @@ function RecommendedTicketer() {
     getAllPosts();
   }, []);
 
-  return(
-  <div className="mt-0 ml-5 mr-5 p-0">
-    <Container>     
-        <h2 className='text-center'>Anbefalte Ticketer</h2>
+  return (
+    <div className="mt-0 ml-5 mr-5 p-0">
+      <Container>
+        <h2 className="text-center">Anbefalte Ticketer</h2>
         <CardGroup>
           {posts.map((post, idx) => (
             <PostInfo
@@ -38,11 +38,11 @@ function RecommendedTicketer() {
               category={post.category}
               price={post.price}
               authorId={post.authorId}
-              />
+            />
           ))}
         </CardGroup>
-    </Container>
-  </div>
+      </Container>
+    </div>
   );
 }
 

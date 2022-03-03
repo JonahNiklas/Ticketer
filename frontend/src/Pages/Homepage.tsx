@@ -7,27 +7,20 @@ import Header from '../features/homepage/Header';
 import RecommendedTicketer from '../features/homepage/RecommendedTicketer';
 import Menylinje from '../features/Menylinje';
 
-
 function Homepage() {
-  return(
-        <div>
-          <Menylinje/>
-          <div style = {{marginLeft: "133px"}}>       
-          <Header/>
-          <div className='m-5'>
+  return (
+    <div>
+      <Menylinje />
+      <div style={{ marginLeft: '133px' }}>
+        <Header />
+        <div className="m-5">
           <FilterBar></FilterBar>
-          <RecommendedTicketer></RecommendedTicketer>      
-          </div>
-          <Footer/>
-          </div>
+          <RecommendedTicketer></RecommendedTicketer>
         </div>
-
+        <Footer />
+      </div>
+    </div>
   );
 }
 
 export default Homepage;
-
-
-
-
-
