@@ -37,3 +37,12 @@ export async function changePost(request: PostRequest): Promise<Post> {
   // TODO: legge til feilhåndtering
   return post;
 }
+
+export async function getPostById(postId: number): Promise<Post> {
+  // antar alltid at alt går bra :)
+
+  const post: Post = await restHandler.get<Post>("/post/"+postId);
+  
+  // TODO: legge til feilhåndtering
+  return post;
+}

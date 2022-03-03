@@ -1,7 +1,8 @@
 import e from 'express';
 import { type } from 'os';
 import React, { useEffect, useState } from 'react';
-import { Button, ButtonGroup, Form, Modal, ToggleButton } from "react-bootstrap";
+import "react-bootstrap";
+import { Modal, Form, ButtonGroup, ToggleButton, Button } from 'react-bootstrap';
 import DatePicker from "react-datepicker";
 import { useHistory } from 'react-router-dom';
 import { changePost, createPost, getPostById } from '../../client/postHandler';
