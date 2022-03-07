@@ -6,6 +6,7 @@ import '../../stylesheets/Posts.css';
 import { useDispatch } from 'react-redux';
 import { AppDispatch, store } from '../../redux/store';
 import restHandler from '../../client/restHandler';
+import { Link } from 'react-router-dom';
 
 function Header() {
   const [data, setData] = useState('');
@@ -23,7 +24,7 @@ function Header() {
     <div className="navbar navbar-dark bg-dark">
       <Row className="w-100">
         <Col className="d-flex justify-content-left">
-          <Image src={Logo} className="ms-5" />
+        <Link to='/home'><Image src={Logo} className="ms-5"/></Link>
         </Col>
         <Col className="d-flex align-items-center justify-content-end">
           <SearchBar />

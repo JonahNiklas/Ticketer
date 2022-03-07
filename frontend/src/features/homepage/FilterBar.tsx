@@ -9,7 +9,7 @@ function FilterBar() {
     <Container>
       <CardGroup>
         <Card
-          style={{ cursor: 'pointer', border: `2px solid black` }}
+          style={{ cursor: 'pointer', border: `2px solid black`, textAlign: 'center' }}
           className="mx-4 my-4 rounded"
         >
           <Card.Img
@@ -22,7 +22,7 @@ function FilterBar() {
           </Card.Body>
         </Card>
         <Card
-          style={{ cursor: 'pointer', border: `2px solid black` }}
+          style={{ cursor: 'pointer', border: `2px solid black`, textAlign: 'center' }}
           className="mx-4 my-4 rounded"
         >
           <Card.Img
@@ -35,7 +35,7 @@ function FilterBar() {
           </Card.Body>
         </Card>
         <Card
-          style={{ cursor: 'pointer', border: `2px solid black` }}
+          style={{ cursor: 'pointer', border: `2px solid black`, textAlign: 'center' }}
           className="mx-4 my-4 rounded"
         >
           <Card.Img
@@ -48,7 +48,7 @@ function FilterBar() {
           </Card.Body>
         </Card>
         <Card
-          style={{ cursor: 'pointer', border: `2px solid black` }}
+          style={{ cursor: 'pointer', border: `2px solid black`, textAlign: 'center' }}
           className="mx-4 my-4 rounded"
         >
           <Card.Img
