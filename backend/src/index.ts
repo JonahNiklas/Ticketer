@@ -19,6 +19,7 @@ import {
   updatePost,
   getPostsUser,
   sellPost,
+  getPostsByFilter,
 } from './handlers/postHandler';
 import {
   getAllRatings,
@@ -56,6 +57,10 @@ app.get('/post', async (req: any, res: any) => {
 
 app.get('/post/:id', async (req: any, res: any) => {
   getPost(context, req, res);
+});
+
+app.get('/post/:category', async (req: any, res: any) => {
+  getPostsByFilter(context, req, res);
 });
 
 app.get('/post/active/:isActive', async (req: any, res: any) => {

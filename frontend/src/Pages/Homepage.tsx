@@ -6,6 +6,7 @@ import Footer from '../features/homepage/Footer';
 import Header from '../features/homepage/Header';
 import RecommendedTicketer from '../features/homepage/RecommendedTicketer';
 import Menylinje from '../features/Menylinje';
+import FilteredTicketer from '../features/homepage/FilteredTicketer';
 
 function Homepage() {
   return (
@@ -15,7 +16,7 @@ function Homepage() {
         <Header />
         <div className="m-5">
           <FilterBar></FilterBar>
-          <RecommendedTicketer></RecommendedTicketer>
+          <FilteredTicketer></FilteredTicketer>
         </div>
         <Footer />
       </div>

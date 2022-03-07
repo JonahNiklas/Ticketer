@@ -29,3 +29,8 @@ export async function getPostsByAuthorId(authorId: number): Promise<Post[]> {
   // TODO: legge til feilhåndtering
   return posts;
 }
+
+export async function getPostsByCategory(category: string): Promise<Post[]> {
+  const concertPosts: Post[] = await restHandler.get<Post[]>('/post/' + category);
+  return concertPosts;
+}

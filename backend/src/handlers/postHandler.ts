@@ -10,6 +10,25 @@ export async function getAllPosts(ctx: Context, req: Request, res: Response) {
   res.json(posts);
 }
 
+export async function getPostsByFilter(ctx: Context, req: Request, res: Response) {
+  const { category } = req.params;
+  if (category === null || category === undefined) {
+    res.status(400).send('Param cannot be null');
+    return;
+  }
+  const post = await ctx.prisma.post
+    .findMany({
+      where: {
+        category,
+      },
+    })
+    .catch((error: any) => {
+      res.status(400);
+      console.error(error);
+    });
+  res.json(post);
+}
+
 export async function getPost(ctx: Context, req: Request, res: Response) {
   const { id } = req.params;
   if (id === null || id === undefined) {
