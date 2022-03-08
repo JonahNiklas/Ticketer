@@ -13,14 +13,14 @@ function ChangeModal(props: {thisPost: Post, show: boolean, onHide: any}) {
   const history = useHistory();
   
   let validInfo= false;
-  const [title, setTitle] = useState<string>('');
-  const [timeOfEvent, setTimeOfEvent]= useState<Date>(new Date());
-  const [city, setCity] = useState<string>('');
-  const [venue, setVenue] = useState<string>('');
-  const [forSale, setForSale] = useState<string>('true');
-  const [category, setCategory] = useState<string>('Concert');
-  const [description, setDescription] = useState<string>('');
-  const [price, setPrice] = useState<string>('');
+  const [title, setTitle] = useState<string>(props.thisPost.title);
+  const [timeOfEvent, setTimeOfEvent]= useState<Date>(new Date(props.thisPost.timeOfEvent));
+  const [city, setCity] = useState<string>(props.thisPost.city);
+  const [venue, setVenue] = useState<string>(props.thisPost.venue);
+  const [forSale, setForSale] = useState<string>(props.thisPost.forSale ? 'true' : 'false');
+  const [category, setCategory] = useState<string>(props.thisPost.category);
+  const [description, setDescription] = useState<string>(props.thisPost.description ? props.thisPost.description : '');
+  const [price, setPrice] = useState<string>(props.thisPost.price ? props.thisPost.price.toString() : '');
   const successRef = useRef<HTMLDivElement>(null);
 
   const [showAlert, setShowAlert] = useState<boolean>(false);
@@ -41,19 +41,19 @@ function ChangeModal(props: {thisPost: Post, show: boolean, onHide: any}) {
   async function handleChangePost(e : any) {
     e.preventDefault();
     validInfo=true;
-    if(!props.thisPost.title || props.thisPost.title.length<2){
+    if(!title || title.length<2){
       console.log("Tittel er nødvendig");
       setShowAlert(true);
       validInfo=false;
       setErrorText("Ugyldig navn. Det må være minst 2 tegn");
     }
-    if(!props.thisPost.city || props.thisPost.city ===''){
+    if(!city || city ===''){
       console.log("By er nødvendig");
       setShowAlert(true);
       validInfo=false;
       setErrorText("By er nødvendig");
     }
-    if(!props.thisPost.venue || props.thisPost.venue ===''){
+    if(!venue || venue ===''){
       console.log("Arena mangler");
       setShowAlert(true);
       validInfo=false;
@@ -122,7 +122,7 @@ function ChangeModal(props: {thisPost: Post, show: boolean, onHide: any}) {
       <Form style={{ width: '450px' }}>
             <Form.Group className="w-100 col" controlId="formBasicl">
               <Form.Label>Navn på arrangement</Form.Label>
-              <Form.Control type="text" placeholder="Snarky Puppy Konsert" defaultValue={props.thisPost.title} onChange={(e)=> setTitle(e.target.value)}/>
+              <Form.Control type="text" placeholder="Snarky Puppy Konsert" defaultValue={title} onChange={(e)=> setTitle(e.target.value)}/>
             </Form.Group>
 
             <Form.Group className="mb-3 w-50" controlId="formBasicl">
@@ -173,7 +173,7 @@ function ChangeModal(props: {thisPost: Post, show: boolean, onHide: any}) {
               <DatePicker
                 id="timeOfEvent"
                 selected={timeOfEvent}
-                onChange={ (date: any) => setTimeOfEvent(date)}
+                onChange={ (e: any) => setTimeOfEvent(e)}
                 showTimeSelect
                 timeIntervals={15}
                 dateFormat="dd.MM.yy HH:mm"  
@@ -182,13 +182,13 @@ function ChangeModal(props: {thisPost: Post, show: boolean, onHide: any}) {
 
             <Form.Group className="mb-3 w-100" controlId="formBasicl">
               <Form.Label>By</Form.Label>
-              <Form.Control type="text" placeholder={city} defaultValue={props.thisPost.city} onChange={(e) => setCity(e.target.value)}/>
+              <Form.Control type="text" placeholder={city} defaultValue={city} onChange={(e) => setCity(e.target.value)}/>
             </Form.Group>
 
 
             <Form.Group className="mb-3 w-100" controlId="formBasicl">
               <Form.Label>Arena</Form.Label>
-              <Form.Control type="text" placeholder="Sentrum Scene" defaultValue={props.thisPost.venue} onChange={(e) => setVenue(e.target.value)}/>
+              <Form.Control type="text" placeholder="Sentrum Scene" defaultValue={venue} onChange={(e) => setVenue(e.target.value)}/>
             </Form.Group>
 
             <Form.Group
@@ -198,14 +198,14 @@ function ChangeModal(props: {thisPost: Post, show: boolean, onHide: any}) {
               <Form.Label>Beskrivelse</Form.Label>
               <Form.Control
                 as="textarea"
-                placeholder="Musikk-kollektivet og fenomenet Snarky Puppy er tilbake på Sentrum Scene etter å ha solgt ut for et ekstatisk publikum samme sted i 2016" defaultValue={(props.thisPost.description !== null) ? props.thisPost.description : undefined}
+                placeholder="Musikk-kollektivet og fenomenet Snarky Puppy er tilbake på Sentrum Scene etter å ha solgt ut for et ekstatisk publikum samme sted i 2016" defaultValue={description}
                 onChange={(e: any) => setDescription(e.target.value)}
                 />
             </Form.Group>
 
             <Form.Group className="mb-3 w-100" controlId="formBasicl">
               <Form.Label>Pris i norske kroner</Form.Label>
-              <Form.Control type="number" placeholder="100" defaultValue={(props.thisPost.price !== null) ? props.thisPost.price : undefined} onChange={(e: any) => setPrice(e.target.value)}/>
+              <Form.Control type="number" placeholder="100" defaultValue={price} onChange={(e: any) => setPrice(e.target.value)}/>
             </Form.Group>
 
             {/* <Form.Group

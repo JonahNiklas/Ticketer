@@ -35,9 +35,10 @@ function ProfilePage() {
         <Profileinfo/>
         <Rating/>
       </div>  
-       
+       <UserPosts/>
       </div>
       <Footer />
+    </div>
     </div>
   );
 }

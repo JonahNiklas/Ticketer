@@ -47,8 +47,8 @@ function UserPosts() {
               description={post.description}
               category={post.category}
               price={post.price}
-              authorId={post.authorId}
-            />
+              authorId={post.authorId} 
+              id={post.id}            />
           ))}
         </CardGroup>
       </Container>
