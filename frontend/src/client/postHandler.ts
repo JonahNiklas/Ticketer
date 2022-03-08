@@ -1,3 +1,4 @@
+import { request } from "http";
 import { Post, PostRequest, PostResponse } from "../types";
 import restHandler from "./restHandler";
 
@@ -29,20 +30,12 @@ export async function getPostsByAuthorId(authorId: number): Promise<Post[]> {
   return posts;
 }
 
-export async function changePost(request: PostRequest): Promise<Post> {
+export async function changePost(postId: number, request: PostRequest): Promise<Post> {
   // antar alltid at alt går bra :)
 
-  const post: Post = await restHandler.put<Post>("/post");
-  
+  const post: Post = await restHandler.put<Post>("/post/"+postId, request);
+  console.log(post);
   // TODO: legge til feilhåndtering
   return post;
 }
 
-export async function getPostById(postId: number): Promise<Post> {
-  // antar alltid at alt går bra :)
-
-  const post: Post = await restHandler.get<Post>("/post/"+postId);
-  
-  // TODO: legge til feilhåndtering
-  return post;
-}

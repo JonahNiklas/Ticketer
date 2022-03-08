@@ -1,15 +1,17 @@
+import e from 'express';
 import React, { useEffect, useState } from 'react';
+import { useRef } from 'react';
 import { Button, ButtonGroup, Form, Modal, ToggleButton } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import { useHistory } from 'react-router-dom';
-import { changePost, createPost, getPostById } from '../../client/postHandler';
+import { changePost, createPost } from '../../client/postHandler';
 import { store } from '../../redux/store';
 import { Post, PostRequest } from '../../types';
 
 function ChangeModal(props: {thisPost: Post, show: boolean, onHide: any}) {
 
   const history = useHistory();
-
+  
   let validInfo= false;
   const [title, setTitle] = useState<string>('');
   const [timeOfEvent, setTimeOfEvent]= useState<Date>(new Date());
@@ -19,7 +21,8 @@ function ChangeModal(props: {thisPost: Post, show: boolean, onHide: any}) {
   const [category, setCategory] = useState<string>('Concert');
   const [description, setDescription] = useState<string>('');
   const [price, setPrice] = useState<string>('');
-  
+  const successRef = useRef<HTMLDivElement>(null);
+
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [errorText, setErrorText] = useState<string>('');
 
@@ -35,22 +38,22 @@ function ChangeModal(props: {thisPost: Post, show: boolean, onHide: any}) {
     { name: 'Ønskes kjøpt', value: 'false' }
   ]; 
 
-  async function handleChangePost(e: any) {
+  async function handleChangePost(e : any) {
     e.preventDefault();
     validInfo=true;
-    if(!title || title.length<2){
+    if(!props.thisPost.title || props.thisPost.title.length<2){
       console.log("Tittel er nødvendig");
       setShowAlert(true);
       validInfo=false;
       setErrorText("Ugyldig navn. Det må være minst 2 tegn");
     }
-    if(!city || city ===''){
+    if(!props.thisPost.city || props.thisPost.city ===''){
       console.log("By er nødvendig");
       setShowAlert(true);
       validInfo=false;
       setErrorText("By er nødvendig");
     }
-    if(!venue || venue ===''){
+    if(!props.thisPost.venue || props.thisPost.venue ===''){
       console.log("Arena mangler");
       setShowAlert(true);
       validInfo=false;
@@ -87,15 +90,25 @@ function ChangeModal(props: {thisPost: Post, show: boolean, onHide: any}) {
       };
 
       try {
-        const response = await changePost(postRequest);
+        const response = await changePost(props.thisPost.id, postRequest);
+        successRef.current?.scrollIntoView();
+        // denne er litt wonky, ta en titt på den etter L1
+        setTimeout(() => {
+          history.push('/profile');
+        }, 3000);
+        window.location.reload();
+
         console.log(response);
-        history.push('/profile');
+        //history.push('/profile');
       } catch (error: any) {
         console.error(error);
       }
-    }
-  }
 
+    } else {
+      history.push("/login");
+    }
+    
+  }
 
 
   return (
@@ -209,7 +222,7 @@ function ChangeModal(props: {thisPost: Post, show: boolean, onHide: any}) {
           </Form>
       </Modal.Body>
     </Modal>
-  );
+  );        
 }
 
 export default ChangeModal;

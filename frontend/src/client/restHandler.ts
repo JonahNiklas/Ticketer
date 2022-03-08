@@ -57,8 +57,8 @@ export class RestHandler {
     return promiseWrapper<T>(this.http.post(path, data, params));
   }
 
-  public put<T>(path: string, params?: AxiosRequestHeaders): Promise<T> {
-    return promiseWrapper<T>(this.http.put(path, params));
+  public put<T>(path: string, data?: object, params?: AxiosRequestHeaders): Promise<T> {
+    return promiseWrapper<T>(this.http.put(path, data, params));
   }
 
   public delete(path: string, params?: AxiosRequestHeaders): Promise<void> {
