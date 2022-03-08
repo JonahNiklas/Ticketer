@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Post } from '../../types';
-import { getPosts, getPostsByCategory } from '../../client/postHandler';
+import { getPostsByCategory } from '../../client/postHandler';
 import { CardGroup, Container } from 'react-bootstrap';
 import PostInfo from '../createpostpage/PostInfo';
 
@@ -9,7 +9,7 @@ const [posts, setPosts] = useState<Post[]>([]);
 
   async function getFilteredPosts() {
     try {
-      setPosts(await getPostsByCategory('Concert'));
+      setPosts(await getPostsByCategory('Show'));
     } catch (error: any) {
       console.error(error);
     }

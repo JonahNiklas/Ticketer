@@ -28,8 +28,8 @@ export async function getPostsByFilter(ctx: Context, req: Request, res: Response
     });
   res.json(post);
 }
-
-export async function getPost(ctx: Context, req: Request, res: Response) {
+/** Får feilmelding på denne. Provided Float, expected Int */
+/** export async function getPost(ctx: Context, req: Request, res: Response) {
   const { id } = req.params;
   if (id === null || id === undefined) {
     res.status(400).send('Param cannot be null');
@@ -46,7 +46,7 @@ export async function getPost(ctx: Context, req: Request, res: Response) {
       console.error(error);
     });
   res.json(post);
-}
+} */
 
 export async function createPost(ctx: Context, req: Request, res: Response) {
   const {
