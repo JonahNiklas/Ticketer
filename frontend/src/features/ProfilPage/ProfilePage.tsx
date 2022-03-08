@@ -6,6 +6,7 @@ import '../../stylesheets/ProfilePage.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCircle} from '@fortawesome/free-solid-svg-icons';
 import Profileinfo from './Profileinfo';
+import Rating from './Rating';
 import UserPosts from './UserPosts';
 import '../../stylesheets/ProfileInfo.css';
 import Footer from '../homepage/Footer';
@@ -35,6 +36,7 @@ function ProfilePage() {
       </div>  
       <div className='col-4 mt-5'>
         <Profileinfo/>
+        <Rating/>
       </div>  
        
       </div>
