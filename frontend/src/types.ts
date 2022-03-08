@@ -50,6 +50,7 @@ export interface PostResponse {
 
 //johan som tuller litt her
 export interface Post {
+  id: number;
   createdAt: Date;
   timeOfEvent: Date;
   city: string;
@@ -60,4 +61,20 @@ export interface Post {
   category: string;
   price: number | null;
   authorId: number;
+}
+
+export interface userData {
+  firstName: string,
+  lastName: string,
+  email: string,
+  town: string | null,
+  country: string | null
+}
+
+export interface RatingRequest {
+
+}
+
+export interface RatingResponse {
+
 }

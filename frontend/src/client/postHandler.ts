@@ -1,5 +1,6 @@
-import { Post, PostRequest, PostResponse } from '../types';
-import restHandler from './restHandler';
+import { request } from "http";
+import { Post, PostRequest, PostResponse } from "../types";
+import restHandler from "./restHandler";
 
 export async function createPost(request: PostRequest): Promise<PostResponse> {
   // antar alltid at alt går bra :)
@@ -29,3 +30,13 @@ export async function getPostsByAuthorId(authorId: number): Promise<Post[]> {
   // TODO: legge til feilhåndtering
   return posts;
 }
+
+export async function changePost(postId: number, request: PostRequest): Promise<Post> {
+  // antar alltid at alt går bra :)
+
+  const post: Post = await restHandler.put<Post>("/post/"+postId, request);
+  console.log(post);
+  // TODO: legge til feilhåndtering
+  return post;
+}
+

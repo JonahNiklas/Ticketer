@@ -70,7 +70,6 @@ export async function createPost(ctx: Context, req: Request, res: Response) {
 
 export async function updatePost(ctx: Context, req: Request, res: Response) {
   const {
-    id,
     timeOfEvent,
     city,
     venue,
@@ -80,11 +79,12 @@ export async function updatePost(ctx: Context, req: Request, res: Response) {
     category,
     price,
   } = req.body;
+  const { id } = req.params;
 
   await ctx.prisma.post
     .update({
       where: {
-        id,
+        id: Number.parseInt(id,10),
       },
       data: {
         timeOfEvent,
