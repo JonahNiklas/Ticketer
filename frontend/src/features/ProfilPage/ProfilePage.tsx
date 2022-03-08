@@ -1,10 +1,9 @@
-
 import React from 'react';
 import Menylinje from '../Menylinje';
 import '../../stylesheets/Posts.css';
 import '../../stylesheets/ProfilePage.css';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faCircle} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import Profileinfo from './Profileinfo';
 import Rating from './Rating';
 import UserPosts from './UserPosts';
@@ -12,8 +11,6 @@ import '../../stylesheets/ProfileInfo.css';
 import Footer from '../homepage/Footer';
 import Header from '../homepage/Header';
 import { Button, Container, Form } from 'react-bootstrap';
-
-
 
 function ProfilePage() {
     return(
@@ -40,15 +37,9 @@ function ProfilePage() {
       </div>  
        
       </div>
-      <div className='m-5'>
-      <UserPosts/>      
-      </div>
-      <Footer/>
+      <Footer />
+    </div>
+  );
+}
 
-      </div>
-      </div>
-    
-    );
-  }
-  
-  export default ProfilePage;
+export default ProfilePage;

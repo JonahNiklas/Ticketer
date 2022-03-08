@@ -45,7 +45,7 @@ export interface PostRequest {
 }
 
 export interface PostResponse {
-  message: string,
+  message: string;
 }
 
 //johan som tuller litt her

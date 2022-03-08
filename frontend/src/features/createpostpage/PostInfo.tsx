@@ -6,21 +6,25 @@ import { Post } from '../../types';
 
 function PostInfo(props: Post) {
   let borderColor;
+  let forSaleText = 'Selges for ';
   switch (props.category) {
     case 'Concert':
-      borderColor='primary';
+      borderColor = 'primary';
       break;
     case 'Sports':
-      borderColor='secondary';
+      borderColor = 'secondary';
       break;
     case 'Show':
-      borderColor='success';
+      borderColor = 'success';
       break;
     case 'Other':
-      borderColor='info';
+      borderColor = 'info';
       break;
     default:
-      borderColor='primary';
+      borderColor = 'primary';
+  }
+  if (!props.forSale) {
+    forSaleText = 'Ønskes kjøpt for ';
   }
 
   props.timeOfEvent.getTime
@@ -40,7 +44,7 @@ function PostInfo(props: Post) {
         <Card.Title>{props.title}</Card.Title> 
           <ListGroup variant="flush">
           <ListGroup.Item>{props.description}</ListGroup.Item>
-          <ListGroup.Item>{props.city+', '+props.venue}</ListGroup.Item>
+          <ListGroup.Item>{props.city + ', ' + props.venue}</ListGroup.Item>
           <ListGroup.Item>{props.timeOfEvent}</ListGroup.Item>
           <ListGroup.Item>{props.price+',-'}</ListGroup.Item>
         </ListGroup>
@@ -48,8 +52,8 @@ function PostInfo(props: Post) {
 
 
       </Card.Body>
-		</Card>
-  )
+    </Card>
+  );
 }
 
 export default PostInfo;

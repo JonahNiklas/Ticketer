@@ -130,3 +130,6 @@ app.put('/rating/update', async (req: any, res: any) => {
 });
 
 app.listen(port, () => console.log(`Serveren har startet på port: ${port}!`));
+
+// this is for testing purposes
+export default app;
