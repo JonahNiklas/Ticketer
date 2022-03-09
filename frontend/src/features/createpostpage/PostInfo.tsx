@@ -15,8 +15,7 @@ function PostInfo(props: Post) {
 
   async function getUserName() {
     try {
-      const id = props.authorId;
-      const user = await getUserById(id);
+      const user = await getUserById(props.authorId);
       setFirstName(user.firstName);
     } catch(error: any) {
       console.error(error);

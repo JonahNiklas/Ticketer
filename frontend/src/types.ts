@@ -41,7 +41,7 @@ export interface PostRequest {
   description: string | null;
   category: string;
   price: number | null;
-  authorId: number;
+  authorId: number | null;
 }
 
 export interface PostResponse {
