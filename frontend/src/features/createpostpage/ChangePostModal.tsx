@@ -76,7 +76,9 @@ function ChangeModal(props: {thisPost: Post, show: boolean, onHide: any}) {
       }
 
       const userState = store.getState().user;
-
+      if (!userState.userId){
+        return;
+      }
       const postRequest: PostRequest = {
         timeOfEvent,
         title,

@@ -71,10 +71,10 @@ export interface userData {
   country: string | null
 }
 
-export interface RatingRequest {
+/* export interface RatingRequest {
 
 }
 
 export interface RatingResponse {
 
-}
+} */

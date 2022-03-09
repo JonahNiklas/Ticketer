@@ -4,6 +4,7 @@ import { deletePost } from '../../client/postHandler';
 import { Link } from 'react-router-dom';
 import '../../stylesheets/Menylinje.css';
 import { Post } from '../../types';
+import ChangeModal from './ChangePostModal';
 
 function PostInfo(props: Post) {
   let borderColor;
@@ -28,7 +29,7 @@ function PostInfo(props: Post) {
     forSaleText = 'Ønskes kjøpt for ';
   }
 
-  const [state, setState] = useState(false)
+  const [state, setState] = useState(false);
 
   useEffect(() => {
     if (window.location.pathname === '/profile') {
@@ -37,6 +38,7 @@ function PostInfo(props: Post) {
   }, []);
 
   const [show, setShow] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
   const [deleteMessage, setDeleteMessage] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   
@@ -63,6 +65,7 @@ function PostInfo(props: Post) {
   }
   
   return (
+    <>
     <Card
       border={borderColor}
       className=" m-4 border border-success rounded card"
@@ -74,7 +77,7 @@ function PostInfo(props: Post) {
           <span className="button-user-icon">{props.authorId}</span>
         </button>
       </span>
-      <span className='button-user-icon'>{props.authorId}</span>
+      
       {/* <Card.Img src="https://picsum.photos/200/200" className=' h-50 w-auto' /> */}
       <Card.Body className='mb-0 pb-0'>
         <Card.Title>{props.title}</Card.Title> 
@@ -83,11 +86,11 @@ function PostInfo(props: Post) {
           <ListGroup.Item>{props.city + ', ' + props.venue}</ListGroup.Item>
           <ListGroup.Item>{props.timeOfEvent}</ListGroup.Item>
           <ListGroup.Item>{forSaleText + props.price + ',-'}</ListGroup.Item>
-          <Button variant="success mb-2">Ta kontakt</Button>
-          {state && <Button variant="danger mb-2" onClick={handleShow}>Slett innlegg</Button>}
-        </ListGroup>
-        <Button variant="success mb-2 w-100">Ta kontakt</Button>
-
+          
+          </ListGroup>
+        {!state && <Button variant="success mb-2 w-100">Ta kontakt</Button>}
+        {state && <Button variant="success mb-2 w-100" onClick={() => setModalShow(true)}>Endre</Button>}
+        {state && <Button variant="danger mb-2 w-100" onClick={handleShow}>Slett innlegg</Button>}
 
       </Card.Body>
     
@@ -103,6 +106,13 @@ function PostInfo(props: Post) {
       </Modal.Footer>
     </Modal>
     </Card>
+
+    <ChangeModal
+    onHide={() => setModalShow(false)}
+    show={modalShow}
+    thisPost={props}
+    />
+    </>
   );
 }
 

@@ -1,4 +1,5 @@
-import { RatingRequest, RatingResponse } from "../types";
+export{}
+/* import { RatingRequest, RatingResponse } from "../types";
 import restHandler from "./restHandler";
 
 export async function RateUser(request: RatingRequest): Promise<RatingResponse> {
@@ -10,3 +11,4 @@ export async function RateUser(request: RatingRequest): Promise<RatingResponse> 
   console.log(response);
   return response;
 }
+ */
