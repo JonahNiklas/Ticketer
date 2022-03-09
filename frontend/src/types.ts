@@ -50,6 +50,7 @@ export interface PostResponse {
 
 //johan som tuller litt her
 export interface Post {
+  id: number;
   createdAt: Date;
   timeOfEvent: Date;
   city: string;

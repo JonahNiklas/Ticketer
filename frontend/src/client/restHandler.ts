@@ -68,8 +68,8 @@ export class RestHandler {
     return promiseWrapper<T>(this.http.put(path, params));
   }
 
-  public delete(path: string, params?: AxiosRequestHeaders): Promise<void> {
-    return promiseWrapper<void>(this.http.delete(path, params));
+  public delete<T>(path: string, params?: AxiosRequestHeaders): Promise<T> {
+    return promiseWrapper<T>(this.http.delete(path, params));
   }
 }
 

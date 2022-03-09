@@ -29,3 +29,13 @@ export async function getPostsByAuthorId(authorId: number): Promise<Post[]> {
   // TODO: legge til feilhåndtering
   return posts;
 }
+
+export async function deletePost(id: number): Promise<string> {
+  // antar alltid at alt går bra :)
+
+  console.log(id)
+  const posts: string = await restHandler.delete('/post/'+ id);
+
+  // TODO: legge til feilhåndtering
+  return posts;
+}

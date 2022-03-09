@@ -66,7 +66,7 @@ app.post('/post/create', async (req: any, res: any) => {
   createPost(context, req, res);
 });
 
-app.delete('/post', async (req: any, res: any) => {
+app.delete('/post/:id', async (req: any, res: any) => {
   deletePost(context, req, res);
 });
 
