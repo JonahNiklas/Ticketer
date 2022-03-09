@@ -28,6 +28,7 @@ function RecommendedTicketer() {
           {posts.map((post, idx) => (
             <PostInfo
               key={idx}
+              id={post.id}
               createdAt={post.createdAt}
               timeOfEvent={post.timeOfEvent}
               city={post.city}

@@ -38,6 +38,7 @@ function UserPosts() {
           {posts.map((post, idx) => (
             <UserPostInfo
               key={idx}
+              id={post.id}
               createdAt={post.createdAt}
               timeOfEvent={post.timeOfEvent}
               city={post.city}
