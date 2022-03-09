@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Button, Card, ListGroup, Modal } from 'react-bootstrap';
+import { getUserById } from '../../client/userHandler';
 import '../../stylesheets/Menylinje.css';
 import { Post } from '../../types';
 import ChangeModal from './ChangePostModal';
@@ -7,8 +8,17 @@ import ChangeModal from './ChangePostModal';
 function UserPostInfo(props: Post) {
 
   const [modalShow, setModalShow] = React.useState(false);
+  const [firstName, setFirstName] = useState<string>('');
+  async function getUserName() {
+    try {
+      const id = props.authorId;
+      const user = await getUserById(id);
+      setFirstName(user.firstName);
+    } catch(error: any) {
+      console.error(error);
+    }
 
-
+  }
   let borderColor;
   switch (props.category) {
     case 'Concert':
@@ -27,6 +37,14 @@ function UserPostInfo(props: Post) {
       borderColor='primary';
   }
 
+  let rendered = false;
+
+  useEffect(() => {
+    if (!rendered) {
+      getUserName();
+      rendered = true;
+    }
+  }, []);
 
   return (
     <div>
@@ -35,7 +53,7 @@ function UserPostInfo(props: Post) {
         <span>
         <button type='button' className='button-user-post' name='Sted'>
 
-            <span className='button-user-icon'>{props.authorId}</span>
+            <span className='button-user-icon'>{firstName}</span>
         </button>
           
         </span>

@@ -7,6 +7,7 @@ import RegisterUser from './Pages/RegisterUser';
 import Posts from './Pages/Posts';
 import Profile from './features/ProfilPage/ProfilePage';
 import { ProtectedRoute } from './features/pageAuthHandler';
+import UserPage from './features/userpage/UserPage';
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/profile">
           <Profile />
+        </ProtectedRoute>
+        <ProtectedRoute path="/user">
+          <UserPage userId={500}/>
         </ProtectedRoute>
       </Switch>
     </Router>

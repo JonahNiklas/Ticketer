@@ -1,4 +1,4 @@
-import { userData } from "../types";
+import { userData, UserInfo } from "../types";
 import restHandler from "./restHandler";
 
 export {};
