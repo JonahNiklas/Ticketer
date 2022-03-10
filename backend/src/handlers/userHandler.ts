@@ -46,8 +46,15 @@ export async function getUser(ctx: Context, req: Request, res: Response) {
     });
   if (!user) {
     res.status(400).send('Something went wrong');
+  } else {
+    const userData = {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+    };
+    res.json(userData);
   }
-  res.json(user);
 }
 
 export async function updateUser(ctx: Context, req: Request, res: Response) {
