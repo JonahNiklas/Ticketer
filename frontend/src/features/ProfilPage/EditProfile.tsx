@@ -254,7 +254,7 @@ const EditProfile = (props: {userData: userData, show: boolean, onHide: any}) =>
             <Form.Control.Feedback type="valid">{}</Form.Control.Feedback>
           </Form.Group>
 
-          <Button variant="primary" type="submit" onClick={handleRegister}>
+          <Button variant="success" type="submit" onClick={handleRegister}>
             Endre bruker
           </Button>
         </Form>

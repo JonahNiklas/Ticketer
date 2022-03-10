@@ -37,9 +37,11 @@ function Profileinfo(){
 
     return (
      <div className="p-3 rounded" style={{ backgroundColor: "rgb(100, 176, 145)" }}>
+      <h2 className="">Brukerinformasjon</h2>
       <h5 className="text-white">{userData ? userData.firstName+" "+ userData.lastName : ""}</h5>
       <h5 className="text-white">{userData ? userData.email : ""}</h5>
-      <Button onClick = {() => setModalShow(true)}> Endre brukerinformasjon </ Button>
+      <br></br>
+      <Button variant="dark w-100" onClick = {() => setModalShow(true)}> Endre </ Button>
 
       {userData && <EditProfile
         userData= {userData}
