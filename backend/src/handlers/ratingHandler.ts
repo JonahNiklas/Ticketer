@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { Context } from '../context';
 import { Rating } from '@prisma/client';
 import { unwatchFile } from 'fs';
+import { Context } from '../context';
 import { getUser } from './userHandler';
 
 export async function rateUser(ctx: Context, req: Request, res: Response) {

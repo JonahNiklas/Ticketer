@@ -84,7 +84,7 @@ export async function updatePost(ctx: Context, req: Request, res: Response) {
   await ctx.prisma.post
     .update({
       where: {
-        id: Number.parseInt(id,10),
+        id: Number.parseInt(id, 10),
       },
       data: {
         timeOfEvent,
