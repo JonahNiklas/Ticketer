@@ -1,8 +1,6 @@
-
-
-.text-info{
-    align-items: right;
-    font-style: bold;
-    color: rgba(240, 248, 255, 0.589);
-    position: center;
+.text-info {
+  align-items: right;
+  font-style: bold;
+  color: rgba(240, 248, 255, 0.589);
+  position: center;
 }

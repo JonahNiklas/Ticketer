@@ -1,5 +1,4 @@
 /.vscode
-**/node_modules
-**/db/*
-**/yarn-error.log
+*/db/*
+*/node_modules
 **/migrations

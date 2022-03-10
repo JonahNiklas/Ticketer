@@ -19,7 +19,7 @@ export interface Token {
 }
 
 export interface User {
-  id: Number;
+  id: number;
   firstName: string;
   lastName: string;
   email: string;
@@ -60,4 +60,29 @@ export interface DecodedData {
   lastName: string;
   iat: number;
   exp: number;
+}
+
+export interface UserRequest {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
+
+export interface UpdateRequest {
+  id: number,
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
+
+export interface RestResponse {
+  code: number;
+  message: string;
+}
+
+export interface TokenRestResponse {
+  code: number;
+  message: Token;
 }
