@@ -8,6 +8,7 @@ import UserPage from '../userpage/UserPage';
 import { store } from '../../redux/store';
 import { useEffect } from 'react';
 
+
 function PostInfo(props: Post) {
   let borderColor;
   const history = useHistory();
@@ -16,13 +17,13 @@ function PostInfo(props: Post) {
   async function getUserName() {
     try {
       const user = await getUserById(props.authorId);
-      setFirstName(user.firstName);
+      setFirstName(user.firstName + " " + user.lastName);
     } catch(error: any) {
       console.error(error);
     }
 
   }
-  
+
 
   let forSaleText = 'Selges for ';
   switch (props.category) {
@@ -44,7 +45,7 @@ function PostInfo(props: Post) {
   if (!props.forSale) {
     forSaleText = 'Ønskes kjøpt for ';
   }
-  async function handleUserProfile(e: any) {
+   async function handleUserProfile(e: any) {
     e.preventDefault();
     const userId = props.authorId;
  
@@ -58,25 +59,22 @@ function PostInfo(props: Post) {
       console.error(error);
     }
   }
-  let rendered = false;
 
   useEffect(() => {
-    if (!rendered) {
       handleUserProfile;
       getUserName();
-      rendered = true;
-    }
+    
   }, []);
 
+  
+
   return (
-    
-    <Card border={borderColor} className=' m-4 border border-success rounded card' style= {{maxWidth:"370px", minWidth: "300px"}}>
+    <div>
+    <Card border={borderColor} className=' m-4 border border-dark border-2 rounded' style= {{maxWidth:"320px", minWidth: "300px"}}>
         <span>
-        <Link to="/user" className='link'>
         <button type='button' className='button-user-post' name='Sted'  onClick={handleUserProfile}>
             <span className='button-user-icon'>{firstName}</span>
         </button>  
-        </Link>      
         </span>
       {/* <Card.Img src="https://picsum.photos/200/200" className=' h-50 w-auto' /> */}
       <Card.Body className='mb-0 pb-0'>
@@ -88,10 +86,13 @@ function PostInfo(props: Post) {
           <ListGroup.Item>{props.price+',-'}</ListGroup.Item>
         </ListGroup>
         <Button variant="success mb-2 w-100">Ta kontakt</Button>
-
-
       </Card.Body>
     </Card>
+
+
+    
+
+    </div>
   );
 }
 

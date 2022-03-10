@@ -3,7 +3,6 @@ import { Container, Card, CardGroup } from 'react-bootstrap';
 import { getPosts, getPostsByAuthorId } from '../../client/postHandler';
 import '../../stylesheets/ProfileInfo.css';
 import UserPostInfo from '../createpostpage/userPostInfo';
-import PostTemplate from '../createpostpage/PostTemplate';
 import { Post } from '../../types';
 import { store } from '../../redux/store';
 
@@ -31,7 +30,7 @@ function UserPosts() {
   }, []);
 
   return (
-    <div className="mt-0 ml-5 mr-5 p-0">
+    <div className="mt-0 ml-5 mr-5 p-0" style={{minHeight:"500px"}}>
       <Container>
         <h2 className="text-center">Dine Ticketer</h2>
         <CardGroup>

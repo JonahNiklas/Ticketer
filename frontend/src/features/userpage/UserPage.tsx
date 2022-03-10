@@ -17,13 +17,9 @@ import { useHistory } from 'react-router-dom';
 
 
 
-function UserPage(props: UserInfo) {
+function UserPage() {
 
-    const queryString = new URLSearchParams(window.location.search);
-    const id = queryString.get('id');
-    console.log(id);
-  
-  const userId = props.userId;
+  const userId = 1;
 
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
@@ -51,7 +47,7 @@ function UserPage(props: UserInfo) {
     if (userId) {
       try {
         setPosts(await getPostsByAuthorId(userId));
-        history.push('/user/id=' + userId);
+        history.push('/user/' + userId);
       } catch (error: any) {
         console.error(error);
       }
