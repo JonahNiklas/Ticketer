@@ -170,7 +170,7 @@ function CreatePosts() {
               <DatePicker
                 id="timeOfEvent"
                 selected={timeOfEvent}
-                onChange={(e: any) => setTimeOfEvent(e)}
+                onChange={ (date: any) => setTimeOfEvent(date)}
                 showTimeSelect
                 timeIntervals={15}
                 dateFormat="dd.MM.yy HH:mm"

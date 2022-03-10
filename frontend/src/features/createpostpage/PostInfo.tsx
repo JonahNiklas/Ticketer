@@ -6,6 +6,19 @@ import '../../stylesheets/Menylinje.css';
 import { Post } from '../../types';
 import ChangeModal from './ChangePostModal';
 
+
+
+function DateConverter(date: Date){
+  const d = date;
+  const text = d.toString();
+  const year = text.substring(0,4);
+  const month = text.substring(5,7);
+  const day = text.substring(8,10);
+  const hour = text.substring(11,13);
+  const minutes = text.substring(14,16)
+  return  day + "." + month + "." + year + " " + hour + ":" + minutes;
+}
+
 function PostInfo(props: Post) {
   let borderColor;
   let forSaleText = 'Selges for ';
@@ -84,7 +97,7 @@ function PostInfo(props: Post) {
           <ListGroup variant="flush">
           <ListGroup.Item>{props.description}</ListGroup.Item>
           <ListGroup.Item>{props.city + ', ' + props.venue}</ListGroup.Item>
-          <ListGroup.Item>{props.timeOfEvent}</ListGroup.Item>
+          <ListGroup.Item>{DateConverter(props.timeOfEvent)}</ListGroup.Item>
           <ListGroup.Item>{forSaleText + props.price + ',-'}</ListGroup.Item>
           
           </ListGroup>
