@@ -14,6 +14,7 @@ export async function registerUser(ctx: Context, req: Request, res: Response) {
   createUserHelper(userRequest, ctx).then((message: RestResponse) => {
     if (message.code !== 200) {
       res.status(message.code).json({ errorCode: message.code, errorMessage: message.message });
+      return;
     }
 
     res.status(message.code).json(message);
