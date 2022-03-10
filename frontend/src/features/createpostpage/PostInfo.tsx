@@ -108,9 +108,9 @@ function PostInfo(props: Post) {
     </Card>
 
     <ChangeModal
-    onHide={() => setModalShow(false)}
-    show={modalShow}
-    thisPost={props}
+      onHide={() => setModalShow(false)}
+      show={modalShow}
+      thisPost={props}
     />
     </>
   );
