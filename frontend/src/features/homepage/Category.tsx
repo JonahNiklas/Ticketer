@@ -1,12 +1,7 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 
-interface categoryCard {
-    picture: string;
-    name: string;
-}
-
-const Category = (props:categoryCard) => {
+const Category = (props: {picture:string, name:string}) => {
     return(
         <Card
             style={{ cursor: 'pointer', border: `2px solid black`, textAlign: 'center' }}

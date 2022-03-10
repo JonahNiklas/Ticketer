@@ -4,12 +4,13 @@ import { getPostsByCategory } from '../../client/postHandler';
 import { CardGroup, Container } from 'react-bootstrap';
 import PostInfo from '../createpostpage/PostInfo';
 
-const FilteredTicketer = () => {
+const FilteredTicketer = (props: {category: string}) => {
 const [posts, setPosts] = useState<Post[]>([]);
 
   async function getFilteredPosts() {
     try {
-      setPosts(await getPostsByCategory('Show'));
+      console.log(props.category);
+      setPosts(await getPostsByCategory(props.category));
     } catch (error: any) {
       console.error(error);
     }
@@ -17,6 +18,7 @@ const [posts, setPosts] = useState<Post[]>([]);
   useEffect(() => {
     getFilteredPosts();
   }, []);
+  
     return(
         <div className="mt-0 ml-5 mr-5 p-0">
             <Container>
