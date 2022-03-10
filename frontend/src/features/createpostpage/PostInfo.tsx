@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import '../../stylesheets/Menylinje.css';
 import { Post } from '../../types';
 import ChangeModal from './ChangePostModal';
+import { getUserById } from '../../client/userHandler';
 
 
 
@@ -15,7 +16,7 @@ function DateConverter(date: Date){
   const month = text.substring(5,7);
   const day = text.substring(8,10);
   const hour = text.substring(11,13);
-  const minutes = text.substring(14,16)
+  const minutes = text.substring(14,16);
   return  day + "." + month + "." + year + " " + hour + ":" + minutes;
 }
 
@@ -42,11 +43,23 @@ function PostInfo(props: Post) {
     forSaleText = 'Ønskes kjøpt for ';
   }
 
+  const [name, setName] = useState<string>('');
+
+  async function getUserName() {
+    try {
+      const user = await getUserById(props.authorId);
+      setName(user.firstName + " " + user.lastName);
+    } catch(error: any) {
+      console.error(error);
+    }
+  }
+
   const [state, setState] = useState(false);
 
   useEffect(() => {
     if (window.location.pathname === '/profile') {
       setState(true);
+      getUserName();
     }
   }, []);
 
@@ -87,7 +100,7 @@ function PostInfo(props: Post) {
       
       <span>
         <button type="button" className="button-user-post" name="Sted">
-          <span className="button-user-icon">{props.authorId}</span>
+          <span className="button-user-icon">{name}</span>
         </button>
       </span>
       
