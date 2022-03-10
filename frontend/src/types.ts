@@ -49,7 +49,7 @@ export interface PostResponse {
 }
 
 export interface UpdateRequest {
-  id: number,
+  id: number | null,
   firstName: string;
   lastName: string;
   email: string;
@@ -72,7 +72,7 @@ export interface Post {
 }
 
 export interface userData {
-  id: number,
+  id: number | null,
   firstName: string,
   lastName: string,
   email: string,

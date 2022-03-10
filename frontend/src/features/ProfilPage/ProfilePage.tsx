@@ -3,7 +3,7 @@ import Menylinje from '../Menylinje';
 import '../../stylesheets/Posts.css';
 import '../../stylesheets/ProfilePage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircle } from '@fortawesome/free-solid-svg-icons';
+import { faUserAstronaut } from '@fortawesome/free-solid-svg-icons';
 import Profileinfo from './Profileinfo';
 import Rating from './Rating';
 import UserPosts from './UserPosts';
@@ -18,18 +18,9 @@ function ProfilePage() {
       <Menylinje/>          
       <div style = {{marginLeft: "133px"}}>
       <Header/>
-      <div className='row ms-5'>
-      <div className='col-3 ms-5'>
-        <span className='button__icon-10'><FontAwesomeIcon icon={faCircle}></FontAwesomeIcon></span> 
-        <Form>
-        <Form.Group className="mb-3 w-100" controlId="exampleForm.ControlTextarea1">
-          <Form.Label>Endre profilbilde</Form.Label>
-          <Form.Control type="file" placeholder="Title" />
-        </Form.Group>
-        <Button variant="success mb-3 w-100 ml-50" type="submit" >
-            Oppdater
-        </Button> 
-        </Form>
+      <div className='row ms-5' style={{maxWidth: '90%'}}>
+      <div className='col-2 ms-5'>
+        <span className='button__icon-10'><FontAwesomeIcon icon={faUserAstronaut}></FontAwesomeIcon></span> 
       </div>  
       <div className='col-4 mt-5'>
         <Profileinfo/>
@@ -44,3 +35,4 @@ function ProfilePage() {
 }
 
 export default ProfilePage;
+
