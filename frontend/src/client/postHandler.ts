@@ -1,5 +1,6 @@
-import { Post, PostRequest, PostResponse } from '../types';
-import restHandler from './restHandler';
+import { request } from "http";
+import { Post, PostRequest, PostResponse } from "../types";
+import restHandler from "./restHandler";
 
 export async function createPost(request: PostRequest): Promise<PostResponse> {
   // antar alltid at alt går bra :)
@@ -31,6 +32,27 @@ export async function getPostsByAuthorId(authorId: number): Promise<Post[]> {
 }
 
 export async function getPostsByCategory(category: string): Promise<Post[]> {
+  
   const concertPosts: Post[] = await restHandler.get<Post[]>('/post/' + category);
+  
   return concertPosts;
+}
+
+export async function changePost(postId: number, request: PostRequest): Promise<Post> {
+  // antar alltid at alt går bra :)
+
+  const post: Post = await restHandler.put<Post>("/post/"+postId, request);
+  console.log(post);
+  // TODO: legge til feilhåndtering
+  return post;
+}
+
+export async function deletePost(id: number): Promise<string> {
+  // antar alltid at alt går bra :)
+
+  console.log(id)
+  const posts: string = await restHandler.delete('/post/'+ id);
+
+  // TODO: legge til feilhåndtering
+  return posts;
 }

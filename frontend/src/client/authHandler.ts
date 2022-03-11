@@ -3,7 +3,8 @@ import {
   LoginResponse,
   RegisterResponse,
   RegisterRequest,
-  RestError
+  RestError,
+  UpdateRequest
 } from '../types';
 import restHandler from './restHandler';
 
@@ -25,6 +26,18 @@ export async function register(
   const message: RegisterResponse =
     await restHandler.postWithResponse<RegisterResponse>(
       '/user/register',
+      request
+    );
+
+  return message;
+}
+
+export async function updateUserInfo(
+  request: UpdateRequest
+): Promise<RegisterResponse> {
+  const message: RegisterResponse =
+    await restHandler.put<RegisterResponse>(
+      '/user/',
       request
     );
 

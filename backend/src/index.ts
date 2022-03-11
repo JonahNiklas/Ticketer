@@ -71,11 +71,11 @@ app.post('/post/create', async (req: any, res: any) => {
   createPost(context, req, res);
 });
 
-app.delete('/post', async (req: any, res: any) => {
+app.delete('/post/:id', async (req: any, res: any) => {
   deletePost(context, req, res);
 });
 
-app.put('/post', async (req: any, res: any) => {
+app.put('/post/:id', async (req: any, res: any) => {
   updatePost(context, req, res);
 });
 
