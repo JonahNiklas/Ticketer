@@ -6,14 +6,14 @@ import { Post } from '../../types';
 
 
 function DateConverter(date: Date){
-  const d = date;
-  const text = d.toString();
-  const year = text.substring(0,4);
-  const month = text.substring(5,7);
-  const day = text.substring(8,10);
-  const hour = text.substring(11,13);
-  const minutes = text.substring(14,16)
-  return  day + "." + month + "." + year + " " + hour + ":" + minutes;
+  const d = new Date(date);
+  const days = ['MANDAG','TIRSDAG','ONSDAG','TORSDAG','FREDAG', 'LØRDAG','SØNDAG'];
+  const months = ['JANUAR','FEBRUAR','MARS','APRIL','MAI','JUNI','JULI','AUGUST','SEPTEMBER','OKTOBER','NOVEMBER','DESEMBER']
+  const day = days[d.getDay()];
+  const month = months[d.getMonth()];
+  const hours = (d.getUTCHours().toString().padStart(2,'0'))
+  const minutes = (d.getUTCMinutes().toString().padStart(2,'0'))
+  return day + ", " + d.getDate() +'. '+ month +", "+ d.getUTCFullYear()+ " KL " + hours+ ":" + minutes;
 }
 
 function PostInfo(props: Post) {
