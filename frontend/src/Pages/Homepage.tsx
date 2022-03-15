@@ -15,6 +15,7 @@ import Teater from '../images/teater.png';
 function Homepage() {
 
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+  
 
   return (
     <div>
@@ -23,15 +24,15 @@ function Homepage() {
         <Header />
         <Container>
           <Row>
-              <Category picture={Concert} name='KONSERT' onClick={() => setSelectedCategory('Concert')}/>
-              <Category picture={Sport} name='SPORT' onClick={() => setSelectedCategory('Sport')}/>
-              <Category picture={Teater} name='TEATER' onClick={() => setSelectedCategory('Show')}/>
-              <Category picture={"https://pic.onlinewebfonts.com/svg/img_520908.png"} name='ANNET' onClick={() => setSelectedCategory('Other')}/>
+              <Category picture={Concert} name='KONSERT' active={(selectedCategory === "Concert") ? true : false} onClick={() => (selectedCategory === 'Concert') ? setSelectedCategory('') : setSelectedCategory('Concert')}/>
+              <Category picture={Sport} name='SPORT' active={(selectedCategory === "Sport") ? true : false} onClick={() => (selectedCategory === 'Sport') ? setSelectedCategory('') : setSelectedCategory('Sport')}/>
+              <Category picture={Teater} name='TEATER/SHOW' active={(selectedCategory === "Show") ? true : false} onClick={() => (selectedCategory === 'Show') ? setSelectedCategory('') : setSelectedCategory('Show')}/>
+              <Category picture={"https://pic.onlinewebfonts.com/svg/img_520908.png"} name='ANNET'  active={(selectedCategory === "Other") ? true : false} onClick={() => (selectedCategory === 'Other') ? setSelectedCategory('') : setSelectedCategory('Other')}/>
           </Row>
         </Container>
         
-        {/** legge inn en check på om selectedCategory == "", hvis ja -> vis recommendedTicketer istedenfor */}
-        <FilteredTicketer category={selectedCategory}/>
+      
+        {(selectedCategory === "") ? <RecommendedTicketer/> : <FilteredTicketer category={selectedCategory}/>}
 
         <Footer />
       </div>

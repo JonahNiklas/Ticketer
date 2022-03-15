@@ -9,7 +9,6 @@ const [posts, setPosts] = useState<Post[]>([]);
 
   async function getFilteredPosts() {
     try {
-      console.log(props.category);
       setPosts(await getPostsByCategory(props.category));
     } catch (error: any) {
       console.error(error);
@@ -17,7 +16,7 @@ const [posts, setPosts] = useState<Post[]>([]);
   }
   useEffect(() => {
     getFilteredPosts();
-  }, []);
+  }, [posts]);
   
     return(
         <div className="mt-0 ml-5 mr-5 p-0">
@@ -36,8 +35,7 @@ const [posts, setPosts] = useState<Post[]>([]);
                     description={post.description}
                     category={post.category}
                     price={post.price}
-                    authorId={post.authorId}
-                />
+                    authorId={post.authorId} id={0}                />
                 ))}
             </CardGroup>
             </Container>
