@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Card, CardGroup } from 'react-bootstrap';
-import { getPosts, getPostsByAuthorId } from '../../client/postHandler';
+import { getPostsByAuthorId } from '../../client/postHandler';
 import '../../stylesheets/ProfileInfo.css';
-import UserPostInfo from '../createpostpage/userPostInfo';
-import PostTemplate from '../createpostpage/PostTemplate';
+import PostInfo from '../createpostpage/PostInfo';
 import { Post } from '../../types';
 import { store } from '../../redux/store';
 
@@ -36,8 +35,9 @@ function UserPosts() {
         <h2 className="text-center">Dine Ticketer</h2>
         <CardGroup>
           {posts.map((post, idx) => (
-            <UserPostInfo
+            <PostInfo
               key={idx}
+              id={post.id}
               createdAt={post.createdAt}
               timeOfEvent={post.timeOfEvent}
               city={post.city}
@@ -48,7 +48,7 @@ function UserPosts() {
               category={post.category}
               price={post.price}
               authorId={post.authorId} 
-              id={post.id}            />
+            />
           ))}
         </CardGroup>
       </Container>

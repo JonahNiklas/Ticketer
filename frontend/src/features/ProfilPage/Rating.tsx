@@ -2,10 +2,10 @@ import { userInfo } from 'os';
 import React, {useEffect, useState} from 'react';
 import 'react-bootstrap';
 import { ButtonGroup, Form, ToggleButton } from 'react-bootstrap';
-import { RateUser } from '../../client/ratingHandler';
+/* import { RateUser } from '../../client/ratingHandler'; */
 import { store } from '../../redux/store';
 import '../../stylesheets/Rating.css';
-import { RatingRequest, RatingResponse } from '../../types';
+/* import { RatingRequest, RatingResponse } from '../../types'; */
 
 function Rating() {
 

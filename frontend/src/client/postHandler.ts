@@ -40,3 +40,12 @@ export async function changePost(postId: number, request: PostRequest): Promise<
   return post;
 }
 
+export async function deletePost(id: number): Promise<string> {
+  // antar alltid at alt går bra :)
+
+  console.log(id)
+  const posts: string = await restHandler.delete('/post/'+ id);
+
+  // TODO: legge til feilhåndtering
+  return posts;
+}

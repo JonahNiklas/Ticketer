@@ -1,8 +1,6 @@
 import { userData, UserInfo } from "../types";
 import restHandler from "./restHandler";
 
-export {};
-
 export async function getUserById(userId: number): Promise<userData> {
   // antar alltid at alt går bra :)
 

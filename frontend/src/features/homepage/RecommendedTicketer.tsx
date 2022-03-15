@@ -28,6 +28,7 @@ function RecommendedTicketer() {
           {posts.map((post, idx): JSX.Element => (
             <PostInfo
               key={idx}
+              id={post.id}
               createdAt={post.createdAt}
               timeOfEvent={post.timeOfEvent}
               city={post.city}
@@ -38,7 +39,7 @@ function RecommendedTicketer() {
               category={post.category}
               price={post.price}
               authorId={post.authorId} 
-              id={post.id}                                         />
+            />
           ))}
         </CardGroup>
       </Container>
