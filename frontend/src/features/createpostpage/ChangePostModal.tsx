@@ -1,10 +1,9 @@
-import e from 'express';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useRef } from 'react';
 import { Button, ButtonGroup, Form, Modal, ToggleButton } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import { useHistory } from 'react-router-dom';
-import { changePost, createPost } from '../../client/postHandler';
+import { changePost } from '../../client/postHandler';
 import { store } from '../../redux/store';
 import { Post, PostRequest } from '../../types';
 

@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, Button, Card, ListGroup, Modal } from 'react-bootstrap';
 import { deletePost } from '../../client/postHandler';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { getUserById } from '../../client/userHandler';
 import '../../stylesheets/Menylinje.css';
-import { Post,UserInfo } from '../../types';
-import UserPage from '../userpage/UserPage';
-import { store } from '../../redux/store';
+import { Post } from '../../types';
 import ChangeModal from './ChangePostModal';
-import { userInfo } from 'os';
 
 
 

@@ -12,7 +12,7 @@ import { getUserById } from '../../client/userHandler';
 import { getPostsByAuthorId } from '../../client/postHandler';
 import { Post } from '../../types';
 import PostInfo from '../createpostpage/PostInfo';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -25,7 +25,6 @@ function UserPage() {
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
-  const history = useHistory();
   
   async function getUserData(){
     try {
