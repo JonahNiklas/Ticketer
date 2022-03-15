@@ -24,6 +24,7 @@ function DateConverter(date: Date){
   return day + ", " + d.getDate() +'. '+ month +", "+ d.getUTCFullYear()+ " KL " + hours+ ":" + minutes;
 }
 
+
 function PostInfo(props: Post) {
   let borderColor;
   const history = useHistory();
@@ -39,7 +40,7 @@ function PostInfo(props: Post) {
     }
 
   }
-  
+
 
   let forSaleText = 'Selges for ';
   switch (props.category) {
@@ -61,7 +62,7 @@ function PostInfo(props: Post) {
   if (!props.forSale) {
     forSaleText = 'Ønskes kjøpt for ';
   }
-  async function handleUserProfile(e: any) {
+   async function handleUserProfile(e: any) {
     e.preventDefault();
     const userId = props.authorId;
  
@@ -75,14 +76,11 @@ function PostInfo(props: Post) {
       console.error(error);
     }
   }
-  let rendered = false;
 
   useEffect(() => {
-    if (!rendered) {
       handleUserProfile;
       getUserName();
-      rendered = true;
-    }
+    
   }, []);
 
   const [state, setState] = useState(false);

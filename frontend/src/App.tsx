@@ -10,6 +10,8 @@ import { ProtectedRoute } from './features/pageAuthHandler';
 import UserPage from './features/userpage/UserPage';
 
 function App() {
+
+  
   return (
     <Router>
       <Switch>
@@ -29,7 +31,7 @@ function App() {
           <Profile />
         </ProtectedRoute>
         <ProtectedRoute path="/user">
-          <UserPage userId={500}/>
+          <UserPage/>
         </ProtectedRoute>
       </Switch>
     </Router>

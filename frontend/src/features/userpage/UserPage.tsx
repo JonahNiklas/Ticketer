@@ -3,27 +3,24 @@ import Menylinje from '../Menylinje';
 import '../../stylesheets/Posts.css';
 import '../../stylesheets/ProfilePage.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faCircle} from '@fortawesome/free-solid-svg-icons';
-import Profileinfo from '../ProfilPage/Profileinfo';
-import Rating from '../ProfilPage/Rating';
-import UserPosts from '../ProfilPage/UserPosts';
+import {faUserAstronaut} from '@fortawesome/free-solid-svg-icons';
 import '../../stylesheets/ProfileInfo.css';
 import Footer from '../homepage/Footer';
 import Header from '../homepage/Header';
 import { Button, CardGroup, Container, Form } from 'react-bootstrap';
-import { store } from '../../redux/store';
 import { getUserById } from '../../client/userHandler';
 import { getPostsByAuthorId } from '../../client/postHandler';
 import { Post } from '../../types';
 import PostInfo from '../createpostpage/PostInfo';
 import { UserInfo } from '../../types';
 import { useHistory } from 'react-router-dom';
-import { userInfo } from 'os';
 
 
 
-function UserPage(props: UserInfo) {
-  const userId = props.userId;
+function UserPage() {
+
+  const userId = 1;
+
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -31,7 +28,6 @@ function UserPage(props: UserInfo) {
   
   async function getUserData(){
     try {
-      console.log(userId);
       if (userId !== null) {
         const user = await getUserById(userId);
         setFirstName(user.firstName);
@@ -51,7 +47,7 @@ function UserPage(props: UserInfo) {
     if (userId) {
       try {
         setPosts(await getPostsByAuthorId(userId));
-        history.push('/user/');
+        history.push('/user/' + userId);
       } catch (error: any) {
         console.error(error);
       }
@@ -66,6 +62,7 @@ function UserPage(props: UserInfo) {
       rendered = true;
     }
   }, []);
+
   
     return(
       <div>
@@ -74,7 +71,7 @@ function UserPage(props: UserInfo) {
           <Header/>
           <div className='row ms-5'>
             <div className='col-3 ms-5'>
-              <span className='button__icon-10'><FontAwesomeIcon icon={faCircle}></FontAwesomeIcon></span>
+              <span className='button__icon-10'><FontAwesomeIcon icon={faUserAstronaut}></FontAwesomeIcon></span>
             </div>
             <div className='col-4 mt-5'>
               <div className="p-3 rounded" style={{ backgroundColor: "rgb(100, 176, 145)" }}>
