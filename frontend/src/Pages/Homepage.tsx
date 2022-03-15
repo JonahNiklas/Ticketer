@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Col, Row, Image, CardGroup } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FilterBar from '../features/homepage/FilterBar';
 import Footer from '../features/homepage/Footer';
@@ -13,23 +13,26 @@ import Sport from '../images/sport.png';
 import Teater from '../images/teater.png';
 
 function Homepage() {
+
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+
   return (
     <div>
       <Menylinje />
       <div style={{ marginLeft: '133px' }}>
         <Header />
-        <div className="m-5">
-        <Container> 
-          <CardGroup>
-              <div onClick={() => setSelectedCategory('Concert')}><Category picture={Concert} name='KONSERT'/></div>
-              <div onClick={() => setSelectedCategory('Sport')}><Category picture={Sport} name='SPORT'/></div>
-              <div onClick={() => setSelectedCategory('Show')}><Category picture={Teater} name='TEATER'/></div>
-              <div onClick={() => setSelectedCategory('Other')}><Category picture={"https://pic.onlinewebfonts.com/svg/img_520908.png"} name='ANNET'/></div>
-          </CardGroup>
+        <Container>
+          <Row>
+              <Category picture={Concert} name='KONSERT' onClick={() => setSelectedCategory('Concert')}/>
+              <Category picture={Sport} name='SPORT' onClick={() => setSelectedCategory('Sport')}/>
+              <Category picture={Teater} name='TEATER' onClick={() => setSelectedCategory('Show')}/>
+              <Category picture={"https://pic.onlinewebfonts.com/svg/img_520908.png"} name='ANNET' onClick={() => setSelectedCategory('Other')}/>
+          </Row>
         </Container>
-          <FilteredTicketer category={selectedCategory}/>
-        </div>
+        
+        {/** legge inn en check på om selectedCategory == "", hvis ja -> vis recommendedTicketer istedenfor */}
+        <FilteredTicketer category={selectedCategory}/>
+
         <Footer />
       </div>
     </div>

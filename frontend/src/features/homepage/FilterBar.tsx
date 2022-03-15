@@ -8,12 +8,12 @@ import Teater from '../../images/teater.png';
 function FilterBar() {
   return (
     <Container>
-      <CardGroup>
+      {/** <CardGroup>
         <Category picture={Concert} name='KONSERT'/>
         <Category picture={Sport} name='SPORT'/>
         <Category picture={Teater} name='TEATER'/>
         <Category picture={"https://pic.onlinewebfonts.com/svg/img_520908.png"} name='ANNET'/>
-      </CardGroup>
+      </CardGroup> */}
     </Container>
   );
 }
