@@ -13,28 +13,30 @@ function App() {
 
   
   return (
-    <Router>
-      <Switch>
-        <Route path="/login">
-          <LoginPage />
-        </Route>
-        <Route path="/register">
-          <RegisterUser />
-        </Route>
-        <ProtectedRoute path="/posts">
-          <Posts />
-        </ProtectedRoute>
-        <ProtectedRoute path="/home">
-          <Homepage />
-        </ProtectedRoute>
-        <ProtectedRoute path="/profile">
-          <Profile />
-        </ProtectedRoute>
-        <ProtectedRoute path="/user">
-          <UserPage/>
-        </ProtectedRoute>
-      </Switch>
-    </Router>
+    <div style={{overflowX: 'hidden'}}>
+      <Router>
+        <Switch>
+          <Route path="/login">
+            <LoginPage />
+          </Route>
+          <Route path="/register">
+            <RegisterUser />
+          </Route>
+          <ProtectedRoute path="/posts">
+            <Posts />
+          </ProtectedRoute>
+          <ProtectedRoute path="/home">
+            <Homepage />
+          </ProtectedRoute>
+          <ProtectedRoute path="/profile">
+            <Profile />
+          </ProtectedRoute>
+          <ProtectedRoute path="/user">
+            <UserPage/>
+          </ProtectedRoute>
+        </Switch>
+      </Router>
+    </div>
   );
 }
 

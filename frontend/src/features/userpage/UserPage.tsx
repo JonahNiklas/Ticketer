@@ -7,19 +7,20 @@ import {faUserAstronaut} from '@fortawesome/free-solid-svg-icons';
 import '../../stylesheets/ProfileInfo.css';
 import Footer from '../homepage/Footer';
 import Header from '../homepage/Header';
-import { Button, CardGroup, Container, Form } from 'react-bootstrap';
+import { CardGroup, Container } from 'react-bootstrap';
 import { getUserById } from '../../client/userHandler';
 import { getPostsByAuthorId } from '../../client/postHandler';
 import { Post } from '../../types';
 import PostInfo from '../createpostpage/PostInfo';
-import { UserInfo } from '../../types';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 
 
 function UserPage() {
+  const location = useLocation();
+  
 
-  const userId = 1;
+  const userId = Number.parseInt(location.pathname.split('/')[location.pathname.split('/').length - 1]);
 
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
@@ -47,7 +48,6 @@ function UserPage() {
     if (userId) {
       try {
         setPosts(await getPostsByAuthorId(userId));
-        history.push('/user/' + userId);
       } catch (error: any) {
         console.error(error);
       }
