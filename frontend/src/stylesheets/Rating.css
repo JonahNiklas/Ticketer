@@ -1,0 +1,12 @@
+.btnrating:hover {
+  color: rgb(100, 176, 145);
+}
+
+.btnrating {
+  margin: 0;
+}
+
+.rating-header {
+  margin-top: -10px;
+  margin-bottom: 10px;
+}

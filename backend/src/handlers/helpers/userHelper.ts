@@ -16,7 +16,7 @@ export const createUserHelper = async (request: UserRequest, ctx: Context): Prom
   if (!lv.validateEmail(request.email)) return { code: 401, message: 'Invalid email' };
   if (!lv.validatePassword(request.password)) return { code: 401, message: 'Invalid password' };
   if (!lv.validateInput(request.firstName)) return { code: 401, message: 'Invalid firstname' };
-  if (!lv.validateInput(request.email)) return { code: 401, message: 'Invalid lastname' };
+  if (!lv.validateInput(request.lastName)) return { code: 401, message: 'Invalid lastname' };
 
   await ctx.prisma.user.create({
     data: request,

@@ -70,7 +70,6 @@ export async function createPost(ctx: Context, req: Request, res: Response) {
 
 export async function updatePost(ctx: Context, req: Request, res: Response) {
   const {
-    id,
     timeOfEvent,
     city,
     venue,
@@ -80,11 +79,12 @@ export async function updatePost(ctx: Context, req: Request, res: Response) {
     category,
     price,
   } = req.body;
+  const { id } = req.params;
 
   await ctx.prisma.post
     .update({
       where: {
-        id,
+        id: Number.parseInt(id, 10),
       },
       data: {
         timeOfEvent,
@@ -124,13 +124,13 @@ export async function sellPost(ctx: Context, req: Request, res: Response) {
 }
 
 export async function deletePost(ctx: Context, req: Request, res: Response) {
-  const { id } = req.body;
+  const { id } = req.params;
 
   console.log(req.body);
   await ctx.prisma.post
     .delete({
       where: {
-        id,
+        id: Number.parseInt(id, 10),
       },
     })
     .catch((error: any) => {

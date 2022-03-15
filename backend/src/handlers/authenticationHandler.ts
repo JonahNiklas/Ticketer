@@ -12,6 +12,7 @@ export async function login(context: Context, req: Request, res: Response) {
   loginHelper(l, context).then((message: RestResponse | TokenRestResponse) => {
     if (message.code !== 200) {
       res.status(message.code).json({ errorCode: message.code, errorMessage: message.message });
+      return;
     }
     res.status(message.code).json(message.message);
   });
