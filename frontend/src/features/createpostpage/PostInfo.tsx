@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import '../../stylesheets/Menylinje.css';
 import { Post } from '../../types';
 import ChangeModal from './ChangePostModal';
+import MakeContact from './MakeContact';
 
 
 
@@ -44,6 +45,7 @@ function PostInfo(props: Post) {
 
   const [state, setState] = useState(false);
 
+
   useEffect(() => {
     if (window.location.pathname === '/profile') {
       setState(true);
@@ -54,6 +56,7 @@ function PostInfo(props: Post) {
   const [modalShow, setModalShow] = useState(false);
   const [deleteMessage, setDeleteMessage] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
+  const [modalShowTwo, setModalShowTwo] = useState(false);
   
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -99,9 +102,16 @@ function PostInfo(props: Post) {
           <ListGroup.Item>{props.city + ', ' + props.venue}</ListGroup.Item>
           <ListGroup.Item>{DateConverter(props.timeOfEvent)}</ListGroup.Item>
           <ListGroup.Item>{forSaleText + props.price + ',-'}</ListGroup.Item>
-          
+
           </ListGroup>
-        {!state && <Button variant="success mb-2 w-100">Ta kontakt</Button>}
+        {!state && <Button variant="success mb-2 w-100" onClick = {() => setModalShowTwo(true)}>Ta kontakt</Button>}
+
+        {/*userData &&*/ <MakeContact
+        userId={ props.authorId }
+        onHide={() => setModalShowTwo(false)}
+        show={modalShowTwo}
+        />}
+
         {state && <Button variant="success mb-2 w-100" onClick={() => setModalShow(true)}>Endre</Button>}
         {state && <Button variant="danger mb-2 w-100" onClick={handleShow}>Slett innlegg</Button>}
 

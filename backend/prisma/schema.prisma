@@ -1,55 +1,67 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "postgresql"
-    url = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-    id Int @default(autoincrement()) @id
-    firstName String
-    lastName String
-    password String
-    email String @unique
-    posts Post[]
-    token Token?
-    ratingsGiven Rating[] @relation(name: "ratingsGiven")
-    ratingsGotten Rating[] @relation(name: "ratingsGotten")
+  id                       Int                 @id @default(autoincrement())
+  firstName                String
+  lastName                 String
+  password                 String
+  email                    String              @unique
+  posts                    Post[]
+  token                    Token?
+  ratingsGiven             Rating[]            @relation(name: "ratingsGiven")
+  ratingsGotten            Rating[]            @relation(name: "ratingsGotten")
+  ratingsToGive RatingOpportunity[] @relation(name: "ratingsToGive")
+  ratingsSent  RatingOpportunity[] @relation(name: "ratingsSent")
 }
 
 model Post {
-  id Int @id @default(autoincrement())
-  createdAt DateTime @default(now())
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
   timeOfEvent DateTime
-  city String
-  venue String 
-  isActive Boolean                //if false => billetten er solgt
-  forSale Boolean            //if false => ønsker å kjøpe/ kjøpsnnlegg
-  title String @db.VarChar(255)
+  city        String
+  venue       String
+  isActive    Boolean //if false => billetten er solgt
+  forSale     Boolean //if false => ønsker å kjøpe/ kjøpsnnlegg
+  title       String   @db.VarChar(255)
   description String?
-  category String
-  price Float?
-  author User @relation(fields: [authorId], references: [id])
-  authorId Int
+  category    String
+  price       Float?
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    Int
 }
 
 model Token {
-    id Int @default(autoincrement()) @id
-    createdAt DateTime @default(now())
-    owner User @relation(fields: [ownerId], references: [id])
-    ownerId Int
-    token String
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  owner     User     @relation(fields: [ownerId], references: [id])
+  ownerId   Int      @unique
+  token     String
 }
 
 model Rating {
-    id Int @default(autoincrement()) @id
-    createdAt DateTime @default(now())
-    rating Int
-    givenBy User @relation(name: "ratingsGiven", fields: [givenById], references: [id])
-    givenById Int
-    gottenBy User @relation(name: "ratingsGotten", fields: [gottenById], references: [id])
-    gottenById Int
-    description String?
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  rating      Int
+  givenBy     User     @relation(name: "ratingsGiven", fields: [givenById], references: [id])
+  givenById   Int
+  gottenBy    User     @relation(name: "ratingsGotten", fields: [gottenById], references: [id])
+  gottenById  Int
+  description String?
+}
+
+model RatingOpportunity {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  contacted   User     @relation(name: "ratingsToGive", fields: [contactedId], references: [id])
+  contactedId Int
+  contacter   User     @relation(name: "ratingsSent", fields: [contacterId], references: [id])
+  contacterId Int
+  accepted    Boolean  @default(false)
 }
