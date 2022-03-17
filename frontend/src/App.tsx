@@ -27,6 +27,9 @@ function App() {
         <ProtectedRoute path="/profile">
           <Profile />
         </ProtectedRoute>
+        <ProtectedRoute path="/">
+          <Homepage />
+        </ProtectedRoute>
       </Switch>
     </Router>
   );
