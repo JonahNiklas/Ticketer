@@ -123,9 +123,9 @@ function PostInfo(props: Post) {
           <ListGroup.Item>{props.price ? props.price + ',-' : "Ingen pris oppgitt"}</ListGroup.Item>
           
           </ListGroup>
-        {!state && <Button variant="success mb-2 w-100" className="postButtons">Ta kontakt</Button>}
-        {state && <Button variant="success mb-2 w-100" className="postButtons" onClick={() => setModalShow(true)}>Endre</Button>}
-        {state && <Button variant="danger mb-2 w-100" className="postButtons" onClick={handleShow}>Slett innlegg</Button>}
+        {!state && <Button variant="success mb-2 w-100"> <b>Ta kontakt </b></Button>}
+        {state && <Button variant="success mb-2 w-100" onClick={() => setModalShow(true)}>Endre</Button>}
+        {state && <Button variant="danger mb-2 w-100" onClick={handleShow}>Slett innlegg</Button>}
 
       </Card.Body>
     

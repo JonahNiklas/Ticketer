@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Row } from 'react-bootstrap';
+import { Container, Dropdown, DropdownButton, Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FilterBar from '../features/homepage/FilterBar';
 import Footer from '../features/homepage/Footer';
@@ -29,6 +29,21 @@ function Homepage() {
               <Category picture={Teater} name='TEATER/SHOW' active={(selectedCategory === "Show") ? true : false} onClick={() => (selectedCategory === 'Show') ? setSelectedCategory('') : setSelectedCategory('Show')}/>
               <Category picture={"https://pic.onlinewebfonts.com/svg/img_520908.png"} name='ANNET'  active={(selectedCategory === "Other") ? true : false} onClick={() => (selectedCategory === 'Other') ? setSelectedCategory('') : setSelectedCategory('Other')}/>
           </Row>
+          <Dropdown>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+               Filtrere
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item href="#/action-1"> Til salgs</Dropdown.Item>
+              <Dropdown.Item href="#/action-2">Ønskes kjøpt</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">Alle</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item href="#/action-2">pris</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item href="#/action-2">kalender</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+
         </Container>
         
       
