@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, Button, Card, ListGroup, Modal } from 'react-bootstrap';
 import { deletePost } from '../../client/postHandler';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { getUserById } from '../../client/userHandler';
 import '../../stylesheets/Menylinje.css';
 import { Post } from '../../types';
 import ChangeModal from './ChangePostModal';
-import Concert from '../../images/konsert.png';
-import Sport from '../../images/sport.png';
-import Teater from '../../images/teater.png';
+
 
 
 
@@ -22,29 +21,64 @@ function DateConverter(date: Date){
   return day + ", " + d.getDate() +'. '+ month +", "+ d.getUTCFullYear()+ " KL " + hours+ ":" + minutes;
 }
 
-function PostInfo(props: Post) {
-  
-  let forSaleColor = "";
-  let forSaleText = ' for salg';
 
-  /* let image;
+function PostInfo(props: Post) {
+  let borderColor;
+  const history = useHistory();
+  const [name, setName] = useState<string>('');
+
+  async function getUserName() {
+    try {
+      const id = props.authorId;
+      const user = await getUserById(id);
+      setName(user.firstName + ' ' + user.lastName);
+    } catch(error: any) {
+      console.error(error);
+    }
+
+  }
+
+
+  let forSaleText = 'Selges for ';
   switch (props.category) {
     case 'Concert':
-      image = Concert;
+      borderColor = 'primary';
       break;
     case 'Sports':
-      image = Sport;
+      borderColor = 'secondary';
       break;
     case 'Show':
-      image = Teater;
+      borderColor = 'success';
+      break;
+    case 'Other':
+      borderColor = 'info';
       break;
     default:
-      image = "https://pic.onlinewebfonts.com/svg/img_520908.png";
-  } */
-  if (props.forSale) {
-    forSaleText = ' for kjøp';
-    forSaleColor= "color: rgb(207, 152, 147)";
+      borderColor = 'primary';
   }
+  if (!props.forSale) {
+    forSaleText = 'Ønskes kjøpt for ';
+  }
+   async function handleUserProfile(e: any) {
+    e.preventDefault();
+    const userId = props.authorId;
+ 
+    try{
+      if(userId){
+        const response = getUserById(userId);  
+        console.log(response);
+        history.push('/user/'+userId);
+      }
+    } catch (error: any) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+      handleUserProfile;
+      getUserName();
+    
+  }, []);
 
   const [state, setState] = useState(false);
 
@@ -84,28 +118,36 @@ function PostInfo(props: Post) {
   return (
     <>
     <Card
-      className={`m-4 border border-success rounded card ${props.forSale ? "forSaleBorder" : "not-forSaleBorder"}`}
+      border={borderColor}
+      className=" m-4 border border-success rounded card"
       style={{ maxWidth: '370px', minWidth: '300px' }}
     >
       
-      <span>
-        <button type="button" className={`button-user-post ${props.forSale ? "forSale" : "not-forSale"}`} name="Sted">
-          <span className="button-user-icon">{props.authorId}</span>{/* <img src={image} className="postImage"></img> */}
-        </button>
-      </span>
+    
+    
+        <span>
+{/*         <Link to="/user" className='link'> */}
+        <button type='button' className='button-user-post' name='Sted'  onClick={handleUserProfile}>
+            <span className='button-user-icon'>{name}</span>
+        </button>  
+{/*         </Link>      
+ */}        </span>
+
+
       
+      {/* <Card.Img src="https://picsum.photos/200/200" className=' h-50 w-auto' /> */}
       <Card.Body className='mb-0 pb-0'>
         <Card.Title>{props.title}</Card.Title> 
           <ListGroup variant="flush">
-          <ListGroup.Item>{props.description ? props.description : "Ingen beskrivelse"}</ListGroup.Item>
+          <ListGroup.Item>{props.description}</ListGroup.Item>
           <ListGroup.Item>{props.city + ', ' + props.venue}</ListGroup.Item>
           <ListGroup.Item>{DateConverter(props.timeOfEvent)}</ListGroup.Item>
-          <ListGroup.Item>{props.price ? props.price + ',-' : "Ingen pris oppgitt"}</ListGroup.Item>
+          <ListGroup.Item>{forSaleText + props.price + ',-'}</ListGroup.Item>
           
           </ListGroup>
-        {!state && <Button variant="success mb-2 w-100" className="postButtons">Ta kontakt{forSaleText}</Button>}
-        {state && <Button variant="success mb-2 w-100" className="postButtons" onClick={() => setModalShow(true)}>Endre</Button>}
-        {state && <Button variant="danger mb-2 w-100" className="postButtons" onClick={handleShow}>Slett innlegg</Button>}
+        {!state && <Button variant="success mb-2 w-100">Ta kontakt</Button>}
+        {state && <Button variant="success mb-2 w-100" onClick={() => setModalShow(true)}>Endre</Button>}
+        {state && <Button variant="danger mb-2 w-100" onClick={handleShow}>Slett innlegg</Button>}
 
       </Card.Body>
     
