@@ -16,24 +16,25 @@ function ProfilePage() {
 
     return(
       <div className='m-0'>
-      <Menylinje/>          
-      <div style = {{marginLeft: "133px"}}>
-      <Header/>
-      <div className='row ms-5' style={{maxWidth: '90%'}}>
-      <div className='col-2 ms-5'>
-        <span className='button__icon-10'><FontAwesomeIcon icon={faUserAstronaut}></FontAwesomeIcon></span> 
-      </div>  
-      <div className='col-4 mt-5'>
-        <Profileinfo/>
-        <Rating/>
-      </div>  
+        <Menylinje />
+        <div style={{marginLeft: "133px"}}>
+          <Header />
+          <div className='row ms-5' style={{maxWidth: '90%'}}>
+            <div className='col-2 ms-5'>
+              <span className='button__icon-10'>
+                <FontAwesomeIcon icon={faUserAstronaut}></FontAwesomeIcon>
+              </span>
+            </div>
+            <div className='col-4 mt-5'>
+              <Profileinfo />
+              <Rating />
+            </div>
+            <div className='m-5'>
+              <UserPosts />
+            </div>
+          </div>
+        </div>
       </div>
-      <div className='m-5'>
-        <UserPosts/>
-      </div>
-      <Footer />
-    </div>
-    </div>
   );
 }
 
