@@ -78,6 +78,16 @@ export interface userData {
   email: string,
 }
 
+export interface RatingOpportunityRequest {
+  contactedId: number,
+  contacterId: number,
+  postId: number
+}
+
+export interface RatingOpportunityRespose {
+  
+}
+
 /* export interface RatingRequest {
 
 }

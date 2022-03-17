@@ -129,6 +129,19 @@ app.put('/rating/update', async (req: any, res: any) => {
   updateRating(context, req, res);
 });
 
+//RATING_OPPORTUNITY RELATED
+app.post('/ratingOpportunity', async (req: any, res: any) => {
+  createRatingOpportunity(context, req, res);
+});
+
+app.get('/ratingOpportunity/:userId', async (req: any, res: any) => {
+  getRatingOpportunityByUser(context, req, res);
+});
+
+app.put('/ratingOpportunity/:id', async (req: any, res: any) => {
+  confirmSale(context, req, res);
+});
+
 app.listen(port, () => console.log(`Serveren har startet på port: ${port}!`));
 
 // this is for testing purposes
