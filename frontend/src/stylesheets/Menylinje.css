@@ -61,10 +61,10 @@
 }
 
 .forSale {
-  background-color: rgb(100, 176, 145);
+  background-color: #198754;
 }
 .not-forSale {
-  background-color: rgb(207, 152, 147);
+  background-color: #dc3545;
 }
 .button-user-icon {
   color: white;
