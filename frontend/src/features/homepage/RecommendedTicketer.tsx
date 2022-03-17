@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { CardGroup, Container } from 'react-bootstrap';
 import { getPosts } from '../../client/postHandler';
-import '../../stylesheets/Posts.css';
 import { Post } from '../../types';
 import PostInfo from '../createpostpage/PostInfo';
 
@@ -22,10 +21,10 @@ function RecommendedTicketer() {
 
   return (
     <div className="mt-0 ml-5 mr-5 p-0">
-      <Container>
+      <Container style={{minHeight:"500px"}}>
         <h2 className="text-center">Anbefalte Ticketer</h2>
         <CardGroup>
-          {posts.map((post, idx) => (
+          {posts.map((post, idx): JSX.Element => (
             <PostInfo
               key={idx}
               id={post.id}

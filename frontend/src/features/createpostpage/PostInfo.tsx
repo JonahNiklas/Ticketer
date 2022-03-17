@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, Button, Card, ListGroup, Modal } from 'react-bootstrap';
 import { deletePost } from '../../client/postHandler';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { getUserById } from '../../client/userHandler';
 import '../../stylesheets/Menylinje.css';
 import { Post } from '../../types';
 import ChangeModal from './ChangePostModal';
+
 
 
 
@@ -19,8 +21,24 @@ function DateConverter(date: Date){
   return day + ", " + d.getDate() +'. '+ month +", "+ d.getUTCFullYear()+ " KL " + hours+ ":" + minutes;
 }
 
+
 function PostInfo(props: Post) {
   let borderColor;
+  const history = useHistory();
+  const [name, setName] = useState<string>('');
+
+  async function getUserName() {
+    try {
+      const id = props.authorId;
+      const user = await getUserById(id);
+      setName(user.firstName + ' ' + user.lastName);
+    } catch(error: any) {
+      console.error(error);
+    }
+
+  }
+
+
   let forSaleText = 'Selges for ';
   switch (props.category) {
     case 'Concert':
@@ -41,6 +59,26 @@ function PostInfo(props: Post) {
   if (!props.forSale) {
     forSaleText = 'Ønskes kjøpt for ';
   }
+   async function handleUserProfile(e: any) {
+    e.preventDefault();
+    const userId = props.authorId;
+ 
+    try{
+      if(userId){
+        const response = getUserById(userId);  
+        console.log(response);
+        history.push('/user/'+userId);
+      }
+    } catch (error: any) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+      handleUserProfile;
+      getUserName();
+    
+  }, []);
 
   const [state, setState] = useState(false);
 
@@ -85,11 +123,17 @@ function PostInfo(props: Post) {
       style={{ maxWidth: '370px', minWidth: '300px' }}
     >
       
-      <span>
-        <button type="button" className="button-user-post" name="Sted">
-          <span className="button-user-icon">{props.authorId}</span>
-        </button>
-      </span>
+    
+    
+        <span>
+{/*         <Link to="/user" className='link'> */}
+        <button type='button' className='button-user-post' name='Sted'  onClick={handleUserProfile}>
+            <span className='button-user-icon'>{name}</span>
+        </button>  
+{/*         </Link>      
+ */}        </span>
+
+
       
       {/* <Card.Img src="https://picsum.photos/200/200" className=' h-50 w-auto' /> */}
       <Card.Body className='mb-0 pb-0'>
