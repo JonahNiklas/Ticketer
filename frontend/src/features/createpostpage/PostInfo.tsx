@@ -145,7 +145,7 @@ function PostInfo(props: Post) {
           <ListGroup.Item>{forSaleText + props.price + ',-'}</ListGroup.Item>
           
           </ListGroup>
-        {!state && <Button variant="success mb-2 w-100">Ta kontakt</Button>}
+        {!state && <Button variant="success mb-2 w-100"> <b>Ta kontakt </b></Button>}
         {state && <Button variant="success mb-2 w-100" onClick={() => setModalShow(true)}>Endre</Button>}
         {state && <Button variant="danger mb-2 w-100" onClick={handleShow}>Slett innlegg</Button>}
 
