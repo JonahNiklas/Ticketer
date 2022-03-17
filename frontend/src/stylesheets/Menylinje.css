@@ -60,6 +60,20 @@
   padding: 10px;
 }
 
+.forSale {
+  background-color: #198754;
+}
+.not-forSale {
+  background-color: #dc3545;
+}
 .button-user-icon {
   color: white;
 }
+
+.postImage {
+  height: 4vh;
+  width: auto;
+  position: absolute;
+  right: 1vh;
+}
+
