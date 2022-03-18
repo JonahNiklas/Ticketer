@@ -57,9 +57,9 @@ function PostInfo(props: Post) {
   const [state, setState] = useState(false);
 
   useEffect(() => {
+    getUserName();
     if (window.location.pathname === '/profile') {
       setState(true);
-      getUserName();
     }
   }, []);
 
