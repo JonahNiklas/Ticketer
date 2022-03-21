@@ -1,3 +1,5 @@
+import { InsHTMLAttributes } from "react";
+
 export interface TokenInfo {
   token: string | null;
 }
@@ -85,7 +87,22 @@ export interface RatingOpportunityRequest {
 }
 
 export interface RatingOpportunityRespose {
+  code: number,
+  message: string
   
+}
+
+export interface RatingOpportunity {
+  id: number,
+  createdAt: Date,
+  postId: number,
+  contactedId: number,
+  contacterId: number,
+  accepted: boolean,
+  title: string,
+  forSale: boolean,
+  contacterName: string,
+  contacterEmail: string,
 }
 
 /* export interface RatingRequest {

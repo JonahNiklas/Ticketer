@@ -28,10 +28,10 @@ const EditProfile = (props: {userData: userData, show: boolean, onHide: any}) =>
   const [passwordErrorMessage, setPasswordErrorMessage] = useState<string>('');
   const [success, setSuccess] = useState<boolean>(false);
 
-  console.log(email);
+  /* console.log(email);
   console.log(firstName);
   console.log(lastName);
-  console.log(password);
+  console.log(password); */
 
   const emailCheck = (email: string) => {
     if (!/^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {

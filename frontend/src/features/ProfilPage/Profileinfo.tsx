@@ -16,7 +16,6 @@ function Profileinfo(){
   async function getUserData(){
     try {
       const activeUserId = store.getState().user.userId;
-      console.log(activeUserId);
       if (activeUserId !== null && Number.isInteger(activeUserId)) {
         const user = await getUserById(activeUserId);
         setUserData({

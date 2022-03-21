@@ -7,7 +7,6 @@ import { Post } from '../../types';
 import { store } from '../../redux/store';
 
 function UserPosts() {
-  let rendered = false;
 
   const [posts, setPosts] = useState<Post[]>([]);
   const activeUserId = store.getState().user.userId;
@@ -23,10 +22,7 @@ function UserPosts() {
   }
 
   useEffect(() => {
-    if (!rendered) {
-      getUsersPosts();
-      rendered = true;
-    }
+    getUsersPosts();
   }, []);
 
   return (

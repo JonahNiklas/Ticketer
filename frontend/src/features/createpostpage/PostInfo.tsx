@@ -106,11 +106,12 @@ function PostInfo(props: Post) {
           </ListGroup>
         {!state && <Button variant="success mb-2 w-100" onClick = {() => setModalShowTwo(true)}>Ta kontakt</Button>}
 
-        {/*userData &&*/ <MakeContact
-        userId={ props.authorId }
+        <MakeContact
+        contactedId={ props.authorId }
+        postId={props.id}
         onHide={() => setModalShowTwo(false)}
         show={modalShowTwo}
-        />}
+        />
 
         {state && <Button variant="success mb-2 w-100" onClick={() => setModalShow(true)}>Endre</Button>}
         {state && <Button variant="danger mb-2 w-100" onClick={handleShow}>Slett innlegg</Button>}

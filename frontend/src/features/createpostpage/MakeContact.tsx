@@ -1,35 +1,50 @@
+
 import React, { useState, useEffect } from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import { Alert, Button, Modal } from 'react-bootstrap';
+import { createRatingOpportunity } from '../../client/ratingOpportunityHandler';
 import { getUserById } from '../../client/userHandler';
-import { userData } from '../../types';
+import { RatingOpportunityRequest, RatingOpportunityRespose, userData } from '../../types';
+import { store } from '../../redux/store';
 
-const MakeContact = (props: {userId: number, show: boolean, onHide: any}) => {
-
+const MakeContact = (props: {postId: number, contactedId: number, show: boolean, onHide: any}) => {
   const [user, setUser] = useState<userData|null>(null);
+  const [success, setSuccess] = useState(false);
   
-
- const getUserData = async () => {
-  try {
-    const user = await getUserById(props.userId);
-     //IKKE SLETT DENNE
-    if(user){
-      setUser(user)
-      //setEmail(user.email);
-      console.log("halla")
+  const getUserData = async () => {
+    try {
+      const user = await getUserById(props.contactedId);
+      if(user){
+        setUser(user)
+        //setEmail(user.email);
+      }
+      
+      
+    } catch (err) {
+      console.error(err);
     }
-    
-    
-  } catch (err) {
-    console.error(err)
-    
   }
- }
-
+  const handleContact = async () => {
+    try {    
+      const activeUserId = store.getState().user.userId;
+      if(!activeUserId) return;
+      const request :RatingOpportunityRequest = {
+        contactedId: props.contactedId,
+        contacterId: activeUserId,
+        postId: props.postId
+      };
+      const response : RatingOpportunityRespose = await createRatingOpportunity(request);
+      
+      setSuccess(response.code == 200);
+      
+    } catch (err) {
+      console.error(err);
+      console.log(1);
+    }
+  }
  
-
- useEffect(() => {
-  getUserData();
- }, []);
+  useEffect(() => {
+    getUserData();
+  }, []);
  
   
   
@@ -37,8 +52,12 @@ const MakeContact = (props: {userId: number, show: boolean, onHide: any}) => {
   if(user){
     return(
       <Modal onHide = {props.onHide} show = {props.show} >
-        <Modal.Body>Ta kontakt her med {user.firstName+" "+user.lastName+" "+user.email+"\n"}{user.firstName+" "+user.lastName} har nå fått beskjed om at du ønsker å ta kontakt.</Modal.Body>
-        <Button onClick={()=>{console.log("ass")}}>Bekreft</Button>
+        <Modal.Body>
+          Ta kontakt her med {user.firstName+" "+user.lastName+"\n Hen kan kontaktes her "+user.email+"\n"}
+        </Modal.Body>
+        <Button onClick={()=>handleContact()}>Bekreft</Button>
+        <Alert show={success}>{user.firstName+" "+user.lastName} har nå fått beskjed om at du ønsker å ta kontakt.</Alert>
+        
       </Modal>
       
     );
@@ -52,5 +71,4 @@ const MakeContact = (props: {userId: number, show: boolean, onHide: any}) => {
     );
   }
 };
-
 export default MakeContact;
