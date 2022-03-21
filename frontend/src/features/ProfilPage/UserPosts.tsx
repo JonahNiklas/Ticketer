@@ -26,7 +26,7 @@ function UserPosts() {
   }, []);
 
   return (
-    <div className="mt-0 ml-5 mr-5 p-0">
+    <div className="mt-0 ml-5 mr-5 p-0" style={{minHeight:"500px"}}>
       <Container>
         <h2 className="text-center">Dine Ticketer</h2>
         <CardGroup>

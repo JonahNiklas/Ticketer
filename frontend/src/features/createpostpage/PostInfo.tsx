@@ -6,6 +6,10 @@ import '../../stylesheets/Menylinje.css';
 import { Post } from '../../types';
 import ChangeModal from './ChangePostModal';
 import MakeContact from './MakeContact';
+import Concert from '../../images/konsert.png';
+import Sport from '../../images/sport.png';
+import Teater from '../../images/teater.png';
+import { getUserById } from '../../client/userHandler';
 
 
 
@@ -20,46 +24,62 @@ function DateConverter(date: Date){
   return day + ", " + d.getDate() +'. '+ month +", "+ d.getUTCFullYear()+ " KL " + hours+ ":" + minutes;
 }
 
+
+
+
 function PostInfo(props: Post) {
-  let borderColor;
-  let forSaleText = 'Selges for ';
-  switch (props.category) {
-    case 'Concert':
-      borderColor = 'primary';
-      break;
-    case 'Sports':
-      borderColor = 'secondary';
-      break;
-    case 'Show':
-      borderColor = 'success';
-      break;
-    case 'Other':
-      borderColor = 'info';
-      break;
-    default:
-      borderColor = 'primary';
-  }
-  if (!props.forSale) {
-    forSaleText = 'Ønskes kjøpt for ';
-  }
+  
+  let forSaleColor = "";
+  let forSaleText = ' for salg';
 
   const [state, setState] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
+  const [showContact, setShowContact] = useState(false);
+  const [deleteMessage, setDeleteMessage] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
+  const [name, setName] = useState<string>("");
+
+
+
+  async function getUserName() {
+    try {
+      const id = props.authorId;
+      const user = await getUserById(id);
+      setName(user.firstName + ' ' + user.lastName);
+    } catch(error: any) {
+      console.error(error);
+    }
+  }
+
+  /* let image;
+  switch (props.category) {
+    case 'Concert':
+      image = Concert;
+      break;
+    case 'Sports':
+      image = Sport;
+      break;
+    case 'Show':
+      image = Teater;
+      break;
+    default:
+      image = "https://pic.onlinewebfonts.com/svg/img_520908.png";
+  } */
+  if (props.forSale) {
+    forSaleText = ' for kjøp';
+    forSaleColor= "color: rgb(207, 152, 147)";
+  }
 
 
   useEffect(() => {
     if (window.location.pathname === '/profile') {
       setState(true);
     }
+    getUserName();
   }, []);
 
-  const [show, setShow] = useState(false);
-  const [modalShow, setModalShow] = useState(false);
-  const [deleteMessage, setDeleteMessage] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<boolean>(false);
-  const [modalShowTwo, setModalShowTwo] = useState(false);
   
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   const handleDeletePost = async (e: any) => {
     e.preventDefault();
@@ -76,64 +96,64 @@ function PostInfo(props: Post) {
       setErrorMessage(true);
     }
     setTimeout(() => {
-      setShow(false);
+      setShowDelete(false);
     }, 3000);
   }
+
+
   
   return (
     <>
     <Card
-      border={borderColor}
-      className=" m-4 border border-success rounded card"
+      className={`m-4 border border-success rounded card ${props.forSale ? "forSaleBorder" : "not-forSaleBorder"}`}
       style={{ maxWidth: '370px', minWidth: '300px' }}
     >
       
       <span>
-        <button type="button" className="button-user-post" name="Sted">
-          <span className="button-user-icon">{props.authorId}</span>
+        <button type="button" className={`button-user-post ${props.forSale ? "forSale" : "not-forSale"}`} name="Sted">
+          <span className="button-user-icon">{props.forSale ? <b> Selges </b> : <b>Ønsker kjøpt</b>}</span>{/* <img src={image} className="postImage"></img> */}
         </button>
       </span>
       
-      {/* <Card.Img src="https://picsum.photos/200/200" className=' h-50 w-auto' /> */}
       <Card.Body className='mb-0 pb-0'>
         <Card.Title>{props.title}</Card.Title> 
-          <ListGroup variant="flush">
-          <ListGroup.Item>{props.description}</ListGroup.Item>
+        <ListGroup variant="flush">
+          <ListGroup.Item>{name}</ListGroup.Item>
+          <ListGroup.Item>{props.description ? props.description : "Ingen beskrivelse"}</ListGroup.Item>
           <ListGroup.Item>{props.city + ', ' + props.venue}</ListGroup.Item>
           <ListGroup.Item>{DateConverter(props.timeOfEvent)}</ListGroup.Item>
-          <ListGroup.Item>{forSaleText + props.price + ',-'}</ListGroup.Item>
-
-          </ListGroup>
-        {!state && <Button variant="success mb-2 w-100" onClick = {() => setModalShowTwo(true)}>Ta kontakt</Button>}
+          <ListGroup.Item>{props.price ? props.price + ',-' : "Ingen pris oppgitt"}</ListGroup.Item>
+        </ListGroup>
 
         <MakeContact
         contactedId={ props.authorId }
         postId={props.id}
-        onHide={() => setModalShowTwo(false)}
-        show={modalShowTwo}
+        onHide={() => setShowContact(false)}
+        show={showContact}
         />
 
-        {state && <Button variant="success mb-2 w-100" onClick={() => setModalShow(true)}>Endre</Button>}
-        {state && <Button variant="danger mb-2 w-100" onClick={handleShow}>Slett innlegg</Button>}
+        {!state && <Button variant="success mb-2 w-100" onClick = {() => setShowContact(true)}>Ta kontakt</Button>}
+        {state && <Button variant="success mb-2 w-100" onClick={() => setShowEdit(true)}>Endre</Button>}
+        {state && <Button variant="danger mb-2 w-100" onClick={() => setShowDelete(true)}>Slett innlegg</Button>}
 
       </Card.Body>
     
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={showDelete} onHide={() => setShowDelete(false)}>
       <Modal.Header closeButton>
         <Modal.Title>Er du sikker på at du vil slette innlegget?</Modal.Title>
       </Modal.Header>
       <Modal.Footer>
         <Alert show={deleteMessage} variant='secondary'>Innlegget ble slettet</Alert>
         <Alert show={errorMessage} variant='danger'>Innlegget ble ikke slettet</Alert>
-        <Button variant='secondary' onClick={handleClose}>Avbryt</Button>
+        <Button variant='secondary' onClick={() => setShowDelete(false)}>Avbryt</Button>
         <Button variant='danger' onClick={handleDeletePost}>Slett innlegg</Button>
       </Modal.Footer>
     </Modal>
     </Card>
 
     <ChangeModal
-      onHide={() => setModalShow(false)}
-      show={modalShow}
+      onHide={() => setShowEdit(false)}
+      show={showEdit}
       thisPost={props}
     />
     </>

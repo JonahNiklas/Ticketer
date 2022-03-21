@@ -128,7 +128,7 @@ function CreatePosts() {
                     key={idx}
                     id={`forsale-${idx}`}
                     type="radio"
-                    variant={idx % 2 ? 'outline-success' : 'outline-danger'}
+                    variant={idx % 2 ? 'outline-danger' : 'outline-success'}
                     name="forSale"
                     value={element.value}
                     checked={forSale === element.value}

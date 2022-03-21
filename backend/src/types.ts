@@ -8,7 +8,7 @@ export interface Post {
   forSale: boolean;
   title: String;
   description?: String;
-  catgetory: string;
+  category: string;
   price?: Number;
 }
 

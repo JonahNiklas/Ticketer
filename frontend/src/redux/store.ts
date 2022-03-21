@@ -10,7 +10,6 @@ import {
   FLUSH,
   PAUSE,
   PERSIST,
-  PersistConfig,
   persistReducer,
   persistStore,
   PURGE,
