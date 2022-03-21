@@ -86,3 +86,16 @@ export interface TokenRestResponse {
   code: number;
   message: Token;
 }
+
+export interface RatingOpportunity {
+  id: number,
+  createdAt: Date,
+  postId: number,
+  contactedId: number,
+  contacterId: number,
+  accepted: boolean,
+  title: string,
+  forSale: boolean,
+  contacterName: string,
+  contacterEmail: string
+}

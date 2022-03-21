@@ -27,6 +27,7 @@ import {
   calculateUserRating,
   updateRating,
 } from './handlers/ratingHandler';
+import { confirmSale, createRatingOpportunity, getRatingOpportunityByUser } from './handlers/ratingOpportunityHandler';
 
 const app = express();
 app.use(express.json());

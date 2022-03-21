@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { Context } from '../context';
+import { RatingOpportunity } from '../types';
 
 export async function createRatingOpportunity(ctx: Context, req: Request, res: Response) {
   const { contactedId, contacterId, postId } = req.body;
@@ -40,6 +41,7 @@ export async function getRatingOpportunityByUser(ctx: Context, req: Request, res
     res.status(400).send('Param cannot be null');
     return;
   }
+  console.log(userId);
   const ratingOpportunities = await ctx.prisma.ratingOpportunity
     .findMany({
       where: {
@@ -49,8 +51,50 @@ export async function getRatingOpportunityByUser(ctx: Context, req: Request, res
     .catch((error: any) => {
       res.status(400).send('Something went wrong');
       console.error(error);
+  });
+
+  let fullRaOpList: RatingOpportunity[] = [];
+  if(ratingOpportunities) {
+    ratingOpportunities.forEach(async ro => {
+      const post = await ctx.prisma.post
+      .findUnique({
+        where: {
+          id: ro.postId,
+        },
+      })
+      .catch((error: any) => {
+        res.status(400);
+        console.error(error);
+      });
+      
+      const contacter = await ctx.prisma.user
+      .findUnique({
+        where: {
+          id: ro.contacterId,
+        },
+      })
+      .catch((error: any) => {
+        res.status(400).send('Something went wrong');
+        console.error(error);
+      });
+      if(post && contacter) {
+        const e :RatingOpportunity = {
+          ...ro,
+          title: post.title,
+          forSale: post.forSale,
+          contacterName:  contacter.firstName + " " + contacter?.lastName,
+          contacterEmail: contacter.email,
+        }
+        fullRaOpList.push(e);
+        console.log(fullRaOpList);
+      } 
+      res.json(fullRaOpList);
     });
-  res.json(ratingOpportunities);
+  } else{
+    res.json(fullRaOpList);
+
+  }
+  
 }
 
 export async function confirmSale(ctx: Context, req: Request, res: Response) {
