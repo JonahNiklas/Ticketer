@@ -1,23 +1,27 @@
-import { RatingOpportunity, RatingOpportunityRequest, RatingOpportunityRespose } from "../types";
+import { RatingOpportunity, RatingOpportunityRequest, RatingOpportunityResponse } from "../types";
 import restHandler from "./restHandler";
 
-export async function createRatingOpportunity(request: RatingOpportunityRequest): Promise<RatingOpportunityRespose> {
+export async function createRatingOpportunity(request: RatingOpportunityRequest): Promise<RatingOpportunityResponse> {
     // antar alltid at alt går bra :)
   
-    const response: RatingOpportunityRespose =
-      await restHandler.postWithResponse<RatingOpportunityRespose>('/ratingOpportunity', request);
+    const response: RatingOpportunityResponse =
+      await restHandler.postWithResponse<RatingOpportunityResponse>('/ratingOpportunity', request);
   
     // TODO: legge til feilhåndtering
-    console.log(response);
     return response;
 }
 
 export async function getRatingOpportunityByUser(userId: number): Promise<RatingOpportunity[]> {
-  // antar alltid at alt går bra :)
-
   const ratingOpportunities: RatingOpportunity[] = await restHandler.get<RatingOpportunity[]>('/ratingOpportunity/'+userId);
   
   // TODO: legge til feilhåndtering
+  return ratingOpportunities;
+}
+
+export async function acceptRatingOpportunity(ratingOpportunityId: number): Promise<RatingOpportunityResponse> {
+
+  const ratingOpportunities: RatingOpportunityResponse = await restHandler.put<RatingOpportunityResponse>('/ratingOpportunity/'+ratingOpportunityId);
+  
   return ratingOpportunities;
 }
 

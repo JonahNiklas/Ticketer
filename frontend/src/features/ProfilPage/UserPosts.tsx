@@ -38,6 +38,7 @@ function UserPosts() {
               timeOfEvent={post.timeOfEvent}
               city={post.city}
               venue={post.venue}
+              isActive={post.isActive}
               forSale={post.forSale}
               title={post.title}
               description={post.description}

@@ -14,7 +14,7 @@ import { Button, Container, Form } from 'react-bootstrap';
 import WantsContact from './wantsContact';
 
 function ProfilePage() {
-
+  
     return(
       <div className='m-0'>
         <Menylinje />
@@ -32,7 +32,7 @@ function ProfilePage() {
             </div>
             <WantsContact/>
             <div className='m-5'>
-              <UserPosts />
+              <UserPosts/>
             </div>
           </div>
         </div>

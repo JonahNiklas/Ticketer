@@ -96,6 +96,7 @@ export interface RatingOpportunity {
   accepted: boolean,
   title: string,
   forSale: boolean,
-  contacterName: string,
+  contacterFirstName: string,
+  contacterLastName: string,
   contacterEmail: string
 }

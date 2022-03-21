@@ -65,6 +65,7 @@ export interface Post {
   timeOfEvent: Date;
   city: string;
   venue: string;
+  isActive: boolean;
   forSale: boolean;
   title: string;
   description: string | null;
@@ -86,10 +87,9 @@ export interface RatingOpportunityRequest {
   postId: number
 }
 
-export interface RatingOpportunityRespose {
+export interface RatingOpportunityResponse {
   code: number,
   message: string
-  
 }
 
 export interface RatingOpportunity {
@@ -101,7 +101,8 @@ export interface RatingOpportunity {
   accepted: boolean,
   title: string,
   forSale: boolean,
-  contacterName: string,
+  contacterFirstName: string,
+  contacterLastName: string,
   contacterEmail: string,
 }
 

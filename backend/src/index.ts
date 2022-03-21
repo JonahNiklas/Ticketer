@@ -84,7 +84,7 @@ app.get('/post/user/:id', async (req: any, res: any) => {
   getPostsUser(context, req, res);
 });
 
-app.put('/post/sell/', async (req: any, res: any) => {
+app.put('/post/sell/:id', async (req: any, res: any) => {
   sellPost(context, req, res);
 });
 
@@ -135,7 +135,8 @@ app.put('/rating/update', async (req: any, res: any) => {
   updateRating(context, req, res);
 });
 
-//RATING_OPPORTUNITY RELATED
+// RATING_OPPORTUNITY RELATED
+
 app.post('/ratingOpportunity', async (req: any, res: any) => {
   createRatingOpportunity(context, req, res);
 });

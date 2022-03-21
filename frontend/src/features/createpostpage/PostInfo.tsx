@@ -32,7 +32,7 @@ function PostInfo(props: Post) {
   let forSaleColor = "";
   let forSaleText = ' for salg';
 
-  const [state, setState] = useState(false);
+  const [onProfilePage, setOnProfilePage] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [showContact, setShowContact] = useState(false);
@@ -74,7 +74,7 @@ function PostInfo(props: Post) {
 
   useEffect(() => {
     if (window.location.pathname === '/profile') {
-      setState(true);
+      setOnProfilePage(true);
     }
     getUserName();
   }, []);
@@ -101,7 +101,9 @@ function PostInfo(props: Post) {
   }
 
 
-  
+  if(!onProfilePage && !props.isActive){
+    return <></>;
+  }
   return (
     <>
     <Card
@@ -110,8 +112,14 @@ function PostInfo(props: Post) {
     >
       
       <span>
-        <button type="button" className={`button-user-post ${props.forSale ? "forSale" : "not-forSale"}`} name="Sted">
-          <span className="button-user-icon">{props.forSale ? <b> Selges </b> : <b>Ønsker kjøpt</b>}</span>{/* <img src={image} className="postImage"></img> */}
+        <button type="button" className={`button-user-post ${props.isActive ? (props.forSale ? "forSale" : "not-forSale") : "inactive"}`} name="Sted">
+          <span className="button-user-icon">
+            <b>
+              {props.isActive ? 
+                (props.forSale ? "Til Salgs" : "Ønskes kjøpt") :
+                (props.forSale ? "Solgt" : "Kjøpt")}
+            </b>
+          </span>
         </button>
       </span>
       
@@ -132,9 +140,9 @@ function PostInfo(props: Post) {
         show={showContact}
         />
 
-        {!state && <Button variant="success mb-2 w-100" onClick = {() => setShowContact(true)}>Ta kontakt</Button>}
-        {state && <Button variant="success mb-2 w-100" onClick={() => setShowEdit(true)}>Endre</Button>}
-        {state && <Button variant="danger mb-2 w-100" onClick={() => setShowDelete(true)}>Slett innlegg</Button>}
+        {!onProfilePage && <Button variant="success mb-2 w-100" onClick = {() => setShowContact(true)}>Ta kontakt</Button>}
+        {onProfilePage && <Button variant="success mb-2 w-100" onClick={() => setShowEdit(true)}>Endre</Button>}
+        {onProfilePage && <Button variant="danger mb-2 w-100" onClick={() => setShowDelete(true)}>Slett innlegg</Button>}
 
       </Card.Body>
     

@@ -3,6 +3,19 @@ import { Button, Card, Container, Toast, ToastContainer } from "react-bootstrap"
 import { getRatingOpportunityByUser } from '../../client/ratingOpportunityHandler';
 import { store } from '../../redux/store';
 import { RatingOpportunity } from '../../types';
+import { acceptRatingOpportunity } from '../../client/ratingOpportunityHandler';
+import { sellPost } from '../../client/postHandler';
+
+function DateConverter(date: Date){
+  const d = new Date(date);
+  const days = ['MANDAG','TIRSDAG','ONSDAG','TORSDAG','FREDAG', 'LØRDAG','SØNDAG'];
+  const months = ['JANUAR','FEBRUAR','MARS','APRIL','MAI','JUNI','JULI','AUGUST','SEPTEMBER','OKTOBER','NOVEMBER','DESEMBER']
+  const day = days[d.getDay()];
+  const month = months[d.getMonth()];
+  const hours = (d.getUTCHours().toString().padStart(2,'0'))
+  const minutes = (d.getUTCMinutes().toString().padStart(2,'0'))
+  return day + ", " + d.getDate() +'. '+ month +", "+ d.getUTCFullYear()+ " KL " + hours+ ":" + minutes;
+}
 
 function WantsContact() {
 
@@ -21,6 +34,14 @@ function WantsContact() {
     }
   }
 
+  //her
+
+  const acceptContact = async (id: number, postId: number) => {
+    await acceptRatingOpportunity(id);
+    await sellPost(postId);
+    getRatingOpportunities();
+  }
+
   useEffect(() => {
     getRatingOpportunities();
   }, []);
@@ -34,15 +55,19 @@ function WantsContact() {
           <Toast key={idx} show={show} onClose={toggleShow}>
             <Toast.Header>
               <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-              <strong className="me-auto">{ro.contacterName} ønsker å {ro.forSale ? "kjøpe" : "selge"} en billett</strong>
-              <small className="text-muted">{/*DateConverter(*/ro.createdAt}</small>
+              <strong className="me-auto">{ro.contacterFirstName + " " + ro.contacterLastName} ønsker å {ro.forSale ? "kjøpe" : "selge"} en billett</strong>
+              <small className="text-muted">{DateConverter(ro.createdAt)}</small>
             </Toast.Header>
             <Toast.Body>
-              {ro.contacterName} ønsker å kjøpe <i>{ro.title}</i><br></br>
+              {ro.contacterFirstName + " " + ro.contacterLastName} ønsker å kjøpe <i>{ro.title}</i><br></br>
               Ta kontakt for utføre salget:<br></br>
               {ro.contacterEmail}
             </Toast.Body>
-            <Button>Marker annonsen som {ro.forSale ? "solgt" : "kjøpt"}</Button>
+            
+            <Button onClick={() => {
+              acceptContact(ro.id, ro.postId)}}>
+              Marker annonsen som {ro.forSale ? "solgt" : "kjøpt"}
+            </Button>
           </Toast>
         ))}
       </ToastContainer>

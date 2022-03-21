@@ -42,7 +42,7 @@ export async function changePost(postId: number, request: PostRequest): Promise<
   // antar alltid at alt går bra :)
 
   const post: Post = await restHandler.put<Post>("/post/"+postId, request);
-  console.log(post);
+
   // TODO: legge til feilhåndtering
   return post;
 }
@@ -50,9 +50,18 @@ export async function changePost(postId: number, request: PostRequest): Promise<
 export async function deletePost(id: number): Promise<string> {
   // antar alltid at alt går bra :)
 
-  console.log(id)
+
   const posts: string = await restHandler.delete('/post/'+ id);
 
   // TODO: legge til feilhåndtering
   return posts;
+}
+
+export async function sellPost(postId: number): Promise<PostResponse> {
+  // antar alltid at alt går bra :)
+
+  const response: PostResponse = await restHandler.put<PostResponse>("/post/sell/"+postId);
+  console.log(response);
+  // TODO: legge til feilhåndtering
+  return response;
 }

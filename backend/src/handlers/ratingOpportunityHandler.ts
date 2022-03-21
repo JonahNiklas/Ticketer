@@ -9,7 +9,6 @@ export async function createRatingOpportunity(ctx: Context, req: Request, res: R
     where: {
       contacterId,
       postId,
-
     },
   }).catch((error: any) => {
     console.error(error);
@@ -17,7 +16,7 @@ export async function createRatingOpportunity(ctx: Context, req: Request, res: R
 
   if (ratingOpportunity) {
     res.status(401);
-    res.json('Rating Oppertunity allready exists');
+    res.json('Rating Opportunity allready exists');
     return;
   }
   const request = {
@@ -32,7 +31,7 @@ export async function createRatingOpportunity(ctx: Context, req: Request, res: R
     console.error(error);
   });
 
-  res.status(200).json('Successfully contacted owner of post');
+  res.status(200).json({ code: 200, message: 'Successfully contacted owner of post' });
 }
 
 export async function getRatingOpportunityByUser(ctx: Context, req: Request, res: Response) {
@@ -46,55 +45,54 @@ export async function getRatingOpportunityByUser(ctx: Context, req: Request, res
     .findMany({
       where: {
         contactedId: Number.parseInt(userId, 10),
+        accepted: false,
       },
+      include: {
+        post: {
+          select: {
+            title: true,
+            forSale: true,
+          },
+        },
+        contacter: {
+          select: {
+            firstName: true,
+            lastName: true,
+            email: true,
+          },
+        },
+
+      },
+
     })
     .catch((error: any) => {
       res.status(400).send('Something went wrong');
       console.error(error);
-  });
-
-  let fullRaOpList: RatingOpportunity[] = [];
-  if(ratingOpportunities) {
-    ratingOpportunities.forEach(async ro => {
-      const post = await ctx.prisma.post
-      .findUnique({
-        where: {
-          id: ro.postId,
-        },
-      })
-      .catch((error: any) => {
-        res.status(400);
-        console.error(error);
-      });
-      
-      const contacter = await ctx.prisma.user
-      .findUnique({
-        where: {
-          id: ro.contacterId,
-        },
-      })
-      .catch((error: any) => {
-        res.status(400).send('Something went wrong');
-        console.error(error);
-      });
-      if(post && contacter) {
-        const e :RatingOpportunity = {
-          ...ro,
-          title: post.title,
-          forSale: post.forSale,
-          contacterName:  contacter.firstName + " " + contacter?.lastName,
-          contacterEmail: contacter.email,
-        }
-        fullRaOpList.push(e);
-        console.log(fullRaOpList);
-      } 
-      res.json(fullRaOpList);
     });
-  } else{
-    res.json(fullRaOpList);
 
+  const fullRaOpList: RatingOpportunity[] = [];
+
+  if (!ratingOpportunities) {
+    return;
   }
-  
+
+  ratingOpportunities.forEach((ro) => {
+    const e :RatingOpportunity = {
+      id: ro.id,
+      createdAt: ro.createdAt,
+      postId: ro.postId,
+      contactedId: ro.contactedId,
+      contacterId: ro.contacterId,
+      accepted: ro.accepted,
+      title: ro.post.title,
+      forSale: ro.post.forSale,
+      contacterFirstName: ro.contacter.firstName,
+      contacterLastName: ro.contacter.lastName,
+      contacterEmail: ro.contacter.email,
+    };
+    fullRaOpList.push(e);
+  });
+  res.json(fullRaOpList);
 }
 
 export async function confirmSale(ctx: Context, req: Request, res: Response) {
@@ -103,6 +101,7 @@ export async function confirmSale(ctx: Context, req: Request, res: Response) {
     res.status(400).send('Param cannot be null');
     return;
   }
+  console.log(id);
   await ctx.prisma.ratingOpportunity
     .update({
       where: {
@@ -116,5 +115,5 @@ export async function confirmSale(ctx: Context, req: Request, res: Response) {
       res.status(400).send('Something went wrong');
       console.error(error);
     });
-  res.json('Successfully updated');
+  res.status(200).json({ code: 200, message: 'Successfully updated' });
 }

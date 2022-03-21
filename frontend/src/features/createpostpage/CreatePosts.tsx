@@ -110,7 +110,7 @@ function CreatePosts() {
         <div className="col align-center">
           <Form className="m-5" style={{ width: '500px' }}>
             <h3 className="m-5">Hva skal du legge ut?</h3>
-            <Form.Group className="mb-3 w-100 col" controlId="formBasicl">
+            <Form.Group className="mb-3 w-100" controlId="formBasicl">
               <Form.Label>Navn på arrangement*</Form.Label>
               <Form.Control
                 type="text"
