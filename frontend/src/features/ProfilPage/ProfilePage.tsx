@@ -12,6 +12,7 @@ import Footer from '../homepage/Footer';
 import Header from '../homepage/Header';
 import { Button, Container, Form } from 'react-bootstrap';
 import WantsContact from './wantsContact';
+import GiveRating from './GiveRating';
 
 function ProfilePage() {
   
@@ -31,6 +32,7 @@ function ProfilePage() {
               <Rating />
             </div>
             <WantsContact/>
+            <GiveRating/>
             <div className='m-5'>
               <UserPosts/>
             </div>

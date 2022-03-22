@@ -100,3 +100,18 @@ export interface RatingOpportunity {
   contacterLastName: string,
   contacterEmail: string
 }
+
+export interface RatingPossibility {
+  id: number,
+  createdAt: Date,
+  postId: number,
+  contactedId: number,
+  contacterId: number,
+  accepted: boolean,
+  title: string,
+  forSale: boolean,
+  contacterFirstName: string,
+  contacterLastName: string,
+  contactedFirstName: string,
+  contactedLastName: string,
+}

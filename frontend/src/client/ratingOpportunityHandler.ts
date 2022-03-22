@@ -1,4 +1,4 @@
-import { RatingOpportunity, RatingOpportunityRequest, RatingOpportunityResponse } from "../types";
+import { RatingPossibility, RatingOpportunity, RatingOpportunityRequest, RatingOpportunityResponse } from "../types";
 import restHandler from "./restHandler";
 
 export async function createRatingOpportunity(request: RatingOpportunityRequest): Promise<RatingOpportunityResponse> {
@@ -25,3 +25,9 @@ export async function acceptRatingOpportunity(ratingOpportunityId: number): Prom
   return ratingOpportunities;
 }
 
+export async function getAcceptedRatingOpportunityByUser(userId: number): Promise<RatingPossibility[]> {
+  const acceptedRatingOpportunities: RatingPossibility[] = await restHandler.get<RatingPossibility[]>('/ratingOpportunity/accepted/'+userId);
+  
+  // TODO: legge til feilhåndtering
+  return acceptedRatingOpportunities;
+}

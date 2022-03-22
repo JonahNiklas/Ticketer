@@ -106,10 +106,27 @@ export interface RatingOpportunity {
   contacterEmail: string,
 }
 
-/* export interface RatingRequest {
+export interface RatingPossibility {
+  id: number,
+  createdAt: Date,
+  postId: number,
+  contactedId: number,
+  contacterId: number,
+  accepted: boolean,
+  title: string,
+  forSale: boolean,
+  contacterFirstName: string,
+  contacterLastName: string,
+  contactedFirstName: string,
+  contactedLastName: string,
+}
 
+export interface RatingRequest {
+  givenById: number,
+  gottenById: number,
 }
 
 export interface RatingResponse {
-
-} */
+  givenBy: number,
+  gottenBy: number,
+}

@@ -51,12 +51,13 @@ model Token {
 model Rating {
   id          Int      @id @default(autoincrement())
   createdAt   DateTime @default(now())
-  rating      Int
+  rating      Int?
   givenBy     User     @relation(name: "ratingsGiven", fields: [givenById], references: [id])
   givenById   Int
   gottenBy    User     @relation(name: "ratingsGotten", fields: [gottenById], references: [id])
   gottenById  Int
   description String?
+  active      Boolean  @default(false)
 }
 
 model RatingOpportunity {

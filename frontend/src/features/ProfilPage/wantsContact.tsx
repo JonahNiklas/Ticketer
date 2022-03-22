@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Button, Card, Container, Toast, ToastContainer } from "react-bootstrap";
 import { getRatingOpportunityByUser } from '../../client/ratingOpportunityHandler';
 import { store } from '../../redux/store';
-import { RatingOpportunity } from '../../types';
+import { RatingOpportunity, RatingRequest } from '../../types';
 import { acceptRatingOpportunity } from '../../client/ratingOpportunityHandler';
 import { sellPost } from '../../client/postHandler';
+import { createRating } from '../../client/ratingHandler';
 
 function DateConverter(date: Date){
   const d = new Date(date);
@@ -36,10 +37,24 @@ function WantsContact() {
 
   //her
 
-  const acceptContact = async (id: number, postId: number) => {
+  const acceptContact = async (id: number, postId: number, firstId: number, secondId: number) => {
     await acceptRatingOpportunity(id);
     await sellPost(postId);
     getRatingOpportunities();
+
+    const data1: RatingRequest = {
+      givenById: firstId,
+      gottenById: secondId
+    }
+    /* const data2: RatingRequest = {
+      givenById: secondId,
+      gottenById: firstId
+    } */
+
+    await createRating(data1);
+
+
+    //window.location.reload();
   }
 
   useEffect(() => {
@@ -65,7 +80,7 @@ function WantsContact() {
             </Toast.Body>
             
             <Button onClick={() => {
-              acceptContact(ro.id, ro.postId)}}>
+              acceptContact(ro.id, ro.postId, ro.contactedId, ro.contacterId)}}>
               Marker annonsen som {ro.forSale ? "solgt" : "kjøpt"}
             </Button>
           </Toast>

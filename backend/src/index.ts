@@ -21,14 +21,20 @@ import {
   sellPost,
   getPostsByFilter,
 } from './handlers/postHandler';
+
 import {
-  getAllRatings,
-  rateUser,
-  getUserRatings,
+  confirmSale,
+  createRatingOpportunity,
+  getAcceptedRatingOpportunities,
+  getRatingOpportunityByUser,
+} from './handlers/ratingOpportunityHandler';
+import {
   calculateUserRating,
+  createRatingBothWays,
+  getAllRatings,
+  getUserRatings,
   updateRating,
 } from './handlers/ratingHandler';
-import { confirmSale, createRatingOpportunity, getRatingOpportunityByUser } from './handlers/ratingOpportunityHandler';
 
 const app = express();
 app.use(express.json());
@@ -116,7 +122,7 @@ app.put('/user', async (req: any, res: any) => {
 // RATING RELATED
 
 app.post('/rating', async (req: any, res: any) => {
-  rateUser(context, req, res);
+  createRatingBothWays(context, req, res);
 });
 
 app.get('/rating', async (req: any, res: any) => {
@@ -149,7 +155,8 @@ app.put('/ratingOpportunity/:id', async (req: any, res: any) => {
   confirmSale(context, req, res);
 });
 
-app.listen(port, () => console.log(`Serveren har startet på port: ${port}!`));
+app.get('/ratingOpportunity/accepted/:userId', async (req: any, res: any) => {
+  getAcceptedRatingOpportunities(context, req, res);
+});
 
-// this is for testing purposes
-export default app;
+app.listen(port, () => console.log(`Serveren har startet på port: ${port}!`));
