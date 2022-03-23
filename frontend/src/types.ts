@@ -122,11 +122,30 @@ export interface RatingPossibility {
 }
 
 export interface RatingRequest {
+  id: number;
+  rating: number;
+  description?: string;
+}
+
+export interface CreateRatingRequest {
+  postTitle: string,
   givenById: number,
   gottenById: number,
 }
 
 export interface RatingResponse {
-  givenBy: number,
-  gottenBy: number,
+  code: number,
+  message: string,
+}
+
+export interface Rating {
+  id: number;
+  createdAt: Date;
+  rating: number;
+  givenById: number;
+  gottenById: number;
+  description?: string;
+  active: boolean;
+  gottenFirstName: string;
+  gottenLastName: string;
 }
