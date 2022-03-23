@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Card, CardGroup } from 'react-bootstrap';
+import { Container, CardGroup, Row, Col } from 'react-bootstrap';
 import { getPostsByAuthorId } from '../../client/postHandler';
 import '../../stylesheets/ProfileInfo.css';
 import PostInfo from '../createpostpage/PostInfo';
@@ -26,30 +26,37 @@ function UserPosts() {
   }, []);
 
   return (
-    <div className="mt-0 ml-5 mr-5 p-0" style={{minHeight:"500px"}}>
       <Container>
-        <h2 className="text-center">Dine Ticketer</h2>
-        <CardGroup>
-          {posts.map((post, idx) => (
-            <PostInfo
-              key={idx}
-              id={post.id}
-              createdAt={post.createdAt}
-              timeOfEvent={post.timeOfEvent}
-              city={post.city}
-              venue={post.venue}
-              isActive={post.isActive}
-              forSale={post.forSale}
-              title={post.title}
-              description={post.description}
-              category={post.category}
-              price={post.price}
-              authorId={post.authorId} 
-            />
-          ))}
-        </CardGroup>
+        <Row className="justify-content-md-center">
+          <Col>
+            <h2 className="text-center">Dine Ticketer</h2>
+          </Col>
+        </Row>
+        <Row className="justify-content-md-center">
+          <Col>
+            <CardGroup className='justify-content-md-center'>
+            {posts.map((post, idx) => (
+              <PostInfo
+                key={idx}
+                id={post.id}
+                createdAt={post.createdAt}
+                timeOfEvent={post.timeOfEvent}
+                city={post.city}
+                venue={post.venue}
+                isActive={post.isActive}
+                forSale={post.forSale}
+                title={post.title}
+                description={post.description}
+                category={post.category}
+                price={post.price}
+                authorId={post.authorId} 
+              />
+            ))}
+            </CardGroup>
+          </Col>
+        </Row>
+        
       </Container>
-    </div>
   );
 }
 

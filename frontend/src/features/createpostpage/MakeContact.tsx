@@ -49,14 +49,15 @@ const MakeContact = (props: {postId: number, contactedId: number, show: boolean,
     return(
       <Modal onHide = {props.onHide} show = {props.show} >
         <Modal.Body>
-          {user.firstName+" "+user.lastName+" kan kontaktes her: "+user.email+"\n"}
+          {user.firstName+" "+user.lastName+" kan kontaktes her: "}<a href={`mailto: ${user.email}`}>{user.email}</a><br></br>
+          
         </Modal.Body>
         <Button onClick={()=>{
           handleContact();
           setTimeout(() => {
             props.onHide();
           }, 3000);
-        }}>Bekreft</Button>
+        }}>Ta kontakt på Ticketer</Button>
         <Alert show={success}>{user.firstName+" "+user.lastName} har nå fått beskjed om at du ønsker å ta kontakt.</Alert>
         
       </Modal>

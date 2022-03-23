@@ -10,7 +10,7 @@ import UserPosts from './UserPosts';
 import '../../stylesheets/ProfileInfo.css';
 import Footer from '../homepage/Footer';
 import Header from '../homepage/Header';
-import { Button, Container, Form } from 'react-bootstrap';
+import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import WantsContact from './wantsContact';
 import GiveRating from './GiveRating';
 
@@ -21,23 +21,33 @@ function ProfilePage() {
         <Menylinje />
         <div style={{marginLeft: "133px"}}>
           <Header />
-          <div className='row ms-5' style={{maxWidth: '90%'}}>
-            <div className='col-2 ms-5'>
-              <span className='button__icon-10'>
-                <FontAwesomeIcon icon={faUserAstronaut}></FontAwesomeIcon>
-              </span>
-            </div>
-            <div className='col-4 mt-5'>
-              <Profileinfo />
-              <Rating />
-            </div>
-            <WantsContact/>
-            <GiveRating/>
-            <div className='m-5'>
-              <UserPosts/>
-            </div>
+            <Container>
+              <Row className="justify-content-md-center mt-5">
+                <Col sm="3">
+                  <Container>
+                    <span className='button__icon-10'>
+                      <FontAwesomeIcon icon={faUserAstronaut}></FontAwesomeIcon>
+                    </span>
+                  </Container>
+                </Col>
+                <Col sm="6">
+                    <Profileinfo />
+                    <Rating />
+                </Col>
+              </Row>
+              <Row className='mt-2'>
+                <Col sm="6">
+                  <WantsContact/>
+                </Col>
+                <Col>
+                  <GiveRating/>            
+                </Col>
+              </Row>
+              <Row className='mt-5'>
+                <UserPosts/>
+              </Row>
+            </Container>
           </div>
-        </div>
       </div>
   );
 }
