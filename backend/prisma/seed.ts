@@ -77,7 +77,7 @@ const postData = [
     forSale: true,
     title: 'My birthday party :)',
     description: 'My amazing birthday party. Mom will make cake :)',
-    category: 'birthday',
+    category: 'Other',
     price: 500.00,
     authorId: 500,
   },
