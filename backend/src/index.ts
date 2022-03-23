@@ -25,14 +25,15 @@ import {
 import {
   confirmSale,
   createRatingOpportunity,
-  getAcceptedRatingOpportunities,
   getRatingOpportunityByUser,
 } from './handlers/ratingOpportunityHandler';
 import {
   calculateUserRating,
   createRatingBothWays,
   getAllRatings,
+  getRatingsToGive,
   getUserRatings,
+  rateUser,
   updateRating,
 } from './handlers/ratingHandler';
 
@@ -129,16 +130,16 @@ app.get('/rating', async (req: any, res: any) => {
   getAllRatings(context, req, res);
 });
 
-app.get('/rating/user/', async (req: any, res: any) => {
-  getUserRatings(context, req, res);
+app.get('/rating/user/:givenById', async (req: any, res: any) => {
+  getRatingsToGive(context, req, res);
 });
 
 app.get('/rating/user/average', async (req: any, res: any) => {
   calculateUserRating(context, req, res);
 });
 
-app.put('/rating/update', async (req: any, res: any) => {
-  updateRating(context, req, res);
+app.put('/rating/', async (req: any, res: any) => {
+  rateUser(context, req, res);
 });
 
 // RATING_OPPORTUNITY RELATED
@@ -153,10 +154,6 @@ app.get('/ratingOpportunity/:userId', async (req: any, res: any) => {
 
 app.put('/ratingOpportunity/:id', async (req: any, res: any) => {
   confirmSale(context, req, res);
-});
-
-app.get('/ratingOpportunity/accepted/:userId', async (req: any, res: any) => {
-  getAcceptedRatingOpportunities(context, req, res);
 });
 
 app.listen(port, () => console.log(`Serveren har startet på port: ${port}!`));

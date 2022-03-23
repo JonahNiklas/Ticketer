@@ -4,6 +4,7 @@ import { Context } from '../context';
 
 export async function createRatingBothWays(ctx: Context, req: Request, res: Response) {
   const {
+    postTitle,
     givenById,
     gottenById,
   } = req.body;
@@ -17,6 +18,7 @@ export async function createRatingBothWays(ctx: Context, req: Request, res: Resp
     .create({
       data: {
         rating: 0,
+        description: postTitle,
         givenBy: {
           connect: { id: givenById },
         },
@@ -33,6 +35,7 @@ export async function createRatingBothWays(ctx: Context, req: Request, res: Resp
     .create({
       data: {
         rating: 0,
+        description: postTitle,
         givenBy: {
           connect: { id: gottenById },
         },
@@ -59,23 +62,10 @@ export async function rateUser(ctx: Context, req: Request, res: Response) {
     res.status(400).send('Rating has to be between 1 and 10');
     return;
   }
-
-  /* const excistingRating = await ctx.prisma.rating
-    .findFirst({
-      where: {
-        givenById,
-        gottenById,
-      },
-    })
-    .catch((error: any) => {
-      res.status(400).send('Something went wrong');
-      console.error(error);
-    });
-
-  if (excistingRating) {
-    res.status(200).send('Allready rated this user');
-    return;
-  } */
+  let newDescription = null;
+  if (description) {
+    newDescription = description;
+  }
 
   await ctx.prisma.rating
     .update({
@@ -84,7 +74,7 @@ export async function rateUser(ctx: Context, req: Request, res: Response) {
       },
       data: {
         rating,
-        description,
+        description: newDescription,
         active: true,
       },
     })
@@ -114,6 +104,7 @@ export async function getUserRatings(
     .findMany({
       where: {
         gottenById: Number.parseInt(gottenById, 10),
+        active: true,
       },
     })
     .catch((error: any) => {
@@ -121,6 +112,56 @@ export async function getUserRatings(
       console.error(error);
     });
   res.json(ratings);
+}
+
+export async function getRatingsToGive(
+  ctx: Context,
+  req: Request,
+  res: Response,
+) {
+  const { givenById } = req.params;
+
+  if (givenById === null || givenById === undefined) {
+    res.status(400).send('Param cannot be null');
+    return;
+  }
+
+  const ratings = await ctx.prisma.rating
+    .findMany({
+      where: {
+        givenById: Number.parseInt(givenById, 10),
+        active: false,
+      },
+      include: {
+        gottenBy: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
+    }})
+    .catch((error: any) => {
+      res.status(400).send('Something went wrong');
+      console.error(error);
+    });
+
+  let fullRatingList : Rating[] =[];
+  if(ratings)
+    ratings.forEach(r => {
+      const e :Rating = {
+        id: r.id,
+        rating: r.rating,
+        description: r.description,
+        createdAt: r.createdAt,
+        givenById: r.givenById,
+        gottenById: r.gottenById,
+        active: r.active,
+        gottenFirstName: r.gottenBy.firstName,
+        gottenLastName: r.gottenBy.lastName,
+      }
+      fullRatingList.push(e);
+    });
+  res.json(fullRatingList);
 }
 
 export async function calculateUserRating(

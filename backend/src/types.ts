@@ -32,14 +32,7 @@ export interface User {
   ratingsGotten: Rating[];
 }
 
-export interface Rating {
-  id: Number;
-  createdAt: Date;
-  rating: Number;
-  givenBy: User;
-  gottenBy: User;
-  description?: string;
-}
+
 
 export interface LoginRequest {
   email: string;
@@ -101,17 +94,18 @@ export interface RatingOpportunity {
   contacterEmail: string
 }
 
-export interface RatingPossibility {
-  id: number,
-  createdAt: Date,
-  postId: number,
-  contactedId: number,
-  contacterId: number,
-  accepted: boolean,
-  title: string,
-  forSale: boolean,
-  contacterFirstName: string,
-  contacterLastName: string,
-  contactedFirstName: string,
-  contactedLastName: string,
+export interface Rating {
+  id: number;
+  createdAt: Date;
+  rating: number;
+  givenById: number;
+  gottenById: number;
+  description?: string;
+  active: boolean
+}
+
+export interface RatingRequest {
+  id: number;
+  rating: number;
+  description?: string;
 }

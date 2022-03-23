@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { Context } from '../context';
-import { RatingOpportunity, RatingPossibility } from '../types';
+import { RatingOpportunity } from '../types';
 
 export async function createRatingOpportunity(ctx: Context, req: Request, res: Response) {
   const { contactedId, contacterId, postId } = req.body;
@@ -115,75 +115,3 @@ export async function confirmSale(ctx: Context, req: Request, res: Response) {
   res.status(200).json({ code: 200, message: 'Successfully updated' });
 }
 
-export async function getAcceptedRatingOpportunities(ctx: Context, req: Request, res: Response) {
-  const { userId } = req.params;
-  if (userId === null || userId === undefined) {
-    res.status(400).send('Param cannot be null');
-    return;
-  }
-  const ratingOpportunities = await ctx.prisma.ratingOpportunity
-    .findMany({
-      where: {
-        OR: [
-          {
-            contactedId: Number.parseInt(userId, 10),
-          },
-          {
-            contacterId: Number.parseInt(userId, 10),
-          },
-        ],
-        accepted: true,
-      },
-      include: {
-        post: {
-          select: {
-            title: true,
-            forSale: true,
-          },
-        },
-        contacter: {
-          select: {
-            firstName: true,
-            lastName: true,
-          },
-        },
-        contacted: {
-          select: {
-            firstName: true,
-            lastName: true,
-          },
-        },
-
-      },
-
-    })
-    .catch((error: any) => {
-      res.status(400).send('Something went wrong');
-      console.error(error);
-    });
-
-  const fullRaPoList: RatingPossibility[] = [];
-
-  if (!ratingOpportunities) {
-    return;
-  }
-
-  ratingOpportunities.forEach((ro) => {
-    const e :RatingPossibility = {
-      id: ro.id,
-      createdAt: ro.createdAt,
-      postId: ro.postId,
-      contactedId: ro.contactedId,
-      contacterId: ro.contacterId,
-      accepted: ro.accepted,
-      title: ro.post.title,
-      forSale: ro.post.forSale,
-      contacterFirstName: ro.contacter.firstName,
-      contacterLastName: ro.contacter.lastName,
-      contactedFirstName: ro.contacted.firstName,
-      contactedLastName: ro.contacted.lastName,
-    };
-    fullRaPoList.push(e);
-  });
-  res.json(fullRaPoList);
-}
