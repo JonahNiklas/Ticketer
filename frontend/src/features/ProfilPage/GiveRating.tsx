@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Container } from "react-bootstrap";
+import { Button, Card, Container, Modal } from "react-bootstrap";
 import { getAcceptedRatingOpportunityByUser } from '../../client/ratingOpportunityHandler';
 import { store } from '../../redux/store';
 import { RatingPossibility } from '../../types';
@@ -18,9 +18,9 @@ function GiveRating() {
         console.error(error);
       }
     }
-    
   }
   
+
 
   
   useEffect(() => {
@@ -39,9 +39,21 @@ function GiveRating() {
             rp.contactedFirstName + " " +rp.contactedLastName :
             rp.contacterFirstName + " " +rp.contacterLastName}
           </Card.Body>
-          <Button>Bekreft</Button>
+          <Button>Gi vurdering</Button>
         </Card>
         ))}
+        {/* <Modal onHide = {()=> setShowConfirm(false)} show = {showConfirm} >
+        <Modal.Body>
+          {user.firstName+" "+user.lastName+" kan kontaktes her: "+user.email+"\n"}
+        </Modal.Body>
+        <Button onClick={()=>{
+          handleContact();
+          setTimeout(() => {
+            props.onHide();
+          }, 3000);
+        }}>Bekreft</Button>
+        <Alert show={success}>{user.firstName+" "+user.lastName} har nå fått beskjed om at du ønsker å ta kontakt.</Alert>
+      </Modal> */}
       </Container>
     </Container>
   );

@@ -50,22 +50,17 @@ export async function createRatingBothWays(ctx: Context, req: Request, res: Resp
 
 export async function rateUser(ctx: Context, req: Request, res: Response) {
   const {
+    id,
     rating,
-    givenById,
-    gottenById,
     description,
   } = req.body;
 
-  if (rating < 1 || rating > 10) {
+  if (rating < 1 || rating > 5) {
     res.status(400).send('Rating has to be between 1 and 10');
     return;
   }
-  if (givenById === gottenById) {
-    res.status(400).send('Cannot rate itself');
-    return;
-  }
 
-  const excistingRating = await ctx.prisma.rating
+  /* const excistingRating = await ctx.prisma.rating
     .findFirst({
       where: {
         givenById,
@@ -80,19 +75,17 @@ export async function rateUser(ctx: Context, req: Request, res: Response) {
   if (excistingRating) {
     res.status(200).send('Allready rated this user');
     return;
-  }
+  } */
 
   await ctx.prisma.rating
-    .create({
+    .update({
+      where: {
+        id,
+      },
       data: {
         rating,
         description,
-        givenBy: {
-          connect: { id: givenById },
-        },
-        gottenBy: {
-          connect: { id: gottenById },
-        },
+        active: true,
       },
     })
     .catch((error: any) => {
