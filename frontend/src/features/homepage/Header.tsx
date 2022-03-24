@@ -26,9 +26,9 @@ function Header() {
         <Col className="d-flex justify-content-left">
         <Link to='/home'><Image src={Logo} className="ms-5"/></Link>
         </Col>
-        <Col className="d-flex align-items-center justify-content-end">
+        {/* <Col className="d-flex align-items-center justify-content-end">
           <SearchBar />
-        </Col>
+        </Col> */}
       </Row>
     </div>
   );

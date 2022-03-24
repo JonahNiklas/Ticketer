@@ -13,6 +13,7 @@ import Sport from '../images/sport.png';
 import Teater from '../images/teater.png';
 import MultiSlider from '../features/homepage/MutliSlider';
 import DatePicker from 'react-datepicker';
+import SearchBar from '../features/homepage/SearchBar';
 
 function Homepage() {
 
@@ -23,6 +24,7 @@ function Homepage() {
   const [dateFilter, setDateFilter] = useState<Date>(new Date());
   const [masterPosts, setMasterPosts] = useState<Post[]>([]);
   const [showPosts, setShowPosts] = useState<Post[]>([]);
+  const [searchState, setSearchState] = useState<string>("");
 
   async function getAllPosts() {
     try {
@@ -34,6 +36,7 @@ function Homepage() {
       console.error(error);
     }
   }
+
 
   const filterPosts = () => {
     let filteredList: Post[] = [...masterPosts];
@@ -60,6 +63,9 @@ function Homepage() {
   
       // then date
       filteredList = filteredList.filter(p => new Date(p.timeOfEvent) > dateFilter);
+
+      // then location
+      filteredList = filteredList.filter(p => p.city.toLowerCase().includes(searchState.toLowerCase()) || p.venue.toLowerCase().includes(searchState.toLowerCase())); 
     }
 
     setShowPosts(filteredList);
@@ -71,7 +77,8 @@ function Homepage() {
 
   useEffect(() => {
     filterPosts();
-  }, [showFilters, selectedCategory, priceFilter, sellFilter, dateFilter]);
+  }, [showFilters, selectedCategory, priceFilter, sellFilter, dateFilter, searchState]);
+
 
   return (
     <div>
@@ -90,6 +97,9 @@ function Homepage() {
           </Row>
           <Collapse in={showFilters}>
             <Card>
+              <Row className='justify-content-center'>
+                <SearchBar input={(d: any) => setSearchState(d.target.value)}/>
+              </Row>
               <Row className='justify-content-center'>
                 <Col>
                   <Form.Group className='text-center'>
