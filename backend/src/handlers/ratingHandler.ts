@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Rating } from '@prisma/client';
+import { Rating, UserRating } from '../types';
 import { Context } from '../context';
 
 export async function createRatingBothWays(ctx: Context, req: Request, res: Response) {
@@ -86,7 +86,7 @@ export async function rateUser(ctx: Context, req: Request, res: Response) {
 }
 
 export async function getAllRatings(ctx: Context, req: Request, res: Response) {
-  const ratings: void|Rating[] = await ctx.prisma.rating.findMany().catch((error: any) => {
+  const ratings = await ctx.prisma.rating.findMany().catch((error: any) => {
     res.status(400).send('Something went wrong');
     console.error(error);
   });
@@ -148,10 +148,14 @@ export async function getRatingsToGive(
   let fullRatingList : Rating[] =[];
   if(ratings)
     ratings.forEach(r => {
+      let newDescription = undefined;
+      if (r.description) {
+        newDescription = r.description;
+      }
       const e :Rating = {
         id: r.id,
         rating: r.rating,
-        description: r.description,
+        description: newDescription,
         createdAt: r.createdAt,
         givenById: r.givenById,
         gottenById: r.gottenById,
@@ -169,11 +173,17 @@ export async function calculateUserRating(
   req: Request,
   res: Response,
 ) {
-  const { gottenById } = req.body;
+  const { gottenById } = req.params;
+
+  if (gottenById === null || gottenById === undefined) {
+    res.status(400).send('Param cannot be null');
+    return;
+  }
   const ratings = await ctx.prisma.rating
     .findMany({
       where: {
         gottenById: Number.parseInt(gottenById, 10),
+        active: true,
       },
     })
     .catch((error: any) => {
@@ -187,7 +197,12 @@ export async function calculateUserRating(
   const sum = ratings
     .map((r) => r.rating)
     .reduce((partialSum, ra) => partialSum + ra, 0);
-  res.json(sum / ratings.length);
+
+  const result: UserRating = {
+    avgRating: sum/ratings.length,
+    ratingCount: ratings.length,
+  }
+  res.json(result);
 }
 
 export async function updateRating(ctx: Context, req: Request, res: Response) {

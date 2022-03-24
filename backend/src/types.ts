@@ -101,11 +101,19 @@ export interface Rating {
   givenById: number;
   gottenById: number;
   description?: string;
-  active: boolean
+  active: boolean;
+  gottenFirstName: string;
+  gottenLastName: string;
 }
+
 
 export interface RatingRequest {
   id: number;
   rating: number;
   description?: string;
+}
+
+export interface UserRating {
+  avgRating: number;
+  ratingCount: number
 }

@@ -134,7 +134,7 @@ app.get('/rating/user/:givenById', async (req: any, res: any) => {
   getRatingsToGive(context, req, res);
 });
 
-app.get('/rating/user/average', async (req: any, res: any) => {
+app.get('/rating/user/average/:gottenById', async (req: any, res: any) => {
   calculateUserRating(context, req, res);
 });
 
