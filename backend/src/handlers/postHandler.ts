@@ -124,12 +124,15 @@ export async function updatePost(ctx: Context, req: Request, res: Response) {
 }
 
 export async function sellPost(ctx: Context, req: Request, res: Response) {
-  const { id } = req.body;
-
+  const { id } = req.params;
+  if (id === null || id === undefined) {
+    res.status(400).send('Param cannot be null');
+    return;
+  }
   await ctx.prisma.post
     .update({
       where: {
-        id,
+        id: Number.parseInt(id, 10),
       },
       data: {
         isActive: false,

@@ -32,14 +32,7 @@ export interface User {
   ratingsGotten: Rating[];
 }
 
-export interface Rating {
-  id: Number;
-  createdAt: Date;
-  rating: Number;
-  givenBy: User;
-  gottenBy: User;
-  description?: string;
-}
+
 
 export interface LoginRequest {
   email: string;
@@ -85,4 +78,42 @@ export interface RestResponse {
 export interface TokenRestResponse {
   code: number;
   message: Token;
+}
+
+export interface RatingOpportunity {
+  id: number,
+  createdAt: Date,
+  postId: number,
+  contactedId: number,
+  contacterId: number,
+  accepted: boolean,
+  title: string,
+  forSale: boolean,
+  contacterFirstName: string,
+  contacterLastName: string,
+  contacterEmail: string
+}
+
+export interface Rating {
+  id: number;
+  createdAt: Date;
+  rating: number;
+  givenById: number;
+  gottenById: number;
+  description?: string;
+  active: boolean;
+  gottenFirstName: string;
+  gottenLastName: string;
+}
+
+
+export interface RatingRequest {
+  id: number;
+  rating: number;
+  description?: string;
+}
+
+export interface UserRating {
+  avgRating: number;
+  ratingCount: number
 }

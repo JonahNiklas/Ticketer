@@ -21,11 +21,19 @@ import {
   sellPost,
   getPostsByFilter,
 } from './handlers/postHandler';
+
 import {
-  getAllRatings,
-  rateUser,
-  getUserRatings,
+  confirmSale,
+  createRatingOpportunity,
+  getRatingOpportunityByUser,
+} from './handlers/ratingOpportunityHandler';
+import {
   calculateUserRating,
+  createRatingBothWays,
+  getAllRatings,
+  getRatingsToGive,
+  getUserRatings,
+  rateUser,
   updateRating,
 } from './handlers/ratingHandler';
 
@@ -83,7 +91,7 @@ app.get('/post/user/:id', async (req: any, res: any) => {
   getPostsUser(context, req, res);
 });
 
-app.put('/post/sell/', async (req: any, res: any) => {
+app.put('/post/sell/:id', async (req: any, res: any) => {
   sellPost(context, req, res);
 });
 
@@ -115,26 +123,37 @@ app.put('/user', async (req: any, res: any) => {
 // RATING RELATED
 
 app.post('/rating', async (req: any, res: any) => {
-  rateUser(context, req, res);
+  createRatingBothWays(context, req, res);
 });
 
 app.get('/rating', async (req: any, res: any) => {
   getAllRatings(context, req, res);
 });
 
-app.get('/rating/user/', async (req: any, res: any) => {
-  getUserRatings(context, req, res);
+app.get('/rating/user/:givenById', async (req: any, res: any) => {
+  getRatingsToGive(context, req, res);
 });
 
-app.get('/rating/user/average', async (req: any, res: any) => {
+app.get('/rating/user/average/:gottenById', async (req: any, res: any) => {
   calculateUserRating(context, req, res);
 });
 
-app.put('/rating/update', async (req: any, res: any) => {
-  updateRating(context, req, res);
+app.put('/rating/', async (req: any, res: any) => {
+  rateUser(context, req, res);
+});
+
+// RATING_OPPORTUNITY RELATED
+
+app.post('/ratingOpportunity', async (req: any, res: any) => {
+  createRatingOpportunity(context, req, res);
+});
+
+app.get('/ratingOpportunity/:userId', async (req: any, res: any) => {
+  getRatingOpportunityByUser(context, req, res);
+});
+
+app.put('/ratingOpportunity/:id', async (req: any, res: any) => {
+  confirmSale(context, req, res);
 });
 
 app.listen(port, () => console.log(`Serveren har startet på port: ${port}!`));
-
-// this is for testing purposes
-export default app;

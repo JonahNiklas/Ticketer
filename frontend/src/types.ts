@@ -1,3 +1,5 @@
+import { InsHTMLAttributes } from "react";
+
 export interface TokenInfo {
   token: string | null;
 }
@@ -63,6 +65,7 @@ export interface Post {
   timeOfEvent: Date;
   city: string;
   venue: string;
+  isActive: boolean;
   forSale: boolean;
   title: string;
   description: string | null;
@@ -78,10 +81,77 @@ export interface userData {
   email: string,
 }
 
-/* export interface RatingRequest {
+export interface RatingOpportunityRequest {
+  contactedId: number,
+  contacterId: number,
+  postId: number
+}
 
+export interface RatingOpportunityResponse {
+  code: number,
+  message: string
+}
+
+export interface RatingOpportunity {
+  id: number,
+  createdAt: Date,
+  postId: number,
+  contactedId: number,
+  contacterId: number,
+  accepted: boolean,
+  title: string,
+  forSale: boolean,
+  contacterFirstName: string,
+  contacterLastName: string,
+  contacterEmail: string,
+}
+
+export interface RatingPossibility {
+  id: number,
+  createdAt: Date,
+  postId: number,
+  contactedId: number,
+  contacterId: number,
+  accepted: boolean,
+  title: string,
+  forSale: boolean,
+  contacterFirstName: string,
+  contacterLastName: string,
+  contactedFirstName: string,
+  contactedLastName: string,
+}
+
+export interface RatingRequest {
+  id: number;
+  rating: number;
+  description?: string;
+}
+
+export interface CreateRatingRequest {
+  postTitle: string,
+  givenById: number,
+  gottenById: number,
 }
 
 export interface RatingResponse {
+  code: number,
+  message: string,
+}
 
-} */
+export interface Rating {
+  id: number;
+  createdAt: Date;
+  rating: number;
+  givenById: number;
+  gottenById: number;
+  description?: string;
+  active: boolean;
+  gottenFirstName: string;
+  gottenLastName: string;
+}
+
+export interface UserRating {
+  avgRating: number
+  ratingCount: number
+}
+

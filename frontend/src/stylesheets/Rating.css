@@ -10,3 +10,8 @@
   margin-top: -10px;
   margin-bottom: 10px;
 }
+
+.scroll {
+  height: 35vh;
+  overflow-y: scroll;
+}

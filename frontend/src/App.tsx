@@ -34,6 +34,9 @@ function App() {
           <ProtectedRoute path="/user">
             <UserPage/>
           </ProtectedRoute>
+          <ProtectedRoute path="/">
+            <Homepage />
+          </ProtectedRoute>
         </Switch>
       </Router>
     </div>

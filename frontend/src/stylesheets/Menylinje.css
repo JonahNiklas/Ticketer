@@ -66,6 +66,9 @@
 .not-forSale {
   background-color: #dc3545;
 }
+.inactive {
+  background-color: #212529;
+}
 .button-user-icon {
   color: white;
 }
