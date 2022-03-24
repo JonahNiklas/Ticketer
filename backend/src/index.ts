@@ -51,7 +51,7 @@ app.use(
     next();
   },
 );
-const port = 5001;
+const port = 5005;
 
 // under kommer koden for API-en
 // POST RELATED
