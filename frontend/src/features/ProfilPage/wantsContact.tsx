@@ -52,7 +52,7 @@ function WantsContact() {
     await createRating(data);
 
 
-    //window.location.reload();
+    window.location.reload();
   }
 
   useEffect(() => {

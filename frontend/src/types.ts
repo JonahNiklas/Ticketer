@@ -149,3 +149,9 @@ export interface Rating {
   gottenFirstName: string;
   gottenLastName: string;
 }
+
+export interface UserRating {
+  avgRating: number
+  ratingCount: number
+}
+

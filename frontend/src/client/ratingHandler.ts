@@ -1,4 +1,4 @@
-import { CreateRatingRequest, Rating, RatingRequest, RatingResponse } from "../types";
+import { CreateRatingRequest, Rating, RatingRequest, RatingResponse, UserRating } from "../types";
 import restHandler from "./restHandler";
 
 export async function createRating(request: CreateRatingRequest): Promise<RatingResponse> {
@@ -26,3 +26,13 @@ export async function getRatingsToGive(userId: number): Promise<Rating[]> {
   // TODO: legge til feilhåndtering
   return ratingOpportunities;
 }
+
+export async function getUserRating(userId: number): Promise<UserRating> {
+  // antar alltid at alt går bra :)
+
+  const rating: UserRating = await restHandler.get<UserRating>("/rating/user/average/"+userId);
+  console.log(rating);
+  // TODO: legge til feilhåndtering
+  return rating;
+}
+
