@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosPromise, AxiosRequestHeaders } from 'axios';
 import { RestError } from '../types';
 
-export const BASE_URL = 'http://localhost:5001';
+export const BASE_URL = 'http://localhost:5005';
 
 export function promiseWrapper<T>(axiosPromise: AxiosPromise<T>): Promise<T> {
   return new Promise<T>((resolve, reject) => {
