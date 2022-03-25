@@ -44,6 +44,12 @@
         ],
         "operator-linebreak": [
             0
+        ],
+        "curly": [
+            0
+        ],
+        "nonblock-statement-body-position": [
+            0
         ]
     },
     "ignorePatterns": ["**/__test__/*"]

@@ -2,17 +2,23 @@ import { Request, Response } from 'express';
 import { Context } from '../context';
 import { RatingOpportunity } from '../types';
 
-export async function createRatingOpportunity(ctx: Context, req: Request, res: Response) {
+export async function createRatingOpportunity(
+  ctx: Context,
+  req: Request,
+  res: Response,
+) {
   const { contactedId, contacterId, postId } = req.body;
 
-  const ratingOpportunity = await ctx.prisma.ratingOpportunity.findFirst({
-    where: {
-      contacterId,
-      postId,
-    },
-  }).catch((error: any) => {
-    console.error(error);
-  });
+  const ratingOpportunity = await ctx.prisma.ratingOpportunity
+    .findFirst({
+      where: {
+        contacterId,
+        postId,
+      },
+    })
+    .catch((error: any) => {
+      console.error(error);
+    });
 
   if (ratingOpportunity) {
     res.status(401);
@@ -25,16 +31,24 @@ export async function createRatingOpportunity(ctx: Context, req: Request, res: R
     contacterId,
   };
 
-  await ctx.prisma.ratingOpportunity.create({
-    data: request,
-  }).catch((error: any) => {
-    console.error(error);
-  });
+  await ctx.prisma.ratingOpportunity
+    .create({
+      data: request,
+    })
+    .catch((error: any) => {
+      console.error(error);
+    });
 
-  res.status(200).json({ code: 200, message: 'Successfully contacted owner of post' });
+  res
+    .status(200)
+    .json({ code: 200, message: 'Successfully contacted owner of post' });
 }
 
-export async function getRatingOpportunityByUser(ctx: Context, req: Request, res: Response) {
+export async function getRatingOpportunityByUser(
+  ctx: Context,
+  req: Request,
+  res: Response,
+) {
   const { userId } = req.params;
   if (userId === null || userId === undefined) {
     res.status(400).send('Param cannot be null');
@@ -61,7 +75,6 @@ export async function getRatingOpportunityByUser(ctx: Context, req: Request, res
           },
         },
       },
-
     })
     .catch((error: any) => {
       res.status(400).send('Something went wrong');
@@ -75,7 +88,7 @@ export async function getRatingOpportunityByUser(ctx: Context, req: Request, res
   }
 
   ratingOpportunities.forEach((ro) => {
-    const e :RatingOpportunity = {
+    const e: RatingOpportunity = {
       id: ro.id,
       createdAt: ro.createdAt,
       postId: ro.postId,
@@ -114,4 +127,3 @@ export async function confirmSale(ctx: Context, req: Request, res: Response) {
     });
   res.status(200).json({ code: 200, message: 'Successfully updated' });
 }
-

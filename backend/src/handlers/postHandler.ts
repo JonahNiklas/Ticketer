@@ -10,7 +10,11 @@ export async function getAllPosts(ctx: Context, req: Request, res: Response) {
   res.json(posts);
 }
 
-export async function getPostsByFilter(ctx: Context, req: Request, res: Response) {
+export async function getPostsByFilter(
+  ctx: Context,
+  req: Request,
+  res: Response,
+) {
   const { category } = req.params;
   if (category === null || category === undefined) {
     res.status(400).send('Param cannot be null');

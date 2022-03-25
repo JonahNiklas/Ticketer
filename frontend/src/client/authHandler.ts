@@ -35,11 +35,10 @@ export async function register(
 export async function updateUserInfo(
   request: UpdateRequest
 ): Promise<RegisterResponse> {
-  const message: RegisterResponse =
-    await restHandler.put<RegisterResponse>(
-      '/user/',
-      request
-    );
+  const message: RegisterResponse = await restHandler.put<RegisterResponse>(
+    '/user/',
+    request
+  );
 
   return message;
 }

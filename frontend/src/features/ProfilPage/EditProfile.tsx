@@ -1,12 +1,15 @@
 import React, { useState, useRef } from 'react';
 import { Alert, Form, Button, Modal } from 'react-bootstrap/';
 import { updateUserInfo } from '../../client/authHandler';
-import { userData, UpdateRequest, RestError} from '../../types';
+import { userData, UpdateRequest, RestError } from '../../types';
 
-
-const EditProfile = (props: {userData: userData, show: boolean, onHide: any}) => {
+const EditProfile = (props: {
+  userData: userData;
+  show: boolean;
+  onHide: any;
+}) => {
   const successRef = useRef<HTMLDivElement>(null);
-  
+
   const [email, setEmail] = useState<string>(props.userData.email);
   const [firstName, setFirstName] = useState<string>(props.userData.firstName);
   const [lastName, setLastName] = useState<string>(props.userData.lastName);
@@ -158,9 +161,7 @@ const EditProfile = (props: {userData: userData, show: boolean, onHide: any}) =>
   }
 
   return (
-    <Modal
-    show = {props.show}
-    onHide={props.onHide}>
+    <Modal show={props.show} onHide={props.onHide}>
       <Modal.Body>
         <h3>Endre profilinfo</h3>
         <Form>

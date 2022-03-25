@@ -10,10 +10,8 @@ import { ProtectedRoute } from './features/pageAuthHandler';
 import UserPage from './features/userpage/UserPage';
 
 function App() {
-
-  
   return (
-    <div style={{overflowX: 'hidden'}}>
+    <div style={{ overflowX: 'hidden' }}>
       <Router>
         <Switch>
           <Route path="/login">
@@ -32,7 +30,7 @@ function App() {
             <Profile />
           </ProtectedRoute>
           <ProtectedRoute path="/user">
-            <UserPage/>
+            <UserPage />
           </ProtectedRoute>
           <ProtectedRoute path="/">
             <Homepage />

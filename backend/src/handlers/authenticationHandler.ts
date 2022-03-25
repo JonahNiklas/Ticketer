@@ -1,7 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import { Context } from '../context';
 import {
-  DecodedData, LoginRequest, RestResponse, TokenRestResponse,
+  DecodedData,
+  LoginRequest,
+  RestResponse,
+  TokenRestResponse,
 } from '../types';
 import { verifyToken } from '../util/authUtil';
 import { loginHelper } from './helpers/authHelper';
@@ -11,7 +14,9 @@ export async function login(context: Context, req: Request, res: Response) {
 
   loginHelper(l, context).then((message: RestResponse | TokenRestResponse) => {
     if (message.code !== 200) {
-      res.status(message.code).json({ errorCode: message.code, errorMessage: message.message });
+      res
+        .status(message.code)
+        .json({ errorCode: message.code, errorMessage: message.message });
       return;
     }
     res.status(message.code).json(message.message);

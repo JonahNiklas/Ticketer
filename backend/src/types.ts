@@ -32,8 +32,6 @@ export interface User {
   ratingsGotten: Rating[];
 }
 
-
-
 export interface LoginRequest {
   email: string;
   password: string;
@@ -63,7 +61,7 @@ export interface UserRequest {
 }
 
 export interface UpdateRequest {
-  id: number,
+  id: number;
   firstName: string;
   lastName: string;
   email: string;
@@ -81,17 +79,17 @@ export interface TokenRestResponse {
 }
 
 export interface RatingOpportunity {
-  id: number,
-  createdAt: Date,
-  postId: number,
-  contactedId: number,
-  contacterId: number,
-  accepted: boolean,
-  title: string,
-  forSale: boolean,
-  contacterFirstName: string,
-  contacterLastName: string,
-  contacterEmail: string
+  id: number;
+  createdAt: Date;
+  postId: number;
+  contactedId: number;
+  contacterId: number;
+  accepted: boolean;
+  title: string;
+  forSale: boolean;
+  contacterFirstName: string;
+  contacterLastName: string;
+  contacterEmail: string;
 }
 
 export interface Rating {
@@ -106,7 +104,6 @@ export interface Rating {
   gottenLastName: string;
 }
 
-
 export interface RatingRequest {
   id: number;
   rating: number;
@@ -115,5 +112,5 @@ export interface RatingRequest {
 
 export interface UserRating {
   avgRating: number;
-  ratingCount: number
+  ratingCount: number;
 }

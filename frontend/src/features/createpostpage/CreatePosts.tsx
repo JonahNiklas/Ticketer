@@ -38,6 +38,52 @@ function CreatePosts() {
     { name: 'Ønskes kjøpt', value: 'false' }
   ];
 
+  const actuallyCreatePost = async () => {
+    // TODO: account for deylightsaving in a better way
+    timeOfEvent.setHours(timeOfEvent.getHours() + 1); // This is hardcoded daylightsaving
+
+    let optionalDescription = null;
+    if (description !== '') {
+      optionalDescription = description;
+    }
+
+    let optionalPrice = null;
+    if (price !== '') {
+      optionalPrice = Number.parseInt(price, 10);
+    }
+
+    const userState = store.getState().user;
+
+    if (userState.userId !== null) {
+      const postRequest: PostRequest = {
+        timeOfEvent,
+        title,
+        city,
+        venue,
+        category,
+        forSale: forSale === 'true',
+        description: optionalDescription,
+        price: optionalPrice,
+        authorId: userState.userId
+      };
+
+      try {
+        const response = await createPost(postRequest);
+        successRef.current?.scrollIntoView();
+        // denne er litt wonky, ta en titt på den etter L1
+        setTimeout(() => {
+          history.push('/profile');
+        }, 3000);
+        console.log(response);
+        //history.push('/profile');
+      } catch (error: any) {
+        console.error(error);
+      }
+    } else {
+      history.push('/login');
+    }
+  };
+
   async function handleCreatePost(e: any) {
     e.preventDefault();
     if (!title || title.length < 2) {
@@ -54,53 +100,8 @@ function CreatePosts() {
       return;
     } else {
       setIsError(false);
+      actuallyCreatePost();
       setSuccess(true);
-    }
-
-    if (!isError) {
-      // TODO: account for deylightsaving in a better way
-      timeOfEvent.setHours(timeOfEvent.getHours() + 1); // This is hardcoded daylightsaving
-
-      let optionalDescription = null;
-      if (description !== '') {
-        optionalDescription = description;
-      }
-
-      let optionalPrice = null;
-      if (price !== '') {
-        optionalPrice = Number.parseInt(price, 10);
-      }
-
-      const userState = store.getState().user;
-
-      if (userState.userId !== null) {
-        const postRequest: PostRequest = {
-          timeOfEvent,
-          title,
-          city,
-          venue,
-          category,
-          forSale: forSale === 'true',
-          description: optionalDescription,
-          price: optionalPrice,
-          authorId: userState.userId
-        };
-
-        try {
-          const response = await createPost(postRequest);
-          successRef.current?.scrollIntoView();
-          // denne er litt wonky, ta en titt på den etter L1
-          setTimeout(() => {
-            history.push('/profile');
-          }, 3000);
-          console.log(response);
-          //history.push('/profile');
-        } catch (error: any) {
-          console.error(error);
-        }
-      } else {
-        history.push('/login');
-      }
     }
   }
 
@@ -170,7 +171,7 @@ function CreatePosts() {
               <DatePicker
                 id="timeOfEvent"
                 selected={timeOfEvent}
-                onChange={ (date: any) => setTimeOfEvent(date)}
+                onChange={(date: any) => setTimeOfEvent(date)}
                 showTimeSelect
                 timeIntervals={15}
                 dateFormat="dd.MM.yy HH:mm"

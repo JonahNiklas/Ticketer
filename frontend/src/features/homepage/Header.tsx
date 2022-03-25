@@ -24,7 +24,9 @@ function Header() {
     <div className="navbar navbar-dark bg-dark">
       <Row className="w-100">
         <Col className="d-flex justify-content-left">
-        <Link to='/home'><Image src={Logo} className="ms-5"/></Link>
+          <Link to="/home">
+            <Image src={Logo} className="ms-5" />
+          </Link>
         </Col>
         {/* <Col className="d-flex align-items-center justify-content-end">
           <SearchBar />
