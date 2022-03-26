@@ -89,7 +89,7 @@ function PostInfo(props: Post) {
       setTimeout(() => {
         window.location.reload();
       }, 3000);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error);
       setErrorMessage(true);
     }

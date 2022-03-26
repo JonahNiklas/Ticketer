@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
   Button,
-  Card,
-  Col,
   Container,
-  Row,
   Toast,
   ToastContainer
 } from 'react-bootstrap';
@@ -12,8 +9,7 @@ import { getRatingOpportunityByUser } from '../../client/ratingOpportunityHandle
 import { store } from '../../redux/store';
 import {
   CreateRatingRequest,
-  RatingOpportunity,
-  RatingRequest
+  RatingOpportunity
 } from '../../types';
 import { acceptRatingOpportunity } from '../../client/ratingOpportunityHandler';
 import { sellPost } from '../../client/postHandler';
@@ -22,15 +18,6 @@ import '../../stylesheets/Rating.css';
 
 function DateConverter(date: Date) {
   const d = new Date(date);
-  const days = [
-    'MANDAG',
-    'TIRSDAG',
-    'ONSDAG',
-    'TORSDAG',
-    'FREDAG',
-    'LØRDAG',
-    'SØNDAG'
-  ];
   const months = [
     'Januar',
     'Februar',
@@ -45,26 +32,20 @@ function DateConverter(date: Date) {
     'November',
     'Desember'
   ];
-  const day = days[d.getDay()];
   const month = months[d.getMonth()];
-  const hours = d.getUTCHours().toString().padStart(2, '0');
-  const minutes = d.getUTCMinutes().toString().padStart(2, '0');
   return d.getDate() + '. ' + month + ' ' + d.getUTCFullYear();
 }
 
 function WantsContact() {
-  const [ratingOpportunities, setRatingOpportunities] = useState<
-    RatingOpportunity[]
-  >([]);
+  const [ratingOpportunities, setRatingOpportunities] = useState<RatingOpportunity[]>([]);
   const activeUserId = store.getState().user.userId;
   const [show, setShow] = useState(true);
-
   const toggleShow = () => setShow(!show);
   async function getRatingOpportunities() {
     if (activeUserId) {
       try {
         setRatingOpportunities(await getRatingOpportunityByUser(activeUserId));
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error(error);
       }
     }

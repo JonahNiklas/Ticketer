@@ -1,4 +1,3 @@
-import { request } from 'http';
 import { Post, PostRequest, PostResponse } from '../types';
 import restHandler from './restHandler';
 

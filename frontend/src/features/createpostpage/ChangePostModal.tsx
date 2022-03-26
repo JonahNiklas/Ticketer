@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import {
   Button,
@@ -13,27 +13,22 @@ import { changePost } from '../../client/postHandler';
 import { store } from '../../redux/store';
 import { Post, PostRequest } from '../../types';
 
-function ChangeModal(props: { thisPost: Post; show: boolean; onHide: any }) {
+function ChangeModal(props: { thisPost: Post; show: boolean; onHide: (() => void) }) {
   const history = useHistory();
-
-  let validInfo = false;
   const [title, setTitle] = useState<string>(props.thisPost.title);
-  const [timeOfEvent, setTimeOfEvent] = useState<Date>(
-    new Date(props.thisPost.timeOfEvent)
-  );
+  const [timeOfEvent, setTimeOfEvent] = useState<Date>(new Date(props.thisPost.timeOfEvent));
   const [city, setCity] = useState<string>(props.thisPost.city);
   const [venue, setVenue] = useState<string>(props.thisPost.venue);
-  const [forSale, setForSale] = useState<string>(
-    props.thisPost.forSale ? 'true' : 'false'
-  );
+  const [forSale, setForSale] = useState<string>(props.thisPost.forSale ? 'true' : 'false');
   const [category, setCategory] = useState<string>(props.thisPost.category);
-  const [description, setDescription] = useState<string>(
-    props.thisPost.description ? props.thisPost.description : ''
-  );
-  const [price, setPrice] = useState<string>(
-    props.thisPost.price ? props.thisPost.price.toString() : ''
-  );
+  const [description, setDescription] = useState<string>(props.thisPost.description ? props.thisPost.description : '');
+  const [price, setPrice] = useState<string>(props.thisPost.price ? props.thisPost.price.toString() : '');
   const successRef = useRef<HTMLDivElement>(null);
+
+  // errorHandling
+  const [titleError, setTitleError] = useState<boolean>(false);
+  const [cityError, setCityError] = useState<boolean>(false);
+  const [venueError, setVenueError] = useState<boolean>(false);
 
   const categories = [
     { name: 'Konsert', value: 'Concert' },
@@ -49,88 +44,93 @@ function ChangeModal(props: { thisPost: Post; show: boolean; onHide: any }) {
 
   async function handleChangePost(e: any) {
     e.preventDefault();
-    validInfo = true;
-    if (!title || title.length < 2) {
-      console.log('Tittel er nødvendig');
-      validInfo = false;
-    }
-    if (!city || city === '') {
-      console.log('By er nødvendig');
-      validInfo = false;
-    }
-    if (!venue || venue === '') {
-      console.log('Arena mangler');
-      validInfo = false;
+
+    if (titleError || cityError || venueError) return;
+
+    // TODO: account for deylightsaving in a better way
+    timeOfEvent.setHours(timeOfEvent.getHours() + 1); // This is hardcoded daylightsaving
+
+    let optionalDescription = null;
+    if (description !== '') {
+      optionalDescription = description;
     }
 
-    if (validInfo) {
-      // TODO: account for deylightsaving in a better way
-      timeOfEvent.setHours(timeOfEvent.getHours() + 1); // This is hardcoded daylightsaving
+    let optionalPrice = null;
+    if (price !== '') {
+      optionalPrice = Number.parseInt(price, 10);
+    }
 
-      let optionalDescription = null;
-      if (description !== '') {
-        optionalDescription = description;
-      }
+    const userState = store.getState().user;
+    if (!userState.userId) {
+      return;
+    }
+    const postRequest: PostRequest = {
+      timeOfEvent,
+      title,
+      city,
+      venue,
+      category,
+      forSale: forSale === 'true',
+      description: optionalDescription,
+      price: optionalPrice,
+      authorId: userState.userId
+    };
 
-      let optionalPrice = null;
-      if (price !== '') {
-        optionalPrice = Number.parseInt(price, 10);
-      }
+    try {
+      const response = await changePost(props.thisPost.id, postRequest);
+      successRef.current?.scrollIntoView();
+      // denne er litt wonky, ta en titt på den etter L1
+      setTimeout(() => {
+        history.push('/profile');
+      }, 3000);
+      window.location.reload();
 
-      const userState = store.getState().user;
-      if (!userState.userId) {
-        return;
-      }
-      const postRequest: PostRequest = {
-        timeOfEvent,
-        title,
-        city,
-        venue,
-        category,
-        forSale: forSale === 'true',
-        description: optionalDescription,
-        price: optionalPrice,
-        authorId: userState.userId
-      };
-
-      try {
-        const response = await changePost(props.thisPost.id, postRequest);
-        successRef.current?.scrollIntoView();
-        // denne er litt wonky, ta en titt på den etter L1
-        setTimeout(() => {
-          history.push('/profile');
-        }, 3000);
-        window.location.reload();
-
-        console.log(response);
-        //history.push('/profile');
-      } catch (error: any) {
-        console.error(error);
-      }
-    } else {
-      history.push('/login');
+      console.log(response);
+      //history.push('/profile');
+    } catch (error: any) {
+      console.error(error);
     }
   }
+
+  const validateInput = () => {
+    setTitleError(false);
+    setCityError(false);
+    setVenueError(false);
+
+    if (title === "" || title.length < 3 || !title) setTitleError(true);
+    if (city === "" || !city) setCityError(true);
+    if (venue === "" || !venue) setVenueError(true);
+  }
+
+  useEffect(() => {
+    validateInput();
+  }, [title, city, venue]);
+  
 
   return (
     <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Body>
         <Form style={{ width: '450px' }}>
-          <Form.Group className="w-100 col" controlId="formBasicl">
-            <Form.Label>Navn på arrangement</Form.Label>
+          <Form.Group className="w-100 mb-3" controlId="formBasicl">
+            <Form.Label>Navn på arrangement*</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Snarky Puppy Konsert"
+              placeholder="Tittel"
               defaultValue={title}
               onChange={(e) => setTitle(e.target.value)}
+              required
+              isInvalid={titleError}
+              isValid={!titleError}
             />
+            <Form.Control.Feedback type='valid'>Ser bra ut!</Form.Control.Feedback>
+            <Form.Control.Feedback type='invalid'>Ticketen trenger en tittel som er lengre enn 2 bokstaver</Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className="mb-3 w-50" controlId="formBasicl">
-            <Form.Label>Type</Form.Label>
+            <Form.Label>Type*</Form.Label>
             <br />
 
-            <ButtonGroup aria-label="Basic example" className="mb-3 ">
+            <ButtonGroup aria-label="Basic example" className="">
               {forSaleOrNot.map((element, idx) => (
                 <ToggleButton
                   key={idx}
@@ -151,7 +151,7 @@ function ChangeModal(props: { thisPost: Post; show: boolean; onHide: any }) {
           </Form.Group>
 
           <Form.Group className="mb-3 w-100" controlId="formBasicl">
-            <Form.Label>Kategori</Form.Label>
+            <Form.Label>Kategori*</Form.Label>
             <br />
             <ButtonGroup>
               {categories.map((currentCategory, idx) => (
@@ -174,7 +174,7 @@ function ChangeModal(props: { thisPost: Post; show: boolean; onHide: any }) {
           </Form.Group>
 
           <Form.Group className="mb-3 w-100" controlId="formBasicl">
-            <Form.Label>Tidspunkt</Form.Label>
+            <Form.Label>Tidspunkt*</Form.Label>
             <DatePicker
               id="timeOfEvent"
               selected={timeOfEvent}
@@ -186,23 +186,33 @@ function ChangeModal(props: { thisPost: Post; show: boolean; onHide: any }) {
           </Form.Group>
 
           <Form.Group className="mb-3 w-100" controlId="formBasicl">
-            <Form.Label>By</Form.Label>
+            <Form.Label>By*</Form.Label>
             <Form.Control
               type="text"
               placeholder={city}
               defaultValue={city}
               onChange={(e) => setCity(e.target.value)}
+              required
+              isInvalid={cityError}
+              isValid={!cityError}
             />
+            <Form.Control.Feedback type='valid'>Ser bra ut!</Form.Control.Feedback>
+            <Form.Control.Feedback type='invalid'>Ticketen må ha en by</Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className="mb-3 w-100" controlId="formBasicl">
-            <Form.Label>Arena</Form.Label>
+            <Form.Label>Arena*</Form.Label>
             <Form.Control
               type="text"
               placeholder="Sentrum Scene"
               defaultValue={venue}
               onChange={(e) => setVenue(e.target.value)}
+              required
+              isInvalid={venueError}
+              isValid={!venueError}
             />
+            <Form.Control.Feedback type='valid'>Ser bra ut!</Form.Control.Feedback>
+            <Form.Control.Feedback type='invalid'>Ticketen må ha en arena</Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group
@@ -225,12 +235,17 @@ function ChangeModal(props: { thisPost: Post; show: boolean; onHide: any }) {
               placeholder="100"
               defaultValue={price}
               onChange={(e: any) => setPrice(e.target.value)}
+              style={{
+                WebkitAppearance: "none",
+                MozAppearance: "textfield"
+              }}
             />
           </Form.Group>
           <Button
             variant="success mb-3 w-100"
             type="submit"
             onClick={handleChangePost}
+            disabled={(titleError || cityError || venueError) ? true : false}
           >
             Endre
           </Button>

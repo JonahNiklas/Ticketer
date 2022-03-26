@@ -1,7 +1,7 @@
-import React, { useState, Component, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../stylesheets/ProfileInfo.css';
 import '../../stylesheets/ProfilePage.css';
-import { Button, Container, Form } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { getUserById } from '../../client/userHandler';
 import { store } from '../../redux/store';
 import { userData } from '../../types';
@@ -22,7 +22,7 @@ function Profileinfo() {
           email: user.email
         });
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error);
     }
   }

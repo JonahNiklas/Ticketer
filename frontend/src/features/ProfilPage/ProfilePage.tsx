@@ -8,9 +8,8 @@ import Profileinfo from './Profileinfo';
 import Rating from './Rating';
 import UserPosts from './UserPosts';
 import '../../stylesheets/ProfileInfo.css';
-import Footer from '../homepage/Footer';
 import Header from '../homepage/Header';
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import WantsContact from './wantsContact';
 import GiveRating from './GiveRating';
 

@@ -22,8 +22,7 @@ const RegisterUser = () => {
   const [nameErrorMessage, setNameErrorMessage] = useState<string>('');
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [passwordSuccess, setPasswordSuccess] = useState<boolean>(false);
-  const [repeatPasswordSuccess, setRepeatPasswordSuccess] =
-    useState<boolean>(false);
+  const [repeatPasswordSuccess, setRepeatPasswordSuccess] = useState<boolean>(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = useState<string>('');
   const [success, setSuccess] = useState<boolean>(false);
 
@@ -60,7 +59,6 @@ const RegisterUser = () => {
   };
 
   const repeatPasswordCheck = (repeatPassword: string) => {
-    console.log(repeatPassword);
     if (password !== repeatPassword) {
       setRepeatPasswordSuccess(false);
       return;
@@ -77,11 +75,13 @@ const RegisterUser = () => {
     setLastNameError(false);
     setPasswordError(false);
 
+    let error = false;
+
     //eslint-disable-next-line
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       setEmailError(true);
       setEmailErrorMessage('Ikke en gyldig epost.');
-      return;
+      error = true;
     }
 
     //eslint-disable-next-line
@@ -90,7 +90,7 @@ const RegisterUser = () => {
       setNameErrorMessage(
         'Navn må begynne med stor bokstav og være lenger enn et tegn.'
       );
-      return;
+      error = true;
     }
 
     if (!/^[A-Z][a-z]{2,15}$/.test(lastName)) {
@@ -98,13 +98,13 @@ const RegisterUser = () => {
       setNameErrorMessage(
         'Navn må begynne med stor bokstav og være lenger enn et tegn.'
       );
-      return;
+      error = true;
     }
 
     if (password !== repeatPassword) {
       setPasswordError(true);
       setPasswordErrorMessage('Passordene må være like');
-      return;
+      error = true;
     }
 
     if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password)) {
@@ -112,8 +112,10 @@ const RegisterUser = () => {
       setPasswordErrorMessage(
         'Passord må inneholde stor og liten bokstav, et tall, og være lenger enn 8 tegn.'
       );
-      return;
+      error = true;
     }
+
+    if (error) return;
 
     const userRequest: RegisterRequest = {
       email,
@@ -131,9 +133,6 @@ const RegisterUser = () => {
 
         console.log(error.errorMessage);
 
-        // user not found
-
-        // passcheck
       } else {
         setSuccess(true);
         successRef.current?.scrollIntoView();
@@ -146,7 +145,6 @@ const RegisterUser = () => {
         setEmailError(true);
         setEmailErrorMessage('Emailen er allerede i bruk');
       }
-      console.error(error);
     }
   }
 
@@ -172,7 +170,6 @@ const RegisterUser = () => {
           <Form.Control.Feedback type="invalid">
             {emailErrorMessage}
           </Form.Control.Feedback>
-          <Form.Control.Feedback type="valid">{}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formFirstName">

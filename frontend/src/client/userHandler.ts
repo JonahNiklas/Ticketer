@@ -1,4 +1,4 @@
-import { userData, UserInfo } from '../types';
+import { userData } from '../types';
 import restHandler from './restHandler';
 
 export async function getUserById(userId: number): Promise<userData> {
