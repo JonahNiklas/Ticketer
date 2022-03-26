@@ -39,7 +39,7 @@ function CreatePosts() {
   ];
 
   const actuallyCreatePost = async () => {
-    // TODO: account for deylightsaving in a better way
+    // TODO: account for daylightsaving in a better way
     timeOfEvent.setHours(timeOfEvent.getHours() + 1); // This is hardcoded daylightsaving
 
     let optionalDescription = null;

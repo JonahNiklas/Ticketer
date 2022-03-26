@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React from 'react';
 
 const SearchBar = (props: { input: (data: any) => void }) => {
   return (
@@ -11,9 +11,6 @@ const SearchBar = (props: { input: (data: any) => void }) => {
         aria-describedby="search-addon"
         onInput={props.input}
       />
-      {/* <button type="button" className="btn btn-success rounded m-1">
-        søk
-      </button> */}
     </div>
   );
 };

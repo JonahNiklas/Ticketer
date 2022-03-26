@@ -1,6 +1,5 @@
 import React from 'react';
-import { Container, Col, Row, Image } from 'react-bootstrap';
-import SearchBar from './SearchBar';
+import { Col, Row, Image } from 'react-bootstrap';
 import Logo from '../../images/ticket_logo.png';
 import '../../stylesheets/Posts.css';
 

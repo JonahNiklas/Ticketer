@@ -53,9 +53,6 @@ function DateConverter(date: Date) {
 }
 
 function PostInfo(props: Post) {
-  let forSaleColor = '';
-  let forSaleText = ' for salg';
-
   const history = useHistory();
   const location = useLocation();
   const [onProfilePage, setOnProfilePage] = useState(false);
@@ -75,11 +72,6 @@ function PostInfo(props: Post) {
     } catch (error: any) {
       console.error(error);
     }
-  }
-
-  if (props.forSale) {
-    forSaleText = ' for kjøp';
-    forSaleColor = 'color: rgb(207, 152, 147)';
   }
 
   useEffect(() => {
@@ -148,7 +140,7 @@ function PostInfo(props: Post) {
           <ListGroup variant="flush">
             {!userPage ? (
               <ListGroup.Item
-                onClick={(e) => history.push(`/user/${props.authorId}`)}
+                onClick={() => history.push(`/user/${props.authorId}`)}
                 className="usernameHover"
               >
                 {name}

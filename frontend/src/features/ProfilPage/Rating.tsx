@@ -1,11 +1,8 @@
-import { userInfo } from 'os';
 import React, { useEffect, useState } from 'react';
 import 'react-bootstrap';
-import { ButtonGroup, Col, Form, Row, ToggleButton } from 'react-bootstrap';
-/* import { RateUser } from '../../client/ratingHandler'; */
+import { Col, Row } from 'react-bootstrap';
 import { store } from '../../redux/store';
 import '../../stylesheets/Rating.css';
-/* import { RatingRequest, RatingResponse } from '../../types'; */
 import { UserRating } from '../../types';
 import { getUserRating } from '../../client/ratingHandler';
 

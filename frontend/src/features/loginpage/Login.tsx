@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap/';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, Router, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { login } from '../../client/authHandler';
-import { AppDispatch, RootState, store } from '../../redux/store';
+import { AppDispatch } from '../../redux/store';
 import { setToken } from '../../redux/tokenSlice';
 import { setUserId } from '../../redux/userSlice';
 import { RestError } from '../../types';

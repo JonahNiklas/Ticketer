@@ -35,9 +35,6 @@ function ChangeModal(props: { thisPost: Post; show: boolean; onHide: any }) {
   );
   const successRef = useRef<HTMLDivElement>(null);
 
-  const [showAlert, setShowAlert] = useState<boolean>(false);
-  const [errorText, setErrorText] = useState<string>('');
-
   const categories = [
     { name: 'Konsert', value: 'Concert' },
     { name: 'Sport', value: 'Sport' },
@@ -55,21 +52,15 @@ function ChangeModal(props: { thisPost: Post; show: boolean; onHide: any }) {
     validInfo = true;
     if (!title || title.length < 2) {
       console.log('Tittel er nødvendig');
-      setShowAlert(true);
       validInfo = false;
-      setErrorText('Ugyldig navn. Det må være minst 2 tegn');
     }
     if (!city || city === '') {
       console.log('By er nødvendig');
-      setShowAlert(true);
       validInfo = false;
-      setErrorText('By er nødvendig');
     }
     if (!venue || venue === '') {
       console.log('Arena mangler');
-      setShowAlert(true);
       validInfo = false;
-      setErrorText('Arena/Scene er nødvendig');
     }
 
     if (validInfo) {
@@ -145,7 +136,7 @@ function ChangeModal(props: { thisPost: Post; show: boolean; onHide: any }) {
                   key={idx}
                   id={`forsale-${idx}`}
                   type="radio"
-                  variant={idx % 2 ? 'outline-success' : 'outline-danger'}
+                  variant={idx % 2 ? 'outline-danger' : 'outline-success'}
                   name="forSale"
                   value={element.value}
                   checked={forSale === element.value}
@@ -236,15 +227,6 @@ function ChangeModal(props: { thisPost: Post; show: boolean; onHide: any }) {
               onChange={(e: any) => setPrice(e.target.value)}
             />
           </Form.Group>
-
-          {/* <Form.Group
-              className="mb-3 w-100"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Bilde</Form.Label>
-              <Form.Control type="file" placeholder="Title" />
-            </Form.Group> */}
-
           <Button
             variant="success mb-3 w-100"
             type="submit"

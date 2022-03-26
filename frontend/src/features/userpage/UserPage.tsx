@@ -13,6 +13,7 @@ import { getPostsByAuthorId } from '../../client/postHandler';
 import { Post } from '../../types';
 import PostInfo from '../createpostpage/PostInfo';
 import { useLocation } from 'react-router-dom';
+import Rating from '../ProfilPage/Rating';
 
 function UserPage() {
   const location = useLocation();
@@ -92,6 +93,7 @@ function UserPage() {
                   </h5>
                   <h5 className="text-white">{email}</h5>
                 </div>
+                <Rating/>
               </div>
             </div>
             <div className="mt-0 ml-5 mr-5 p-0">

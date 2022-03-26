@@ -2,14 +2,11 @@ import React from 'react';
 import '../stylesheets/Menylinje.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faBell,
   faPlusCircle,
-  faCircle,
   faUser,
   faHouse,
   faSignOut
 } from '@fortawesome/free-solid-svg-icons';
-import { faFacebookMessenger } from '@fortawesome/free-brands-svg-icons';
 import { Link, useHistory } from 'react-router-dom';
 import { persist, store } from '../redux/store';
 import { deleteUserId } from '../redux/userSlice';
