@@ -93,7 +93,7 @@ function UserPage() {
                   </h5>
                   <h5 className="text-white">{email}</h5>
                 </div>
-                <Rating/>
+                <Rating userId={userId}/>
               </div>
             </div>
             <div className="mt-0 ml-5 mr-5 p-0">

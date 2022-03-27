@@ -30,7 +30,7 @@ function ProfilePage() {
             </Col>
             <Col sm="6">
               <Profileinfo />
-              <Rating />
+              <Rating userId={0}/>
             </Col>
           </Row>
           <Row className="mt-2">

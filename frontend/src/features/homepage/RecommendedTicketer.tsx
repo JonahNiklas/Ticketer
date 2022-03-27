@@ -13,7 +13,7 @@ function RecommendedTicketer(props: { posts: Array<Post> }) {
           {props.posts.map(
             (post, idx): JSX.Element => (
               <PostInfo
-                key={idx}
+                key={post.id}
                 id={post.id}
                 createdAt={post.createdAt}
                 timeOfEvent={post.timeOfEvent}

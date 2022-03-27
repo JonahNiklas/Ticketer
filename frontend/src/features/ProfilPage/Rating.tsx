@@ -6,12 +6,18 @@ import '../../stylesheets/Rating.css';
 import { UserRating } from '../../types';
 import { getUserRating } from '../../client/ratingHandler';
 
-function Rating() {
+function Rating(props: {userId: number}) {
   const [rating, setRating] = useState<UserRating>();
-
   async function getRating() {
+    let activeUserId;
     try {
-      const activeUserId = store.getState().user.userId;
+      if (props.userId) {
+        activeUserId = props.userId;
+
+      }
+      else{
+        activeUserId = store.getState().user.userId;
+      }
       if (activeUserId !== null && Number.isInteger(activeUserId)) {
         setRating(await getUserRating(activeUserId));
       }
