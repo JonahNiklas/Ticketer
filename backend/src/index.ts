@@ -15,17 +15,24 @@ import {
   deletePost,
   getAllPosts,
   getActiveOrUnactivePosts,
-  getPost,
+  /** getPost, */
   updatePost,
   getPostsUser,
   sellPost,
+  getPostsByFilter,
 } from './handlers/postHandler';
+
 import {
-  getAllRatings,
-  rateUser,
-  getUserRatings,
+  confirmSale,
+  createRatingOpportunity,
+  getRatingOpportunityByUser,
+} from './handlers/ratingOpportunityHandler';
+import {
   calculateUserRating,
-  updateRating,
+  createRatingBothWays,
+  getAllRatings,
+  getRatingsToGive,
+  rateUser,
 } from './handlers/ratingHandler';
 
 const app = express();
@@ -42,7 +49,7 @@ app.use(
     next();
   },
 );
-const port = 5001;
+const port = 5005;
 
 // under kommer koden for API-en
 // POST RELATED
@@ -54,8 +61,12 @@ app.get('/post', async (req: any, res: any) => {
   getAllPosts(context, req, res);
 });
 
-app.get('/post/:id', async (req: any, res: any) => {
+/** app.get('/post/:id', async (req: any, res: any) => {
   getPost(context, req, res);
+}); */
+
+app.get('/post/:category', async (req: any, res: any) => {
+  getPostsByFilter(context, req, res);
 });
 
 app.get('/post/active/:isActive', async (req: any, res: any) => {
@@ -66,11 +77,11 @@ app.post('/post/create', async (req: any, res: any) => {
   createPost(context, req, res);
 });
 
-app.delete('/post', async (req: any, res: any) => {
+app.delete('/post/:id', async (req: any, res: any) => {
   deletePost(context, req, res);
 });
 
-app.put('/post', async (req: any, res: any) => {
+app.put('/post/:id', async (req: any, res: any) => {
   updatePost(context, req, res);
 });
 
@@ -78,7 +89,7 @@ app.get('/post/user/:id', async (req: any, res: any) => {
   getPostsUser(context, req, res);
 });
 
-app.put('/post/sell/', async (req: any, res: any) => {
+app.put('/post/sell/:id', async (req: any, res: any) => {
   sellPost(context, req, res);
 });
 
@@ -110,23 +121,37 @@ app.put('/user', async (req: any, res: any) => {
 // RATING RELATED
 
 app.post('/rating', async (req: any, res: any) => {
-  rateUser(context, req, res);
+  createRatingBothWays(context, req, res);
 });
 
 app.get('/rating', async (req: any, res: any) => {
   getAllRatings(context, req, res);
 });
 
-app.get('/rating/user/', async (req: any, res: any) => {
-  getUserRatings(context, req, res);
+app.get('/rating/user/:givenById', async (req: any, res: any) => {
+  getRatingsToGive(context, req, res);
 });
 
-app.get('/rating/user/average', async (req: any, res: any) => {
+app.get('/rating/user/average/:gottenById', async (req: any, res: any) => {
   calculateUserRating(context, req, res);
 });
 
-app.put('/rating/update', async (req: any, res: any) => {
-  updateRating(context, req, res);
+app.put('/rating', async (req: any, res: any) => {
+  rateUser(context, req, res);
+});
+
+// RATING_OPPORTUNITY RELATED
+
+app.post('/ratingOpportunity', async (req: any, res: any) => {
+  createRatingOpportunity(context, req, res);
+});
+
+app.get('/ratingOpportunity/:userId', async (req: any, res: any) => {
+  getRatingOpportunityByUser(context, req, res);
+});
+
+app.put('/ratingOpportunity/:id', async (req: any, res: any) => {
+  confirmSale(context, req, res);
 });
 
 app.listen(port, () => console.log(`Serveren har startet på port: ${port}!`));

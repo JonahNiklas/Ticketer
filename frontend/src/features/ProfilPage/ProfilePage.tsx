@@ -1,51 +1,53 @@
-
 import React from 'react';
 import Menylinje from '../Menylinje';
 import '../../stylesheets/Posts.css';
 import '../../stylesheets/ProfilePage.css';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faCircle} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserAstronaut } from '@fortawesome/free-solid-svg-icons';
 import Profileinfo from './Profileinfo';
+import Rating from './Rating';
 import UserPosts from './UserPosts';
 import '../../stylesheets/ProfileInfo.css';
-import Footer from '../homepage/Footer';
 import Header from '../homepage/Header';
-import { Button, Container, Form } from 'react-bootstrap';
-
-
+import { Col, Container, Row } from 'react-bootstrap';
+import WantsContact from './wantsContact';
+import GiveRating from './GiveRating';
 
 function ProfilePage() {
-    return(
-      <div>
-      <Menylinje/>          
-      <div style = {{marginLeft: "133px"}}>
-      <Header/>
-      <div className='row ms-5'>
-      <div className='col-3 ms-5'>
-        <span className='button__icon-10'><FontAwesomeIcon icon={faCircle}></FontAwesomeIcon></span> 
-        <Form>
-        <Form.Group className="mb-3 w-100" controlId="exampleForm.ControlTextarea1">
-                  <Form.Label>Endre profilbilde</Form.Label>
-                  <Form.Control type="file" placeholder="Title" />
-                </Form.Group>
-                <Button variant="success mb-3 w-100 ml-50" type="submit" >
-                    Oppdater
-                </Button> 
-        </Form>
-      </div>  
-      <div className='col-4 mt-5'>
-        <Profileinfo/>
-      </div>  
-       
+  return (
+    <div className="m-0">
+      <Menylinje />
+      <div style={{ marginLeft: '133px' }}>
+        <Header />
+        <Container>
+          <Row className="justify-content-md-center mt-5">
+            <Col sm="3">
+              <Container>
+                <span className="button__icon-10">
+                  <FontAwesomeIcon icon={faUserAstronaut}></FontAwesomeIcon>
+                </span>
+              </Container>
+            </Col>
+            <Col sm="6">
+              <Profileinfo />
+              <Rating/>
+            </Col>
+          </Row>
+          <Row className="mt-2">
+            <Col sm="6">
+              <WantsContact />
+            </Col>
+            <Col>
+              <GiveRating />
+            </Col>
+          </Row>
+          <Row className="mt-5">
+            <UserPosts />
+          </Row>
+        </Container>
       </div>
-      <div className='m-5'>
-      <UserPosts/>      
-      </div>
-      </div>
-      <Footer/>
-      </div>
-    
-    );
-  }
-  
-  export default ProfilePage;
+    </div>
+  );
+}
+
+export default ProfilePage;

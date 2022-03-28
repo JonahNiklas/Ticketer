@@ -2,16 +2,38 @@ import { Request, Response } from 'express';
 import { Context } from '../context';
 
 export async function getAllPosts(ctx: Context, req: Request, res: Response) {
-  
   const posts = await ctx.prisma.post.findMany().catch((error: any) => {
     res.status(400).send('Something went wrong');
     console.error(error);
   });
-  
+
   res.json(posts);
 }
 
-export async function getPost(ctx: Context, req: Request, res: Response) {
+export async function getPostsByFilter(
+  ctx: Context,
+  req: Request,
+  res: Response,
+) {
+  const { category } = req.params;
+  if (category === null || category === undefined) {
+    res.status(400).send('Param cannot be null');
+    return;
+  }
+  const post = await ctx.prisma.post
+    .findMany({
+      where: {
+        category,
+      },
+    })
+    .catch((error: any) => {
+      res.status(400);
+      console.error(error);
+    });
+  res.json(post);
+}
+/** Får feilmelding på denne. Provided Float, expected Int */
+/** export async function getPost(ctx: Context, req: Request, res: Response) {
   const { id } = req.params;
   if (id === null || id === undefined) {
     res.status(400).send('Param cannot be null');
@@ -28,7 +50,7 @@ export async function getPost(ctx: Context, req: Request, res: Response) {
       console.error(error);
     });
   res.json(post);
-}
+} */
 
 export async function createPost(ctx: Context, req: Request, res: Response) {
   const {
@@ -71,7 +93,6 @@ export async function createPost(ctx: Context, req: Request, res: Response) {
 
 export async function updatePost(ctx: Context, req: Request, res: Response) {
   const {
-    id,
     timeOfEvent,
     city,
     venue,
@@ -81,11 +102,12 @@ export async function updatePost(ctx: Context, req: Request, res: Response) {
     category,
     price,
   } = req.body;
+  const { id } = req.params;
 
   await ctx.prisma.post
     .update({
       where: {
-        id,
+        id: Number.parseInt(id, 10),
       },
       data: {
         timeOfEvent,
@@ -106,12 +128,15 @@ export async function updatePost(ctx: Context, req: Request, res: Response) {
 }
 
 export async function sellPost(ctx: Context, req: Request, res: Response) {
-  const { id } = req.body;
-
+  const { id } = req.params;
+  if (id === null || id === undefined) {
+    res.status(400).send('Param cannot be null');
+    return;
+  }
   await ctx.prisma.post
     .update({
       where: {
-        id,
+        id: Number.parseInt(id, 10),
       },
       data: {
         isActive: false,
@@ -125,13 +150,13 @@ export async function sellPost(ctx: Context, req: Request, res: Response) {
 }
 
 export async function deletePost(ctx: Context, req: Request, res: Response) {
-  const { id } = req.body;
+  const { id } = req.params;
 
   console.log(req.body);
   await ctx.prisma.post
     .delete({
       where: {
-        id,
+        id: Number.parseInt(id, 10),
       },
     })
     .catch((error: any) => {

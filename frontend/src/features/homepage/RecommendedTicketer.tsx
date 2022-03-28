@@ -1,48 +1,37 @@
 /* eslint-disable react/jsx-no-undef */
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { CardGroup, Container } from 'react-bootstrap';
-import { getPosts } from '../../client/postHandler';
-import '../../stylesheets/Posts.css';
 import { Post } from '../../types';
 import PostInfo from '../createpostpage/PostInfo';
 
-function RecommendedTicketer() {
-  const [posts, setPosts] = useState<Post[]>([]);
-
-  async function getAllPosts(){
-    try {
-      setPosts(await getPosts());
-    } catch (error: any) {
-      console.error(error);
-    }
-  }
-  useEffect(() => {
-    getAllPosts();
-  }, []);
-
-  return(
-  <div className="mt-0 ml-5 mr-5 p-0">
-    <Container>     
-        <h2 className='text-center'>Anbefalte Ticketer</h2>
+function RecommendedTicketer(props: { posts: Array<Post> }) {
+  return (
+    <div className="mt-0 ml-5 mr-5 p-0">
+      <Container style={{ minHeight: '500px' }}>
+        <p className="text-center fs-2">Anbefalte Ticketer</p>
         <CardGroup>
-          {posts.map((post, idx) => (
-            <PostInfo
-              key={idx}
-              createdAt={post.createdAt}
-              timeOfEvent={post.timeOfEvent}
-              city={post.city}
-              venue={post.venue}
-              forSale={post.forSale}
-              title={post.title}
-              description={post.description}
-              category={post.category}
-              price={post.price}
-              authorId={post.authorId}
+          {props.posts.map(
+            (post, idx): JSX.Element => (
+              <PostInfo
+                key={post.id}
+                id={post.id}
+                createdAt={post.createdAt}
+                timeOfEvent={post.timeOfEvent}
+                city={post.city}
+                venue={post.venue}
+                isActive={post.isActive}
+                forSale={post.forSale}
+                title={post.title}
+                description={post.description}
+                category={post.category}
+                price={post.price}
+                authorId={post.authorId}
               />
-          ))}
+            )
+          )}
         </CardGroup>
-    </Container>
-  </div>
+      </Container>
+    </div>
   );
 }
 

@@ -8,7 +8,7 @@ export interface Post {
   forSale: boolean;
   title: String;
   description?: String;
-  catgetory: string;
+  category: string;
   price?: Number;
 }
 
@@ -19,7 +19,7 @@ export interface Token {
 }
 
 export interface User {
-  id: Number;
+  id: number;
   firstName: string;
   lastName: string;
   email: string;
@@ -30,15 +30,6 @@ export interface User {
   ratingsGiven: Rating[];
   // eslint-disable-next-line no-use-before-define
   ratingsGotten: Rating[];
-}
-
-export interface Rating {
-  id: Number;
-  createdAt: Date;
-  rating: Number;
-  givenBy: User;
-  gottenBy: User;
-  description?: string;
 }
 
 export interface LoginRequest {
@@ -60,4 +51,84 @@ export interface DecodedData {
   lastName: string;
   iat: number;
   exp: number;
+}
+
+export interface UserRequest {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
+
+export interface UpdateRequest {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
+
+export interface RestResponse {
+  code: number;
+  message: string;
+}
+
+export interface RestResponseWithData {
+  code: number;
+  message: string;
+  data: any;
+}
+
+export interface TokenRestResponse {
+  code: number;
+  message: Token;
+}
+
+export interface RatingOpportunity {
+  id: number;
+  createdAt: Date;
+  postId: number;
+  contactedId: number;
+  contacterId: number;
+  accepted: boolean;
+  title: string;
+  forSale: boolean;
+  contacterFirstName: string;
+  contacterLastName: string;
+  contacterEmail: string;
+}
+
+export interface Rating {
+  id: number;
+  createdAt: Date;
+  rating: number;
+  givenById: number;
+  gottenById: number;
+  description?: string;
+  active: boolean;
+  gottenFirstName: string;
+  gottenLastName: string;
+}
+
+export interface RatingRequest {
+  id: number;
+  rating: number;
+  description?: string;
+}
+
+export interface UserRating {
+  avgRating: number;
+  ratingCount: number;
+}
+
+export interface RatingBothWaysRequest {
+  postTitle: string;
+  givenById: number;
+  gottenById: number;
+}
+
+export interface RateUserRequest {
+  id: number;
+  rating: number;
+  description?: string;
 }
