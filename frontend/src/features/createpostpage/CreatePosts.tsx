@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ToggleButton } from 'react-bootstrap';
 import { Alert, Button, ButtonGroup, Container, Form } from 'react-bootstrap';
 import { createPost } from '../../client/postHandler';
@@ -21,10 +21,13 @@ function CreatePosts() {
   const [category, setCategory] = useState<string>('Concert');
   const [description, setDescription] = useState<string>('');
   const [price, setPrice] = useState<string>('');
-  const [isError, setIsError] = useState<boolean>(false);
-  const [errorText, setErrorText] = useState<string>('Fyll ut manglende felt');
   const [IsSuccess, setSuccess] = useState<boolean>(false);
   const successRef = useRef<HTMLDivElement>(null);
+
+  // errorhandling
+  const [titleError, setTitleError] = useState<boolean>(false);
+  const [cityError, setCityError] = useState<boolean>(false);
+  const [venueError, setVenueError] = useState<boolean>(false);
 
   const categories = [
     { name: 'Konsert', value: 'Concert' },
@@ -38,71 +41,74 @@ function CreatePosts() {
     { name: 'Ønskes kjøpt', value: 'false' }
   ];
 
+  const actuallyCreatePost = async () => {
+    // TODO: account for daylightsaving in a better way
+    // timeOfEvent.setHours(timeOfEvent.getHours() + 1); // This is hardcoded daylightsaving
+
+    let optionalDescription = null;
+    if (description !== '') {
+      optionalDescription = description;
+    }
+
+    let optionalPrice = null;
+    if (price !== '') {
+      optionalPrice = Number.parseInt(price, 10);
+    }
+
+    const userState = store.getState().user;
+
+    if (userState.userId !== null) {
+      const postRequest: PostRequest = {
+        timeOfEvent,
+        title,
+        city,
+        venue,
+        category,
+        forSale: forSale === 'true',
+        description: optionalDescription,
+        price: optionalPrice,
+        authorId: userState.userId
+      };
+
+      try {
+        const response = await createPost(postRequest);
+        successRef.current?.scrollIntoView();
+        // denne er litt wonky, ta en titt på den etter L1
+        setTimeout(() => {
+          history.push('/profile');
+        }, 3000);
+        console.log(response);
+        //history.push('/profile');
+      } catch (error: any) {
+        console.error(error);
+      }
+    } else {
+      history.push('/login');
+    }
+  };
+
   async function handleCreatePost(e: any) {
     e.preventDefault();
-    if (!title || title.length < 2) {
-      setIsError(true);
-      setErrorText('Ugyldig navn. Det må være minst 2 tegn');
-      return;
-    } else if (!city || city === '') {
-      setIsError(true);
-      setErrorText('By er nødvendig');
-      return;
-    } else if (!venue || venue === '') {
-      setIsError(true);
-      setErrorText('Arena/Scene er nødvendig');
-      return;
-    } else {
-      setIsError(false);
-      setSuccess(true);
-    }
-
-    if (!isError) {
-      // TODO: account for deylightsaving in a better way
-      timeOfEvent.setHours(timeOfEvent.getHours() + 1); // This is hardcoded daylightsaving
-
-      let optionalDescription = null;
-      if (description !== '') {
-        optionalDescription = description;
-      }
-
-      let optionalPrice = null;
-      if (price !== '') {
-        optionalPrice = Number.parseInt(price, 10);
-      }
-
-      const userState = store.getState().user;
-
-      if (userState.userId !== null) {
-        const postRequest: PostRequest = {
-          timeOfEvent,
-          title,
-          city,
-          venue,
-          category,
-          forSale: forSale === 'true',
-          description: optionalDescription,
-          price: optionalPrice,
-          authorId: userState.userId
-        };
-
-        try {
-          const response = await createPost(postRequest);
-          successRef.current?.scrollIntoView();
-          // denne er litt wonky, ta en titt på den etter L1
-          setTimeout(() => {
-            history.push('/profile');
-          }, 3000);
-          console.log(response);
-          //history.push('/profile');
-        } catch (error: any) {
-          console.error(error);
-        }
-      } else {
-        history.push('/login');
-      }
-    }
+    if (titleError || cityError || venueError) return;
+    console.log(timeOfEvent.getTime());
+    actuallyCreatePost();
+    setSuccess(true);
   }
+
+  const validateInput = () => {
+    setTitleError(false);
+    setCityError(false);
+    setVenueError(false);
+
+    if (!title || title.length < 2) setTitleError(true);
+    if (!city || city === '') setCityError(true);
+    if (!venue || venue === '') setVenueError(true);
+  }
+
+  useEffect(() => {
+    validateInput();
+  }, [title, city, venue]);
+  
 
   return (
     <Container>
@@ -116,7 +122,12 @@ function CreatePosts() {
                 type="text"
                 placeholder="Snarky Puppy Konsert"
                 onChange={(e) => setTitle(e.target.value)}
+                required
+                isValid={!titleError}
+                isInvalid={titleError}
               />
+              <Form.Control.Feedback type='valid'>Ser bra ut!</Form.Control.Feedback>
+              <Form.Control.Feedback type='invalid'>Ticketen trenger en tittel som er lengre enn 2 bokstaver</Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-3 w-50" controlId="formBasicl">
@@ -170,7 +181,7 @@ function CreatePosts() {
               <DatePicker
                 id="timeOfEvent"
                 selected={timeOfEvent}
-                onChange={ (date: any) => setTimeOfEvent(date)}
+                onChange={(date: any) => setTimeOfEvent(date)}
                 showTimeSelect
                 timeIntervals={15}
                 dateFormat="dd.MM.yy HH:mm"
@@ -183,7 +194,12 @@ function CreatePosts() {
                 type="text"
                 placeholder="Oslo"
                 onChange={(e) => setCity(e.target.value)}
+                required
+                isValid={!cityError}
+                isInvalid={cityError}
               />
+              <Form.Control.Feedback type='valid'>Ser bra ut!</Form.Control.Feedback>
+              <Form.Control.Feedback type='invalid'>Ticketen må ha en by</Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-3 w-100" controlId="formBasicl">
@@ -192,7 +208,12 @@ function CreatePosts() {
                 type="text"
                 placeholder="Sentrum Scene"
                 onChange={(e) => setVenue(e.target.value)}
+                required
+                isValid={!venueError}
+                isInvalid={venueError}
               />
+              <Form.Control.Feedback type='valid'>Ser bra ut!</Form.Control.Feedback>
+              <Form.Control.Feedback type='invalid'>Ticketen må ha en arena</Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group
@@ -213,35 +234,21 @@ function CreatePosts() {
                 type="number"
                 placeholder="100"
                 onChange={(e) => setPrice(e.target.value)}
+                style={{
+                  WebkitAppearance: "none",
+                  MozAppearance: "textfield"
+                }}
               />
             </Form.Group>
-
-            {/* <Form.Group
-              className="mb-3 w-100"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Bilde</Form.Label>
-              <Form.Control type="file" placeholder="Title" />
-            </Form.Group> */}
-
             <Button
               variant="success mb-3 w-100"
               type="submit"
               onClick={handleCreatePost}
+              disabled={(titleError || cityError || venueError) ? true : false}
             >
               Publiser
             </Button>
           </Form>
-
-          <Alert
-            show={isError}
-            onClose={() => setIsError(false)}
-            variant="danger"
-            dismissible
-          >
-            <Alert.Heading>Det mangler noe informasjon!</Alert.Heading>
-            <p>{errorText}</p>
-          </Alert>
           <Alert show={IsSuccess} variant="success" ref={successRef}>
             <Alert.Heading>Annonse publisert!</Alert.Heading>
           </Alert>

@@ -1,7 +1,11 @@
 import { Request, Response } from 'express';
 import { Context } from '../context';
 import { RestResponse, UpdateRequest, UserRequest } from '../types';
-import { createUserHelper, deleteUserHelper, updateUserHelper } from './helpers/userHelper';
+import {
+  createUserHelper,
+  deleteUserHelper,
+  updateUserHelper,
+} from './helpers/userHelper';
 
 export async function registerUser(ctx: Context, req: Request, res: Response) {
   const userRequest: UserRequest = {
@@ -13,7 +17,9 @@ export async function registerUser(ctx: Context, req: Request, res: Response) {
 
   createUserHelper(userRequest, ctx).then((message: RestResponse) => {
     if (message.code !== 200) {
-      res.status(message.code).json({ errorCode: message.code, errorMessage: message.message });
+      res
+        .status(message.code)
+        .json({ errorCode: message.code, errorMessage: message.message });
       return;
     }
 
@@ -69,7 +75,9 @@ export async function updateUser(ctx: Context, req: Request, res: Response) {
 
   updateUserHelper(updateRequest, ctx).then((message: RestResponse) => {
     if (message.code !== 200) {
-      res.status(message.code).json({ errorCode: message.code, errorMessage: message.message });
+      res
+        .status(message.code)
+        .json({ errorCode: message.code, errorMessage: message.message });
     }
 
     res.status(message.code).json(message);
@@ -81,7 +89,9 @@ export async function deleteUser(ctx: Context, req: Request, res: Response) {
 
   deleteUserHelper(id, ctx).then((message: RestResponse) => {
     if (message.code !== 200) {
-      res.status(message.code).json({ errorCode: message.code, errorMessage: message.message });
+      res
+        .status(message.code)
+        .json({ errorCode: message.code, errorMessage: message.message });
     }
 
     res.status(message.code).json(message);

@@ -2,12 +2,12 @@ import { Request, Response } from 'express';
 import { Rating, UserRating } from '../types';
 import { Context } from '../context';
 
-export async function createRatingBothWays(ctx: Context, req: Request, res: Response) {
-  const {
-    postTitle,
-    givenById,
-    gottenById,
-  } = req.body;
+export async function createRatingBothWays(
+  ctx: Context,
+  req: Request,
+  res: Response,
+) {
+  const { postTitle, givenById, gottenById } = req.body;
 
   if (givenById === gottenById) {
     res.status(400).send('Cannot rate itself');
@@ -52,11 +52,7 @@ export async function createRatingBothWays(ctx: Context, req: Request, res: Resp
 }
 
 export async function rateUser(ctx: Context, req: Request, res: Response) {
-  const {
-    id,
-    rating,
-    description,
-  } = req.body;
+  const { id, rating, description } = req.body;
 
   if (rating < 1 || rating > 5) {
     res.status(400).send('Rating has to be between 1 and 10');
@@ -139,20 +135,21 @@ export async function getRatingsToGive(
             lastName: true,
           },
         },
-    }})
+      },
+    })
     .catch((error: any) => {
       res.status(400).send('Something went wrong');
       console.error(error);
     });
 
-  let fullRatingList : Rating[] =[];
-  if(ratings)
-    ratings.forEach(r => {
-      let newDescription = undefined;
+  const fullRatingList: Rating[] = [];
+  if (ratings)
+    ratings.forEach((r) => {
+      let newDescription;
       if (r.description) {
         newDescription = r.description;
       }
-      const e :Rating = {
+      const e: Rating = {
         id: r.id,
         rating: r.rating,
         description: newDescription,
@@ -162,7 +159,7 @@ export async function getRatingsToGive(
         active: r.active,
         gottenFirstName: r.gottenBy.firstName,
         gottenLastName: r.gottenBy.lastName,
-      }
+      };
       fullRatingList.push(e);
     });
   res.json(fullRatingList);
@@ -199,9 +196,9 @@ export async function calculateUserRating(
     .reduce((partialSum, ra) => partialSum + ra, 0);
 
   const result: UserRating = {
-    avgRating: sum/ratings.length,
+    avgRating: sum / ratings.length,
     ratingCount: ratings.length,
-  }
+  };
   res.json(result);
 }
 

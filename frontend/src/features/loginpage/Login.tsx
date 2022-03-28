@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap/';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, Router, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { login } from '../../client/authHandler';
-import { AppDispatch, RootState, store } from '../../redux/store';
+import { AppDispatch } from '../../redux/store';
 import { setToken } from '../../redux/tokenSlice';
 import { setUserId } from '../../redux/userSlice';
 import { RestError } from '../../types';
@@ -36,23 +36,20 @@ const Login = () => {
 
       if ((response as RestError).errorMessage) {
         const message = (response as RestError).errorMessage;
-        if (message == 'user Not Found') {
+        console.log(message);
+        if (message === 'User not found') {
           setEmailError(true);
           setEmailErrorMessage('Bruker ikke funnet');
         }
-        if (message == 'wrong password') {
+        if (message === 'Wrong password') {
           setPasswordError(true);
           setPasswordErrorMessage('Innlogging feilet');
         }
-
-        const error = response as RestError;
       } else {
         const token = response as LoginResponse;
 
         dispatch(setToken(token.token));
         dispatch(setUserId(token.ownerId));
-
-        console.log(store.getState());
 
         history.push('/home');
       }

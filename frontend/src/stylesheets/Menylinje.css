@@ -80,3 +80,15 @@
   right: 1vh;
 }
 
+.usernameHover {
+  transition: 0.2s ease-in-out;
+  border-radius: 4px;
+}
+
+.usernameHover:hover {
+  cursor: pointer;
+  border-radius: 4px;
+  background-color: #198754;
+  color: white;
+  transition: 0.2s ease-in-out;
+}

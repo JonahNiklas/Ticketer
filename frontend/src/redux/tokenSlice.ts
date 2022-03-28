@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TokenInfo } from '../types';
 
 export interface TokenState {
   token: string | null;

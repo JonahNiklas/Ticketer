@@ -1,5 +1,3 @@
-import { InsHTMLAttributes } from "react";
-
 export interface TokenInfo {
   token: string | null;
 }
@@ -51,14 +49,13 @@ export interface PostResponse {
 }
 
 export interface UpdateRequest {
-  id: number,
+  id: number;
   firstName: string;
   lastName: string;
   email: string;
   password: string;
 }
 
-//johan som tuller litt her
 export interface Post {
   id: number;
   createdAt: Date;
@@ -75,50 +72,50 @@ export interface Post {
 }
 
 export interface userData {
-  id: number,
-  firstName: string,
-  lastName: string,
-  email: string,
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
 }
 
 export interface RatingOpportunityRequest {
-  contactedId: number,
-  contacterId: number,
-  postId: number
+  contactedId: number;
+  contacterId: number;
+  postId: number;
 }
 
 export interface RatingOpportunityResponse {
-  code: number,
-  message: string
+  code: number;
+  message: string;
 }
 
 export interface RatingOpportunity {
-  id: number,
-  createdAt: Date,
-  postId: number,
-  contactedId: number,
-  contacterId: number,
-  accepted: boolean,
-  title: string,
-  forSale: boolean,
-  contacterFirstName: string,
-  contacterLastName: string,
-  contacterEmail: string,
+  id: number;
+  createdAt: Date;
+  postId: number;
+  contactedId: number;
+  contacterId: number;
+  accepted: boolean;
+  title: string;
+  forSale: boolean;
+  contacterFirstName: string;
+  contacterLastName: string;
+  contacterEmail: string;
 }
 
 export interface RatingPossibility {
-  id: number,
-  createdAt: Date,
-  postId: number,
-  contactedId: number,
-  contacterId: number,
-  accepted: boolean,
-  title: string,
-  forSale: boolean,
-  contacterFirstName: string,
-  contacterLastName: string,
-  contactedFirstName: string,
-  contactedLastName: string,
+  id: number;
+  createdAt: Date;
+  postId: number;
+  contactedId: number;
+  contacterId: number;
+  accepted: boolean;
+  title: string;
+  forSale: boolean;
+  contacterFirstName: string;
+  contacterLastName: string;
+  contactedFirstName: string;
+  contactedLastName: string;
 }
 
 export interface RatingRequest {
@@ -128,14 +125,14 @@ export interface RatingRequest {
 }
 
 export interface CreateRatingRequest {
-  postTitle: string,
-  givenById: number,
-  gottenById: number,
+  postTitle: string;
+  givenById: number;
+  gottenById: number;
 }
 
 export interface RatingResponse {
-  code: number,
-  message: string,
+  code: number;
+  message: string;
 }
 
 export interface Rating {
@@ -151,7 +148,6 @@ export interface Rating {
 }
 
 export interface UserRating {
-  avgRating: number
-  ratingCount: number
+  avgRating: number;
+  ratingCount: number;
 }
-

@@ -1,5 +1,3 @@
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Button, Card, ListGroup } from 'react-bootstrap';
 import '../../stylesheets/Menylinje.css';

@@ -7,7 +7,6 @@ import { Post } from '../../types';
 import { store } from '../../redux/store';
 
 function UserPosts() {
-
   const [posts, setPosts] = useState<Post[]>([]);
   const activeUserId = store.getState().user.userId;
 
@@ -26,18 +25,18 @@ function UserPosts() {
   }, []);
 
   return (
-      <Container>
-        <Row className="justify-content-md-center">
-          <Col>
-            <h2 className="text-center">Dine Ticketer</h2>
-          </Col>
-        </Row>
-        <Row className="justify-content-md-center">
-          <Col>
-            <CardGroup className='justify-content-md-center'>
-            {posts.map((post, idx) => (
+    <Container>
+      <Row className="justify-content-md-center">
+        <Col>
+          <h2 className="text-center">Dine Ticketer</h2>
+        </Col>
+      </Row>
+      <Row className="justify-content-md-center">
+        <Col>
+          <CardGroup className="justify-content-md-center">
+            {posts.map((post) => (
               <PostInfo
-                key={idx}
+                key={post.id}
                 id={post.id}
                 createdAt={post.createdAt}
                 timeOfEvent={post.timeOfEvent}
@@ -49,14 +48,13 @@ function UserPosts() {
                 description={post.description}
                 category={post.category}
                 price={post.price}
-                authorId={post.authorId} 
+                authorId={post.authorId}
               />
             ))}
-            </CardGroup>
-          </Col>
-        </Row>
-        
-      </Container>
+          </CardGroup>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
