@@ -48,7 +48,7 @@ function ChangeModal(props: { thisPost: Post; show: boolean; onHide: (() => void
     if (titleError || cityError || venueError) return;
 
     // TODO: account for deylightsaving in a better way
-    timeOfEvent.setHours(timeOfEvent.getHours() + 1); // This is hardcoded daylightsaving
+    // timeOfEvent.setHours(timeOfEvent.getHours() + 1); // This is hardcoded daylightsaving
 
     let optionalDescription = null;
     if (description !== '') {

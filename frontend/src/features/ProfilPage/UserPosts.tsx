@@ -34,9 +34,9 @@ function UserPosts() {
       <Row className="justify-content-md-center">
         <Col>
           <CardGroup className="justify-content-md-center">
-            {posts.map((post, idx) => (
+            {posts.map((post) => (
               <PostInfo
-                key={idx}
+                key={post.id}
                 id={post.id}
                 createdAt={post.createdAt}
                 timeOfEvent={post.timeOfEvent}

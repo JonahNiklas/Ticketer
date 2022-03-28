@@ -7,50 +7,7 @@ import { Post } from '../../types';
 import ChangeModal from './ChangePostModal';
 import MakeContact from './MakeContact';
 import { getUserById } from '../../client/userHandler';
-
-function DateConverter(date: Date) {
-  const d = new Date(date);
-  const days = [
-    'MANDAG',
-    'TIRSDAG',
-    'ONSDAG',
-    'TORSDAG',
-    'FREDAG',
-    'LØRDAG',
-    'SØNDAG'
-  ];
-  const months = [
-    'JANUAR',
-    'FEBRUAR',
-    'MARS',
-    'APRIL',
-    'MAI',
-    'JUNI',
-    'JULI',
-    'AUGUST',
-    'SEPTEMBER',
-    'OKTOBER',
-    'NOVEMBER',
-    'DESEMBER'
-  ];
-  const day = days[d.getDay()];
-  const month = months[d.getMonth()];
-  const hours = d.getUTCHours().toString().padStart(2, '0');
-  const minutes = d.getUTCMinutes().toString().padStart(2, '0');
-  return (
-    day +
-    ', ' +
-    d.getDate() +
-    '. ' +
-    month +
-    ', ' +
-    d.getUTCFullYear() +
-    ' KL ' +
-    hours +
-    ':' +
-    minutes
-  );
-}
+import DateConverter from '../dateHandler';
 
 function PostInfo(props: Post) {
   const history = useHistory();

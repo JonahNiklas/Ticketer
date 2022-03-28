@@ -83,55 +83,53 @@ function WantsContact() {
     <Container>
       <h4>Ønsker å ta kontakt</h4>
       <Container className="scroll">
-        <ToastContainer style={{ width: '100%' }}>
-          {ratingOpportunities.map((ro, idx) => (
-            <Toast
-              key={idx}
-              show={show}
-              onClose={toggleShow}
-              style={{ width: '500px' }}
-            >
-              <Toast.Header>
-                <img
-                  src="holder.js/20x20?text=%20"
-                  className="rounded me-2"
-                  alt=""
-                />
-                <strong className="me-auto">
-                  {ro.contacterFirstName + ' ' + ro.contacterLastName} ønsker å{' '}
-                  {ro.forSale ? 'kjøpe' : 'selge'} en billett
-                </strong>
-                <small className="text-muted">
-                  {DateConverter(ro.createdAt)}
-                </small>
-              </Toast.Header>
-              <Toast.Body>
+        {ratingOpportunities.map((ro, idx) => (
+          <Toast
+            key={idx}
+            show={show}
+            onClose={toggleShow}
+            style={{ width: '500px' }}
+          >
+            <Toast.Header>
+              <img
+                src="holder.js/20x20?text=%20"
+                className="rounded me-2"
+                alt=""
+              />
+              <strong className="me-auto">
                 {ro.contacterFirstName + ' ' + ro.contacterLastName} ønsker å{' '}
-                {ro.forSale ? 'kjøpe' : 'selge'} <i>{ro.title}</i>
-                <br></br>
-                <br></br>
-                Ta kontakt for utføre salget:{' '}
-                <a href={`mailto:  ${ro.contacterEmail}`}>
-                  {ro.contacterEmail}
-                </a>
-              </Toast.Body>
+                {ro.forSale ? 'kjøpe' : 'selge'} en billett
+              </strong>
+              <small className="text-muted">
+                {DateConverter(ro.createdAt)}
+              </small>
+            </Toast.Header>
+            <Toast.Body>
+              {ro.contacterFirstName + ' ' + ro.contacterLastName} ønsker å{' '}
+              {ro.forSale ? 'kjøpe' : 'selge'} <i>{ro.title}</i>
+              <br></br>
+              <br></br>
+              Ta kontakt for utføre salget:{' '}
+              <a href={`mailto:  ${ro.contacterEmail}`}>
+                {ro.contacterEmail}
+              </a>
+            </Toast.Body>
 
-              <Button
-                onClick={() => {
-                  acceptContact(
-                    ro.id,
-                    ro.postId,
-                    ro.title,
-                    ro.contactedId,
-                    ro.contacterId
-                  );
-                }}
-              >
-                Marker annonsen som {ro.forSale ? 'solgt' : 'kjøpt'}
-              </Button>
-            </Toast>
+            <Button className='mb-2 ml-2'
+              onClick={() => {
+                acceptContact(
+                  ro.id,
+                  ro.postId,
+                  ro.title,
+                  ro.contactedId,
+                  ro.contacterId
+                );
+              }}
+            >
+              Marker annonsen som {ro.forSale ? 'solgt' : 'kjøpt'}
+            </Button>
+          </Toast>
           ))}
-        </ToastContainer>
       </Container>
     </Container>
   );
