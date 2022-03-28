@@ -89,11 +89,12 @@ function WantsContact() {
             show={show}
             onClose={toggleShow}
             style={{ width: '500px' }}
+            className='mb-2'
           >
             <Toast.Header>
               <img
                 src="holder.js/20x20?text=%20"
-                className="rounded me-2"
+                className="rounded ml-0"
                 alt=""
               />
               <strong className="me-auto">

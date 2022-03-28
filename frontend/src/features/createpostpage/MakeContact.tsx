@@ -54,13 +54,11 @@ const MakeContact = (props: {
   if (user) {
     return (
       <Modal onHide={props.onHide} show={props.show}>
-        <Modal.Body>
-          {user.firstName + ' ' + user.lastName + ' kan kontaktes her: '}
-          <a href={`mailto: ${user.email}`}>{user.email}</a>
-          <br></br>
-        </Modal.Body>
+        <div className='m-2 mt-3'>
+          <p className='mb-1 text-center'>{`${user.firstName} ${user.lastName} kan kontaktes her: `} <a href={`mailto: ${user.email}`} className='m-0'>{user.email}</a></p>
+        </div>
         <Button
-          className="m-2"
+          className="mx-4 mb-4 mt-2 p-2"
           onClick={() => {
             handleContact();
             setTimeout(() => {
@@ -70,7 +68,7 @@ const MakeContact = (props: {
         >
           Ta kontakt på Ticketer
         </Button>
-        <Alert show={success}>
+        <Alert show={success} className="mx-4 text-center">
           {user.firstName + ' ' + user.lastName} har nå fått beskjed om at du
           ønsker å ta kontakt.
         </Alert>

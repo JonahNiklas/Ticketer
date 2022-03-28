@@ -55,6 +55,9 @@ function PostInfo(props: Post) {
     }, 3000);
   };
 
+  console.log(props.isActive);
+  console.log(props.forSale);
+
   if (!onProfilePage && !props.isActive) {
     return <></>;
   }
@@ -70,23 +73,13 @@ function PostInfo(props: Post) {
           <button
             type="button"
             className={`button-user-post ${
-              props.isActive
-                ? props.forSale
-                  ? 'forSale'
-                  : 'not-forSale'
-                : 'inactive'
+              props.isActive ? props.forSale ? 'forSale' : 'not-forSale' : 'inactive'
             }`}
             name="Sted"
           >
             <span className="button-user-icon">
               <b>
-                {props.isActive
-                  ? props.forSale
-                    ? 'Til Salgs'
-                    : 'Ønskes kjøpt'
-                  : props.forSale
-                  ? 'Solgt'
-                  : 'Kjøpt'}
+                {props.isActive ? props.forSale ? 'Til Salgs' : 'Ønskes kjøpt' : props.forSale ? 'Solgt' : 'Kjøpt'}
               </b>
             </span>
           </button>
@@ -134,6 +127,7 @@ function PostInfo(props: Post) {
             <Button
               variant="success mb-2 w-100"
               onClick={() => setShowEdit(true)}
+              disabled={props.isActive ? props.forSale ? false : false : props.forSale ? true : true}
             >
               Endre
             </Button>
