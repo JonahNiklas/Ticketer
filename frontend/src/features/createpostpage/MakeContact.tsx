@@ -31,7 +31,7 @@ const MakeContact = (props: {
   const handleContact = async () => {
     try {
       const activeUserId = store.getState().user.userId;
-      if (!activeUserId || activeUserId == props.contactedId) return;
+      if (!activeUserId || activeUserId === props.contactedId) return;
       const request: RatingOpportunityRequest = {
         contactedId: props.contactedId,
         contacterId: activeUserId,

@@ -8,12 +8,7 @@ import {
 } from './helpers/userHelper';
 
 export async function registerUser(ctx: Context, req: Request, res: Response) {
-  const userRequest: UserRequest = {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: req.body.password,
-  };
+  const userRequest: UserRequest = req.body as UserRequest;
 
   createUserHelper(userRequest, ctx).then((message: RestResponse) => {
     if (message.code !== 200) {
@@ -60,7 +55,7 @@ export async function getUser(ctx: Context, req: Request, res: Response) {
       lastName: user.lastName,
       email: user.email,
     };
-    res.json(userData);
+    res.status(200).json(userData);
   }
 }
 
@@ -78,6 +73,7 @@ export async function updateUser(ctx: Context, req: Request, res: Response) {
       res
         .status(message.code)
         .json({ errorCode: message.code, errorMessage: message.message });
+      return;
     }
 
     res.status(message.code).json(message);
@@ -92,6 +88,7 @@ export async function deleteUser(ctx: Context, req: Request, res: Response) {
       res
         .status(message.code)
         .json({ errorCode: message.code, errorMessage: message.message });
+      return;
     }
 
     res.status(message.code).json(message);

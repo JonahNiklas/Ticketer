@@ -54,10 +54,7 @@ function PostInfo(props: Post) {
       setShowDelete(false);
     }, 3000);
   };
-
-  console.log(props.isActive);
-  console.log(props.forSale);
-
+  
   if (!onProfilePage && !props.isActive) {
     return <></>;
   }

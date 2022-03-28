@@ -73,6 +73,12 @@ export interface RestResponse {
   message: string;
 }
 
+export interface RestResponseWithData {
+  code: number;
+  message: string;
+  data: any;
+}
+
 export interface TokenRestResponse {
   code: number;
   message: Token;
@@ -113,4 +119,16 @@ export interface RatingRequest {
 export interface UserRating {
   avgRating: number;
   ratingCount: number;
+}
+
+export interface RatingBothWaysRequest {
+  postTitle: string;
+  givenById: number;
+  gottenById: number;
+}
+
+export interface RateUserRequest {
+  id: number;
+  rating: number;
+  description?: string;
 }

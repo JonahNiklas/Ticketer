@@ -32,9 +32,7 @@ import {
   createRatingBothWays,
   getAllRatings,
   getRatingsToGive,
-  getUserRatings,
   rateUser,
-  updateRating,
 } from './handlers/ratingHandler';
 
 const app = express();
@@ -138,7 +136,7 @@ app.get('/rating/user/average/:gottenById', async (req: any, res: any) => {
   calculateUserRating(context, req, res);
 });
 
-app.put('/rating/', async (req: any, res: any) => {
+app.put('/rating', async (req: any, res: any) => {
   rateUser(context, req, res);
 });
 

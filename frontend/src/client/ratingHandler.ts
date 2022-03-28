@@ -27,16 +27,14 @@ export async function rateUser(
     '/rating',
     request
   );
-
-  // TODO: legge til feilhåndtering
-
+  
   return response;
 }
 
 export async function getRatingsToGive(userId: number): Promise<Rating[]> {
   const ratingOpportunities: Rating[] = await restHandler.get<Rating[]>(
     '/rating/user/' + userId
-  );
+  ).then((data: any) => data.data);
 
   // TODO: legge til feilhåndtering
   return ratingOpportunities;
@@ -47,8 +45,7 @@ export async function getUserRating(userId: number): Promise<UserRating> {
 
   const rating: UserRating = await restHandler.get<UserRating>(
     '/rating/user/average/' + userId
-  );
-  console.log(rating);
+  ).then((data: any) => data.data);
   // TODO: legge til feilhåndtering
   return rating;
 }
