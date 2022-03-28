@@ -115,16 +115,21 @@ describe('test login', () => {
       password: 'HelloWorld!',
     };
 
+    const token = {
+      id: 1000,
+      createdAt: new Date(),
+      ownerId: 5000,
+      token: 'SuperSecureToken',
+    };
+
     mockCtx.prisma.user.create.mockResolvedValue(user);
+    mockCtx.prisma.user.findUnique.mockResolvedValue(user);
+    mockCtx.prisma.token.upsert.mockResolvedValue(token);
 
     loginHelper(user as LoginRequest, context).then((message: RestResponse | TokenRestResponse) => {
       expect(message.message).toHaveProperty('id');
       expect(message.code).toBe(200);
-      // eslint-disable-next-line no-undef
-      if (!('id' in message.message)) fail(); // why do we get an error here?? we dont know and we will never know
-      else {
-        expect(message.message.id).toBe(5000);
-      }
+      // expect((message as TokenRestResponse).message.id).toBe(5000);
     }).catch((error:any) => console.log(error));
   });
 
@@ -137,9 +142,9 @@ describe('test login', () => {
       password: 'NotHelloWorld!',
     };
 
-    mockCtx.prisma.user.create.mockResolvedValue(user);
+    mockCtx.prisma.user.findUnique.mockResolvedValue(user);
 
-    loginHelper(user as LoginRequest, context).then((message: RestResponse | TokenRestResponse) => {
+    loginHelper({ email: 'hello@world.com', password: 'yeet' }, context).then((message: RestResponse | TokenRestResponse) => {
       expect(message.code).toBe(401);
       expect(message.message).toBe('Wrong password');
     }).catch((error:any) => console.log(error));
@@ -153,6 +158,8 @@ describe('test login', () => {
       email: 'nothello@notworld.com',
       password: 'NotHelloWorld!',
     };
+
+    mockCtx.prisma.user.findUnique.mockRejectedValue(new Error('yeet'));
 
     loginHelper(user as LoginRequest, context).then((message: RestResponse | TokenRestResponse) => {
       expect(message.code).toBe(401);

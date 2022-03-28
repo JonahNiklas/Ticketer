@@ -1,92 +1,65 @@
 import { Request, Response } from 'express';
-import { Rating, UserRating } from '../types';
+import { RateUserRequest, RatingBothWaysRequest, RatingRequest, RestResponse, RestResponseWithData } from '../types';
 import { Context } from '../context';
+import { calculateUserRatingHelper, createRatingBothWaysHelper, getAllRatingsHelper, getRatingsToGiveHelper, getUserRatingsHelper, rateUserHelper, updateRatingHelper } from './helpers/ratingHelper';
 
 export async function createRatingBothWays(
   ctx: Context,
   req: Request,
   res: Response,
 ) {
-  const { postTitle, givenById, gottenById } = req.body;
+  const request = req.body as RatingBothWaysRequest;
 
-  if (givenById === gottenById) {
-    res.status(400).send('Cannot rate itself');
+  if (request.givenById === undefined
+    || request.gottenById === undefined
+    || request.postTitle === undefined) {
+    res.status(400).json({ errorCode: 400, errorMessage: 'Params cannot be undefined/null' });
     return;
   }
 
-  await ctx.prisma.rating
-    .create({
-      data: {
-        rating: 0,
-        description: postTitle,
-        givenBy: {
-          connect: { id: givenById },
-        },
-        gottenBy: {
-          connect: { id: gottenById },
-        },
-      },
-    })
-    .catch((error: any) => {
-      res.status(400).send('Something went wrong');
-      console.error(error);
-    });
-  await ctx.prisma.rating
-    .create({
-      data: {
-        rating: 0,
-        description: postTitle,
-        givenBy: {
-          connect: { id: gottenById },
-        },
-        gottenBy: {
-          connect: { id: givenById },
-        },
-      },
-    })
-    .catch((error: any) => {
-      res.status(400).send('Something went wrong');
-      console.error(error);
-    });
-  res.json('Successfully created Rating!');
+  await createRatingBothWaysHelper(ctx, request).then((message: RestResponse) => {
+    if (message.code !== 200) {
+      res
+        .status(message.code)
+        .json({ errorCode: message.code, errorMessage: message.message });
+      return;
+    }
+
+    res.status(message.code).json(message);
+  });
 }
 
 export async function rateUser(ctx: Context, req: Request, res: Response) {
-  const { id, rating, description } = req.body;
+  const request = req.body as RateUserRequest;
 
-  if (rating < 1 || rating > 5) {
-    res.status(400).send('Rating has to be between 1 and 10');
+  if (request.id === undefined || request.rating === undefined) {
+    res.status(400).json({ errorCode: 400, errorMessage: 'Params cannot be undefined/null' });
     return;
   }
-  let newDescription = null;
-  if (description) {
-    newDescription = description;
-  }
 
-  await ctx.prisma.rating
-    .update({
-      where: {
-        id,
-      },
-      data: {
-        rating,
-        description: newDescription,
-        active: true,
-      },
-    })
-    .catch((error: any) => {
-      res.status(400).send('Something went wrong');
-      console.error(error);
-    });
-  res.json('Successfully created Rating!');
+  await rateUserHelper(ctx, request).then((message: RestResponse) => {
+    if (message.code !== 200) {
+      res
+        .status(message.code)
+        .json({ errorCode: message.code, errorMessage: message.message });
+      return;
+    }
+
+    res.status(message.code).json(message);
+  });
 }
 
 export async function getAllRatings(ctx: Context, req: Request, res: Response) {
-  const ratings = await ctx.prisma.rating.findMany().catch((error: any) => {
-    res.status(400).send('Something went wrong');
-    console.error(error);
+  await getAllRatingsHelper(ctx).then((message: RestResponse) => {
+    if (message.code !== 200) {
+      res
+        .status(message.code)
+        .json({ errorCode: message.code, errorMessage: message.message });
+      return;
+    }
+
+    res.status(message.code).json(message);
   });
-  res.json(ratings);
 }
 
 export async function getUserRatings(
@@ -96,18 +69,21 @@ export async function getUserRatings(
 ) {
   const { gottenById } = req.body;
 
-  const ratings = await ctx.prisma.rating
-    .findMany({
-      where: {
-        gottenById: Number.parseInt(gottenById, 10),
-        active: true,
-      },
-    })
-    .catch((error: any) => {
-      res.status(400).send('Something went wrong');
-      console.error(error);
-    });
-  res.json(ratings);
+  if (gottenById === undefined) {
+    res.status(400).json({ errorCode: 400, errorMessage: 'Params cannot be undefined/null' });
+    return;
+  }
+
+  await getUserRatingsHelper(ctx, Number.parseInt(gottenById, 10)).then((message: RestResponse) => {
+    if (message.code !== 200) {
+      res
+        .status(message.code)
+        .json({ errorCode: message.code, errorMessage: message.message });
+      return;
+    }
+
+    res.status(message.code).json(message);
+  });
 }
 
 export async function getRatingsToGive(
@@ -118,51 +94,23 @@ export async function getRatingsToGive(
   const { givenById } = req.params;
 
   if (givenById === null || givenById === undefined) {
-    res.status(400).send('Param cannot be null');
+    res.status(400).json({ errorCode: 400, errorMessage: 'Param cannot be null' });
     return;
   }
 
-  const ratings = await ctx.prisma.rating
-    .findMany({
-      where: {
-        givenById: Number.parseInt(givenById, 10),
-        active: false,
-      },
-      include: {
-        gottenBy: {
-          select: {
-            firstName: true,
-            lastName: true,
-          },
-        },
-      },
-    })
-    .catch((error: any) => {
-      res.status(400).send('Something went wrong');
-      console.error(error);
-    });
+  await getRatingsToGiveHelper(
+    ctx,
+    Number.parseInt(givenById, 10),
+  ).then((message: RestResponseWithData) => {
+    if (message.code !== 200) {
+      res
+        .status(message.code)
+        .json({ errorCode: message.code, errorMessage: message.message, data: message.data });
+      return;
+    }
 
-  const fullRatingList: Rating[] = [];
-  if (ratings)
-    ratings.forEach((r) => {
-      let newDescription;
-      if (r.description) {
-        newDescription = r.description;
-      }
-      const e: Rating = {
-        id: r.id,
-        rating: r.rating,
-        description: newDescription,
-        createdAt: r.createdAt,
-        givenById: r.givenById,
-        gottenById: r.gottenById,
-        active: r.active,
-        gottenFirstName: r.gottenBy.firstName,
-        gottenLastName: r.gottenBy.lastName,
-      };
-      fullRatingList.push(e);
-    });
-  res.json(fullRatingList);
+    res.status(message.code).json(message);
+  });
 }
 
 export async function calculateUserRating(
@@ -173,50 +121,42 @@ export async function calculateUserRating(
   const { gottenById } = req.params;
 
   if (gottenById === null || gottenById === undefined) {
-    res.status(400).send('Param cannot be null');
+    res.status(400).json({ errorCode: 400, errorMessage: 'Param cannot be null', data: null });
     return;
   }
-  const ratings = await ctx.prisma.rating
-    .findMany({
-      where: {
-        gottenById: Number.parseInt(gottenById, 10),
-        active: true,
-      },
-    })
-    .catch((error: any) => {
-      res.status(400).send('Something went wrong');
-      console.error(error);
-    });
 
-  if (!ratings) {
-    return;
-  }
-  const sum = ratings
-    .map((r) => r.rating)
-    .reduce((partialSum, ra) => partialSum + ra, 0);
+  await calculateUserRatingHelper(
+    ctx,
+    Number.parseInt(gottenById, 10),
+  ).then((message: RestResponseWithData) => {
+    if (message.code !== 200) {
+      res
+        .status(message.code)
+        .json({ errorCode: message.code, errorMessage: message.message, data: message.data });
+      return;
+    }
 
-  const result: UserRating = {
-    avgRating: sum / ratings.length,
-    ratingCount: ratings.length,
-  };
-  res.json(result);
+    res.status(message.code).json(message);
+  });
 }
 
 export async function updateRating(ctx: Context, req: Request, res: Response) {
-  const { id, rating, description } = req.body;
-  await ctx.prisma.rating
-    .update({
-      where: {
-        id,
-      },
-      data: {
-        rating,
-        description,
-      },
-    })
-    .catch((error: any) => {
-      res.status(400).send('Something went wrong');
-      console.error(error);
-    });
-  res.json();
+  const request = req.body as RatingRequest;
+  if (request.id === undefined
+    || request.rating === undefined
+    || request.description === undefined) {
+    res.status(400).json({ errorCode: 400, errorMessage: 'Params cannot be undefined/null' });
+    return;
+  }
+
+  await updateRatingHelper(ctx, request).then((message: RestResponse) => {
+    if (message.code !== 200) {
+      res
+        .status(message.code)
+        .json({ errorCode: message.code, errorMessage: message.message });
+      return;
+    }
+
+    res.status(message.code).json(message);
+  });
 }
