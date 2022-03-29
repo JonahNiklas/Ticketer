@@ -54,7 +54,7 @@ function GiveRating() {
 
   return (
     <Container>
-      <h4>Gi rating</h4>
+      <h4>Gi vurdering</h4>
       <Container className="scroll">
         {ratingsToGive.map((ra, idx) => (
           <div key={idx}>
@@ -96,7 +96,7 @@ function GiveRating() {
               </Form.Group>
               <p className='col'>Sånn ser ratingen din ut:</p>
               <Card className='text-center mx-auto mb-3' style={{width: "90%"}}>
-                {`${currentRating} ${currentDescription}`}
+                {`${currentRating}${currentDescription ? ", "+currentDescription : ""}`}
               </Card>
               <Button
                 onClick={() => {

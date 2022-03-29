@@ -14,8 +14,8 @@ function PostTemplate() {
         </button>
       </span>
 
-      <Card.Img src="https://picsum.photos/200/200" className=" h-50 w-auto" />
-      <Card.Body className="mb-0 pb-0">
+{/*       <Card.Img src="https://picsum.photos/200/200" className=" h-50 w-auto" />
+ */}      <Card.Body className="mb-0 pb-0">
         <Card.Title>Mozarts Requiem</Card.Title>
         <ListGroup variant="flush">
           <ListGroup.Item>
