@@ -70,7 +70,7 @@ const userData = [
 
 const postData = [
   {
-    timeOfEvent: new Date(2022, 2, 22),
+    timeOfEvent: new Date(2022, 2, 22, 12, 0, 0, 0),
     city: 'Trondheim',
     venue: 'My home',
     isActive: true,
@@ -82,7 +82,7 @@ const postData = [
     authorId: 500,
   },
   {
-    timeOfEvent: new Date(2022, 5, 13),
+    timeOfEvent: new Date(2022, 5, 13, 12, 0, 0, 0),
     city: 'Trondheim',
     venue: 'Trondheim Arena',
     isActive: true,
@@ -94,7 +94,7 @@ const postData = [
     authorId: 500,
   },
   {
-    timeOfEvent: new Date(2022, 4, 12),
+    timeOfEvent: new Date(2022, 4, 12, 12, 0, 0, 0),
     city: 'Trondheim',
     venue: 'Samfundet',
     isActive: true,
@@ -106,7 +106,7 @@ const postData = [
     authorId: 501,
   },
   {
-    timeOfEvent: new Date(2022, 4, 29),
+    timeOfEvent: new Date(2022, 4, 29, 19, 0, 0, 0),
     city: 'Trondheim',
     venue: 'Samfundet',
     isActive: true,
@@ -118,11 +118,11 @@ const postData = [
     authorId: 501,
   },
   {
-    timeOfEvent: new Date(2022, 3, 14),
+    timeOfEvent: new Date(2022, 3, 14, 12, 0, 0, 0),
     city: 'Trondheim',
     venue: 'Trondheim',
     isActive: true,
-    forSale: false,
+    forSale: true,
     title: 'Pie Day',
     description: 'Happy Pie Day!',
     category: 'Other',
@@ -130,7 +130,7 @@ const postData = [
     authorId: 501,
   },
   {
-    timeOfEvent: new Date(2022, 5, 4),
+    timeOfEvent: new Date(2022, 5, 4, 12, 0, 0, 0),
     city: 'Trondheim',
     venue: 'Spektrum',
     isActive: true,
@@ -142,11 +142,11 @@ const postData = [
     authorId: 507,
   },
   {
-    timeOfEvent: new Date(2022, 20, 7),
+    timeOfEvent: new Date(2022, 20, 7, 17, 15, 0, 0),
     city: 'Trondheim',
     venue: 'Arena',
     isActive: true,
-    forSale: true,
+    forSale: false,
     title: 'Lady Gaga konsert i Trondheom',
     description: 'Lady Gaga kommer til Trondheim!',
     category: 'Concert',
@@ -154,7 +154,7 @@ const postData = [
     authorId: 507,
   },
   {
-    timeOfEvent: new Date(2022, 7, 4),
+    timeOfEvent: new Date(2022, 7, 4, 21, 0, 0, 0),
     city: 'Trondheim',
     venue: 'Samfundet',
     isActive: true,
@@ -166,7 +166,7 @@ const postData = [
     authorId: 505,
   },
   {
-    timeOfEvent: new Date(2022, 11, 6),
+    timeOfEvent: new Date(2022, 11, 6, 17, 30, 0, 0),
     city: 'Oslo',
     venue: 'Oslo spectrum',
     isActive: true,
@@ -178,7 +178,7 @@ const postData = [
     authorId: 505,
   },
   {
-    timeOfEvent: new Date(2022, 9, 22),
+    timeOfEvent: new Date(2022, 9, 22, 20, 0, 0, 0),
     city: 'Stavanger',
     venue: 'Folken',
     isActive: true,
@@ -190,7 +190,7 @@ const postData = [
     authorId: 506,
   },
   {
-    timeOfEvent: new Date(2022, 9, 22),
+    timeOfEvent: new Date(2022, 9, 22, 19, 0, 0, 0),
     city: 'London',
     venue: 'Londons venue',
     isActive: true,
@@ -202,7 +202,7 @@ const postData = [
     authorId: 506,
   },
   {
-    timeOfEvent: new Date(2022, 10, 8),
+    timeOfEvent: new Date(2022, 10, 8, 18, 30, 0, 0),
     city: 'Oslo',
     venue: 'Oslo spectrum',
     isActive: true,
@@ -214,7 +214,7 @@ const postData = [
     authorId: 508,
   },
   {
-    timeOfEvent: new Date(2022, 12, 1),
+    timeOfEvent: new Date(2022, 12, 1, 13, 0, 0, 0),
     city: 'Trondheim',
     venue: 'Torget',
     isActive: true,
@@ -224,6 +224,28 @@ const postData = [
     category: 'Other',
     price: 100.00,
     authorId: 508,
+  },
+  {
+    timeOfEvent: new Date(2022, 5, 13, 18, 0, 0, 0),
+    city: 'Trondheim',
+    venue: 'Lerkendal Stadion',
+    isActive: true,
+    forSale: true,
+    title: 'LSK mot Rosenborg',
+    description: 'Utrolig viktig kamp',
+    category: 'Sport',
+    price: 300.00,
+    authorId: 501,
+  },
+  {
+    timeOfEvent: new Date(2022, 5, 13, 12, 0, 0, 0),
+    city: 'Trondheim',
+    venue: 'Arena1',
+    isActive: true,
+    forSale: true,
+    title: 'Sportkveld',
+    category: 'Sport',
+    authorId: 500,
   },
 ];
 
