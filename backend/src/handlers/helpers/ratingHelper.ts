@@ -160,7 +160,7 @@ export async function calculateUserRatingHelper(
     },
   }).then((data) => {
     const result: UserRating = {
-      avgRating: data.map((r) => r.rating).reduce((partialSum, ra) => partialSum + ra, 0),
+      avgRating: (data.map((r) => r.rating).reduce((partialSum, ra) => partialSum + ra, 0) / data.length),
       ratingCount: data.length,
     };
 
